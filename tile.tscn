@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckax63t014pqx"]
+
+[ext_resource type="Texture2D" uid="uid://mt6rikhvdux6" path="res://assets/c.svg" id="1_vx4y2"]
+[ext_resource type="Script" uid="uid://dibw1y5cncbhl" path="res://tile.gd" id="2_a2t34"]
+
+[node name="Tile" type="TextureRect"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(100, 100)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_vx4y2")
+script = ExtResource("2_a2t34")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

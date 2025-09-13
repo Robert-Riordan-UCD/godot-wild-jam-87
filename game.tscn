@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bx18xpobi015t"]
+
+[ext_resource type="Script" uid="uid://d0qmskn58yta5" path="res://game.gd" id="1_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://c31qphkaixitt" path="res://knot_tile_map.tscn" id="2_feb5d"]
+[ext_resource type="Script" uid="uid://dcky2k6bs48aw" path="res://knot_tile_map.gd" id="3_7jktm"]
+[ext_resource type="Script" uid="uid://bf4345ljyfpim" path="res://hand.gd" id="3_fc0e3"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_e2o6t")
+
+[node name="KnotTileMap" parent="." instance=ExtResource("2_feb5d")]
+scale = Vector2(0.3, 0.3)
+script = ExtResource("3_7jktm")
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="Hand" type="HBoxContainer" parent="GUI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -304.0
+offset_top = -200.0
+offset_right = 304.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("3_fc0e3")
+
+[connection signal="new_tile" from="GUI/Hand" to="." method="_on_hand_new_tile"]
