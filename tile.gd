@@ -21,7 +21,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if not selected: return
 	
-	global_position = get_global_mouse_position() - Globals.TILE_SIZE.rotated(rotation)/2
+	global_position = get_global_mouse_position() - (Globals.TILE_SIZE*scale).rotated(rotation)/2
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pick_up_tile"):
@@ -29,6 +29,7 @@ func _input(event: InputEvent) -> void:
 			await get_tree().process_frame
 			tile_clicked.emit(self)
 			selected = true
+			scale *= 0.3
 	if event.is_action_pressed("rotate_tile"):
 		if selected:
 			rotation_degrees += 90

@@ -22,10 +22,11 @@ func _input(event: InputEvent) -> void:
 		tile_rotation += 90
 	if event.is_action_pressed("place_tile"):
 		if not tile_in_hand == null:
-			knot_tile_map.place_tile(get_global_mouse_position(), tile_in_hand, tile_rotation)
-			tile_in_hand.placed()
-			_reset()
-			hand.new_hand()
+			var success: bool = knot_tile_map.place_tile(get_global_mouse_position(), tile_in_hand, tile_rotation)
+			if success:
+				tile_in_hand.placed()
+				_reset()
+				hand.new_hand()
 
 func _reset() -> void:
 	tile_in_hand = null

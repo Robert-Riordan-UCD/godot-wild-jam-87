@@ -26,5 +26,6 @@ offset_right = 304.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("3_fc0e3")
+hand_type = 1
 
 [connection signal="new_tile" from="GUI/Hand" to="." method="_on_hand_new_tile"]
