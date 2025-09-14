@@ -1,0 +1,116 @@
+[gd_scene load_steps=3 format=3 uid="uid://i0oasvamoo2s"]
+
+[ext_resource type="Texture2D" uid="uid://b6t8jh4dxw84k" path="res://assets/title.png" id="1_8gy84"]
+[ext_resource type="Script" uid="uid://daqb1tlccihyo" path="res://menus/main_menu.gd" id="1_ij7vn"]
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_ij7vn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_8gy84")
+stretch_mode = 3
+
+[node name="Setup" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Playes" type="VBoxContainer" parent="VBoxContainer/Setup"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/Setup/Playes"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Players"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Setup/Playes"]
+layout_mode = 2
+alignment = 1
+
+[node name="DecreasePlayers" type="Button" parent="VBoxContainer/Setup/Playes/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "-"
+
+[node name="PlayerCount" type="Label" parent="VBoxContainer/Setup/Playes/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "1"
+horizontal_alignment = 1
+
+[node name="IncreasePlayers" type="Button" parent="VBoxContainer/Setup/Playes/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 64
+text = "+"
+
+[node name="CPUs" type="VBoxContainer" parent="VBoxContainer/Setup"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/Setup/CPUs"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "CPUs"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Setup/CPUs"]
+layout_mode = 2
+alignment = 1
+
+[node name="DecreaseCPUs" type="Button" parent="VBoxContainer/Setup/CPUs/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "-"
+
+[node name="CPUCount" type="Label" parent="VBoxContainer/Setup/CPUs/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "1"
+horizontal_alignment = 1
+
+[node name="IncreaseCPUs" type="Button" parent="VBoxContainer/Setup/CPUs/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "+"
+
+[node name="Buttons" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="Play" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Play"
+
+[node name="Creative" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Creative"
+
+[node name="Credits" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Credits"
+
+[connection signal="pressed" from="VBoxContainer/Setup/Playes/HBoxContainer/DecreasePlayers" to="." method="_on_decrease_players_pressed"]
+[connection signal="pressed" from="VBoxContainer/Setup/Playes/HBoxContainer/IncreasePlayers" to="." method="_on_increase_players_pressed"]
+[connection signal="pressed" from="VBoxContainer/Setup/CPUs/HBoxContainer/DecreaseCPUs" to="." method="_on_decrease_cp_us_pressed"]
+[connection signal="pressed" from="VBoxContainer/Setup/CPUs/HBoxContainer/IncreaseCPUs" to="." method="_on_increase_cp_us_pressed"]
+[connection signal="pressed" from="VBoxContainer/Buttons/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Buttons/Creative" to="." method="_on_creative_pressed"]
+[connection signal="pressed" from="VBoxContainer/Buttons/Credits" to="." method="_on_credits_pressed"]

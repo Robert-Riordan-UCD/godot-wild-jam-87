@@ -1,4 +1,5 @@
 extends Node2D
+class_name Game
 
 @onready var tile_in_hand: Tile = null
 @onready var tile_rotation: float = 0
