@@ -6,4 +6,11 @@ enum tile_types {
 	X
 }
 
+var directions: Array[Vector2i] = [
+	Vector2i.UP,
+	Vector2i.LEFT,
+	Vector2i.DOWN,
+	Vector2i.RIGHT,
+]
+
 const TILE_SIZE := Vector2(200, 200)

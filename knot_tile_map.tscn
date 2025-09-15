@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://c31qphkaixitt"]
+[gd_scene load_steps=9 format=3 uid="uid://c31qphkaixitt"]
 
 [ext_resource type="Texture2D" uid="uid://mt6rikhvdux6" path="res://assets/c.svg" id="1_o233y"]
 [ext_resource type="Texture2D" uid="uid://b2um176sl5kbb" path="res://assets/t.svg" id="2_adawk"]
 [ext_resource type="Texture2D" uid="uid://bw0ykq5qp2g01" path="res://assets/x.svg" id="3_lbfty"]
+[ext_resource type="Script" uid="uid://dcky2k6bs48aw" path="res://knot_tile_map.gd" id="4_adawk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tpe5m"]
 texture = ExtResource("1_o233y")
@@ -27,3 +28,4 @@ sources/3 = SubResource("TileSetAtlasSource_4c4jk")
 
 [node name="KnotTileMap" type="TileMapLayer"]
 tile_set = SubResource("TileSet_jum08")
+script = ExtResource("4_adawk")
