@@ -1,4 +1,4 @@
-extends HBoxContainer
+extends BoxContainer
 class_name Hand
 
 signal new_tile(tile: Tile)
@@ -12,6 +12,7 @@ const TILE = preload("res://tile.tscn")
 
 @export_range(0, 10) var hand_size: int = 3
 @export var hand_type: hand_types = hand_types.RANDOM
+@export var location: Vector2i = Vector2i.DOWN
 
 func _ready() -> void:
 	update()
@@ -32,8 +33,7 @@ func new_hand() -> void:
 
 func _clear_hand() -> void:
 	for tile in get_children():
-		tile.reparent(get_tree().root)
-		tile.queue_free()
+		tile.remove()
 
 func return_to_hand(tile: Tile) -> void:
 	if not tile: return

@@ -8,6 +8,9 @@ enum TileTransform {
 	ROTATE_270 = TileSetAtlasSource.TRANSFORM_TRANSPOSE | TileSetAtlasSource.TRANSFORM_FLIP_V,
 }
 
+# set to -1 for infinite
+@export var board_size: Vector2i = Vector2i(-1, -1)
+
 @export_category("Placement Rules")
 @export var can_remove_tile: bool = false
 @export var can_replace_tile: bool = false
@@ -39,6 +42,10 @@ func place_tile(global_pos:Vector2, tile_in_hand: Tile, tile_rotation: float) ->
 	var map_position := local_to_map(to_local(global_pos))
 	var current_cell := get_cell_tile_data(map_position)
 	var neighbors := _get_neighbors(map_position)
+
+	# On board
+	if board_size.x > -1 and (map_position.x < 0 or map_position.x >= board_size.x): return false
+	if board_size.y > -1 and (map_position.y < 0 or map_position.y >= board_size.y): return false
 	
 	# First tile
 	if get_used_cells().is_empty():

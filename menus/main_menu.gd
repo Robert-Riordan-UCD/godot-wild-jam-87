@@ -9,6 +9,8 @@ const CREATIVE = "res://modes/creative.tscn"
 @export var max_total_players: int = 4
 
 func _on_play_pressed() -> void:
+	Globals.num_players = int(player_count.text)
+	Globals.num_cpus = int(cpu_count.text)
 	get_tree().change_scene_to_file(COMPETITIVE)
 
 func _on_creative_pressed() -> void:

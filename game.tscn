@@ -1,29 +1,93 @@
-[gd_scene load_steps=4 format=3 uid="uid://bx18xpobi015t"]
+[gd_scene load_steps=8 format=4 uid="uid://bx18xpobi015t"]
 
 [ext_resource type="Script" uid="uid://d0qmskn58yta5" path="res://game.gd" id="1_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://c31qphkaixitt" path="res://knot_tile_map.tscn" id="2_feb5d"]
-[ext_resource type="Script" uid="uid://bf4345ljyfpim" path="res://hand.gd" id="3_fc0e3"]
+[ext_resource type="Script" uid="uid://dsjklsc2bkfnq" path="res://players.gd" id="3_7jktm"]
+[ext_resource type="PackedScene" uid="uid://cea3413amktgj" path="res://hand.tscn" id="4_fc0e3"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_feb5d"]
+load_path = "res://.godot/imported/grid.svg-823f1a6e6be43506b3d5bceac6ad83ab.ctex"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7jktm"]
+texture = SubResource("CompressedTexture2D_feb5d")
+texture_region_size = Vector2i(200, 200)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ryrav"]
+tile_size = Vector2i(200, 200)
+sources/0 = SubResource("TileSetAtlasSource_7jktm")
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_e2o6t")
 
-[node name="KnotTileMap" parent="." instance=ExtResource("2_feb5d")]
+[node name="Board" type="TileMapLayer" parent="."]
+position = Vector2(651, 217)
 scale = Vector2(0.3, 0.3)
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAkAAAAAAAAAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAABAAUAAAAAAAAAAAABAAYAAAAAAAAAAAABAAcAAAAAAAAAAAABAAgAAAAAAAAAAAABAAkAAAAAAAAAAAACAAEAAAAAAAAAAAACAAIAAAAAAAAAAAACAAMAAAAAAAAAAAACAAQAAAAAAAAAAAACAAUAAAAAAAAAAAACAAYAAAAAAAAAAAACAAcAAAAAAAAAAAACAAgAAAAAAAAAAAACAAkAAAAAAAAAAAADAAEAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAADAAQAAAAAAAAAAAADAAUAAAAAAAAAAAADAAYAAAAAAAAAAAADAAcAAAAAAAAAAAADAAgAAAAAAAAAAAADAAkAAAAAAAAAAAAEAAEAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAYAAAAAAAAAAAAEAAcAAAAAAAAAAAAEAAgAAAAAAAAAAAAEAAkAAAAAAAAAAAAFAAEAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAUAAAAAAAAAAAAFAAYAAAAAAAAAAAAFAAcAAAAAAAAAAAAFAAgAAAAAAAAAAAAFAAkAAAAAAAAAAAAGAAEAAAAAAAAAAAAGAAIAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAQAAAAAAAAAAAAGAAUAAAAAAAAAAAAGAAYAAAAAAAAAAAAGAAcAAAAAAAAAAAAGAAgAAAAAAAAAAAAGAAkAAAAAAAAAAAAHAAEAAAAAAAAAAAAHAAIAAAAAAAAAAAAHAAMAAAAAAAAAAAAHAAQAAAAAAAAAAAAHAAUAAAAAAAAAAAAHAAYAAAAAAAAAAAAHAAcAAAAAAAAAAAAHAAgAAAAAAAAAAAAHAAkAAAAAAAAAAAAIAAEAAAAAAAAAAAAIAAIAAAAAAAAAAAAIAAMAAAAAAAAAAAAIAAQAAAAAAAAAAAAIAAUAAAAAAAAAAAAIAAYAAAAAAAAAAAAIAAcAAAAAAAAAAAAIAAgAAAAAAAAAAAAIAAkAAAAAAAAAAAAJAAAAAAAAAAAAAAAJAAEAAAAAAAAAAAAJAAIAAAAAAAAAAAAJAAMAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAYAAAAAAAAAAAAJAAcAAAAAAAAAAAAJAAgAAAAAAAAAAAAJAAkAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_ryrav")
+
+[node name="KnotTileMap" parent="Board" instance=ExtResource("2_feb5d")]
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
-[node name="Hand" type="HBoxContainer" parent="GUI"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+[node name="Players" type="Control" parent="GUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -304.0
-offset_top = -200.0
-offset_right = 304.0
 grow_horizontal = 2
-grow_vertical = 0
-script = ExtResource("3_fc0e3")
-hand_type = 1
+grow_vertical = 2
+script = ExtResource("3_7jktm")
 
-[connection signal="new_tile" from="GUI/Hand" to="." method="_on_hand_new_tile"]
+[node name="Bottom" parent="GUI/Players" instance=ExtResource("4_fc0e3")]
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="Top" parent="GUI/Players" instance=ExtResource("4_fc0e3")]
+layout_mode = 1
+anchors_preset = 5
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 1
+
+[node name="Left" parent="GUI/Players" instance=ExtResource("4_fc0e3")]
+layout_mode = 1
+anchors_preset = 4
+anchor_left = 0.0
+anchor_top = 0.5
+anchor_right = 0.0
+anchor_bottom = 0.5
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 2
+vertical = true
+
+[node name="Right" parent="GUI/Players" instance=ExtResource("4_fc0e3")]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 2
+vertical = true
+
+[connection signal="new_tile" from="GUI/Players/Bottom" to="." method="_on_new_tile"]
+[connection signal="new_tile" from="GUI/Players/Top" to="." method="_on_new_tile"]
+[connection signal="new_tile" from="GUI/Players/Left" to="." method="_on_new_tile"]
+[connection signal="new_tile" from="GUI/Players/Right" to="." method="_on_new_tile"]

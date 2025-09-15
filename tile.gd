@@ -12,6 +12,8 @@ const tile_X = preload("res://assets/x.svg")
 @onready var mouse_over: bool = false
 @onready var selected: bool = false
 
+@onready var player = get_parent()
+
 func _ready() -> void:
 	match type:
 		0: texture = tile_C
@@ -41,6 +43,10 @@ func remove() -> void:
 	queue_free()
 
 func placed() -> void:
+	remove()
+
+func return_to_hand() -> void:
+	player._add_tile(type)
 	remove()
 
 func _on_mouse_entered() -> void:
