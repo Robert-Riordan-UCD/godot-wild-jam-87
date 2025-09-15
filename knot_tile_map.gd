@@ -9,6 +9,7 @@ enum TileTransform {
 }
 
 @export_category("Placement Rules")
+@export var can_remove_tile: bool = false
 @export var can_replace_tile: bool = false
 @export var must_neighbour_own_tile: bool = true
 @export var must_create_valid_link: bool = true
@@ -21,6 +22,7 @@ enum TileTransform {
 	Returns true if a tile is removed or false if not
 """
 func remove_tile(global_pos: Vector2) -> bool:
+	if not can_remove_tile: return false
 	var map_position := local_to_map(to_local(global_pos))
 	
 	# Cell not occupied
