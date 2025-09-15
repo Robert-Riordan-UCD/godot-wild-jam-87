@@ -12,8 +12,8 @@ enum TileTransform {
 @export var can_remove_tile: bool = false
 @export var can_replace_tile: bool = false
 @export var must_neighbour_own_tile: bool = true
-@export var must_create_valid_link: bool = true
-#@export var must_create_a_link: bool = true
+@export var must_create_valid_placement: bool = true
+@export var must_create_a_link: bool = true
 #@export var can_neighbour_other_players: bool = false
 #@export var must_not_link_to_other_players: bool = true
 
@@ -40,19 +40,48 @@ func place_tile(global_pos:Vector2, tile_in_hand: Tile, tile_rotation: float) ->
 	var current_cell := get_cell_tile_data(map_position)
 	var neighbors := _get_neighbors(map_position)
 	
+	# First tile
+	if get_used_cells().is_empty():
+		set_cell(map_position, _tile_to_id(tile_in_hand), Vector2i(0, 0))
+		_set_rotation(map_position, _angle_to_transfrom(tile_rotation))
+		return true
+	
 	# Cell occupied
 	if not can_replace_tile and not current_cell == null: return false
 
 	# No neighbours
-	if must_neighbour_own_tile and neighbors.is_empty() and not get_used_cells().is_empty(): return false
+	if must_neighbour_own_tile and neighbors.is_empty(): return false
 	
-	# Check links
-	if must_create_valid_link and not _check_links_valid(map_position, tile_in_hand, tile_rotation): return false
+	# Check placement
+	if must_create_valid_placement and not _check_links_valid(map_position, tile_in_hand, tile_rotation): return false
+	
+	# Check at least one link
+	if must_create_a_link and _count_links(map_position, tile_in_hand, tile_rotation) <= 0: return false
 	
 	set_cell(map_position, _tile_to_id(tile_in_hand), Vector2i(0, 0))
 	_set_rotation(map_position, _angle_to_transfrom(tile_rotation))
 	
 	return true
+
+func _count_links(map_pos: Vector2i, tile: Tile, rot: float) -> int:
+	var count := 0
+	var links := _get_links(tile.type, _angle_to_transfrom(rot))
+	
+	for i in range(4):
+		var dir := map_pos + Globals.directions[i]
+		if get_cell_tile_data(dir):
+			var id := get_cell_source_id(dir)
+			var alt := get_cell_alternative_tile(dir)
+	
+			var valid: bool
+			match Globals.directions[i]:
+				Vector2i.UP: valid = links[0] and _get_links(_id_to_type(id), alt)[2]
+				Vector2i.RIGHT: valid = links[1] and _get_links(_id_to_type(id), alt)[3]
+				Vector2i.DOWN: valid = links[2] and _get_links(_id_to_type(id), alt)[0]
+				Vector2i.LEFT: valid = links[3] and _get_links(_id_to_type(id), alt)[1]
+			count += int(valid)
+	
+	return count
 
 func _check_links_valid(map_pos: Vector2i, tile: Tile, rot: float) -> bool:
 	var links := _get_links(tile.type, _angle_to_transfrom(rot))
