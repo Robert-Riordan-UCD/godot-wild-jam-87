@@ -3,7 +3,8 @@ extends Node
 enum tile_types {
 	C,
 	T,
-	X
+	X,
+	ERROR = -1
 }
 
 var directions: Array[Vector2i] = [

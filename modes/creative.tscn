@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj45bra6w0gxe"]
+
+[ext_resource type="PackedScene" uid="uid://bx18xpobi015t" path="res://game.tscn" id="1_neckg"]
+
+[node name="Creative" instance=ExtResource("1_neckg")]
+
+[node name="KnotTileMap" parent="." index="0"]
+can_remove_tile = true
+can_replace_tile = true
+must_neighbour_own_tile = false
+must_create_valid_placement = false
+must_create_a_link = false

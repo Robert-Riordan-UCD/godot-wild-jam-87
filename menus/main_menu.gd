@@ -3,13 +3,12 @@ extends CanvasLayer
 @onready var player_count: Label = $VBoxContainer/Setup/Playes/HBoxContainer/PlayerCount
 @onready var cpu_count: Label = $VBoxContainer/Setup/CPUs/HBoxContainer/CPUCount
 
-const COMPETITIVE = "res://game.tscn"
-const CREATIVE = "res://game.tscn"
+const COMPETITIVE = "res://modes/competitive.tscn"
+const CREATIVE = "res://modes/creative.tscn"
 
 @export var max_total_players: int = 4
 
 func _on_play_pressed() -> void:
-	push_warning("Competitive is currently creative!")
 	get_tree().change_scene_to_file(COMPETITIVE)
 
 func _on_creative_pressed() -> void:

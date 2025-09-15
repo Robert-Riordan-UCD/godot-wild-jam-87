@@ -105,14 +105,14 @@ func _check_links_valid(map_pos: Vector2i, tile: Tile, rot: float) -> bool:
 """
 	Returns an array of booleans [north, east, south, west] that is true is a link is needed and false if a link is blocked
 """
-func _get_links(tile_type: int, transform: TileTransform) -> Array[bool]:
+func _get_links(tile_type: int, tile_transform: TileTransform) -> Array[bool]:
 	var links: Array[bool]
 	match tile_type:
 		0: links = [false, true, true, false]
 		1: links = [false, true, true, true]
 		2: return [true, true, true, true]
 	
-	match transform:
+	match tile_transform:
 		TileTransform.ROTATE_0: pass
 		TileTransform.ROTATE_90: links = links.slice(3, 4) + links.slice(0, 3)
 		TileTransform.ROTATE_180: links = links.slice(2, 4) + links.slice(0, 2)
@@ -141,7 +141,7 @@ func _id_to_type(id: int) -> Globals.tile_types:
 		1: return Globals.tile_types.C
 		2: return Globals.tile_types.T
 		3: return Globals.tile_types.X
-		_: return -1
+		_: return Globals.tile_types.ERROR
 
 func _angle_to_transfrom(angle: float) -> TileTransform:
 	angle = int(angle)%360
