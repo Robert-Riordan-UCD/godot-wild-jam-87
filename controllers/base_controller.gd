@@ -4,7 +4,7 @@ class_name BaseController
 @warning_ignore("unused_signal")
 signal select_tile()
 @warning_ignore("unused_signal")
-signal place_tile(global_pos: Vector2)
+signal place_tile(tile: Tile, global_pos: Vector2)
 @warning_ignore("unused_signal")
 signal remove_tile(gloabl_pos: Vector2)
 @warning_ignore("unused_signal")
@@ -17,4 +17,6 @@ func take_turn() -> void:
 
 func reset() -> void:
 	tile_in_hand = null
-	#rotation_degrees = 0
+
+func tile_placed() -> void:
+	end_turn.emit()

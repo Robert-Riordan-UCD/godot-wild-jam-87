@@ -14,28 +14,20 @@ func _ready() -> void:
 func _center_board() -> void:
 	board.global_position = get_viewport_rect().size/2 - Vector2(Globals.TILE_SIZE.x*knot_tile_map.board_size.x*board.scale.x, Globals.TILE_SIZE.y*knot_tile_map.board_size.y*board.scale.y)/2
 
-func _on_tile_clicked(tile: Tile) -> void:
-	if tile_in_hand == null:
-		tile_in_hand = tile
-
-func _on_new_tile(tile: Tile) -> void:
-	tile.tile_clicked.connect(_on_tile_clicked)
-
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("remove_tile"):
 		knot_tile_map.remove_tile(get_global_mouse_position())
 		if tile_in_hand:
 			tile_in_hand.return_to_hand()
 		_reset()
-	if event.is_action_pressed("place_tile"):
-		if not tile_in_hand == null:
-			var success: bool = knot_tile_map.place_tile(get_global_mouse_position(), tile_in_hand)
-			if success:
-				tile_in_hand.placed()
-				_reset()
-				#hand.new_hand()
 
 func _reset() -> void:
-	#tile_in_hand = null
 	players.update()
 	tile_rotation = 0
+
+func _on_place_tile(from: Hand, tile: Tile, pos: Vector2) -> void:
+	var success: bool = knot_tile_map.place_tile(pos, tile)
+	if success:
+		from.tile_placed()
+		tile.placed()
+		_reset()

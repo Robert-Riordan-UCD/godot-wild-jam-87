@@ -2,6 +2,7 @@ extends Control
 class_name Hand
 
 signal new_tile(tile: Tile)
+signal place_tile(from: Hand, tile: Tile, pos: Vector2)
 signal turn_finished
 
 enum hand_types {
@@ -57,10 +58,14 @@ func return_to_hand(tile: Tile) -> void:
 	tile.reparent(self)
 	update()
 
+func tile_placed():
+	controller.tile_placed()
+
 func _set_controller() -> void:
 	controller = PLAYER_CONTROLLER.instantiate()
 	add_child(controller)
 	controller.select_tile.connect(_select_tile)
+	controller.place_tile.connect(_place_tile)
 
 func _clear_hand() -> void:
 	for tile in get_children():
@@ -89,3 +94,6 @@ func _select_tile() -> void:
 			if tile.try_select():
 				controller.tile_in_hand = tile
 				return
+
+func _place_tile(tile: Tile, global_pos: Vector2) -> void:
+	place_tile.emit(self, tile, global_pos)

@@ -88,10 +88,14 @@ grow_vertical = 2
 vertical = true
 
 [connection signal="new_tile" from="GUI/Players/Bottom" to="." method="_on_new_tile"]
+[connection signal="place_tile" from="GUI/Players/Bottom" to="." method="_on_place_tile"]
 [connection signal="turn_finished" from="GUI/Players/Bottom" to="GUI/Players" method="_on_turn_finished"]
 [connection signal="new_tile" from="GUI/Players/Top" to="." method="_on_new_tile"]
+[connection signal="place_tile" from="GUI/Players/Top" to="." method="_on_place_tile"]
 [connection signal="turn_finished" from="GUI/Players/Top" to="GUI/Players" method="_on_turn_finished"]
 [connection signal="new_tile" from="GUI/Players/Left" to="." method="_on_new_tile"]
+[connection signal="place_tile" from="GUI/Players/Left" to="." method="_on_place_tile"]
 [connection signal="turn_finished" from="GUI/Players/Left" to="GUI/Players" method="_on_turn_finished"]
 [connection signal="new_tile" from="GUI/Players/Right" to="." method="_on_new_tile"]
+[connection signal="place_tile" from="GUI/Players/Right" to="." method="_on_place_tile"]
 [connection signal="turn_finished" from="GUI/Players/Right" to="GUI/Players" method="_on_turn_finished"]
