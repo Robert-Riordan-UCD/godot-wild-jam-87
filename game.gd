@@ -24,7 +24,8 @@ func _on_new_tile(tile: Tile) -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("remove_tile"):
 		knot_tile_map.remove_tile(get_global_mouse_position())
-		tile_in_hand.return_to_hand()
+		if tile_in_hand:
+			tile_in_hand.return_to_hand()
 		_reset()
 	if event.is_action_pressed("rotate_tile"):
 		tile_rotation += 90
