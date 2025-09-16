@@ -18,3 +18,8 @@ const TILE_SIZE := Vector2(200, 200)
 
 var num_players: int = 1
 var num_cpus: int = 0
+
+enum controller_type {
+	PLAYER,
+	CPU_RANDOM,
+}

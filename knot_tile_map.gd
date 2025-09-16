@@ -38,10 +38,11 @@ func remove_tile(global_pos: Vector2) -> bool:
 	Attempt to place a tile
 	Returns true if the tile is places or false if not
 """
-func place_tile(global_pos:Vector2, tile_in_hand: Tile, tile_rotation: float) -> bool:
+func place_tile(global_pos:Vector2, tile_in_hand: Tile) -> bool:
 	var map_position := local_to_map(to_local(global_pos))
 	var current_cell := get_cell_tile_data(map_position)
 	var neighbors := _get_neighbors(map_position)
+	var tile_rotation := tile_in_hand.rotation_degrees
 
 	# On board
 	if board_size.x > -1 and (map_position.x < 0 or map_position.x >= board_size.x): return false

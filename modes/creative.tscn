@@ -11,3 +11,6 @@ can_replace_tile = true
 must_neighbour_own_tile = false
 must_create_valid_placement = false
 must_create_a_link = false
+
+[node name="Bottom" parent="GUI/Players" index="0"]
+hand_type = 1

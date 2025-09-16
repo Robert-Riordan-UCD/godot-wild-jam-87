@@ -1,7 +1,8 @@
-extends BoxContainer
+extends Control
 class_name Hand
 
 signal new_tile(tile: Tile)
+signal turn_finished
 
 enum hand_types {
 	RANDOM,
@@ -13,32 +14,57 @@ const TILE = preload("res://tile.tscn")
 @export_range(0, 10) var hand_size: int = 3
 @export var hand_type: hand_types = hand_types.RANDOM
 @export var location: Vector2i = Vector2i.DOWN
+@export var controller_type: Globals.controller_type = Globals.controller_type.PLAYER
+
+const PLAYER_CONTROLLER = preload("res://controllers/player_controller.tscn")
+var controller: BaseController
 
 func _ready() -> void:
+	_set_controller()
 	update()
 
 func update() -> void:
+	var tiles_needed: int = hand_size
+	for child in get_children():
+		if child is Tile:
+			tiles_needed -= 1
+		if child is BaseController:
+			child.reset()
+	if tiles_needed <= 0: return
+	
 	match hand_type:
 		hand_types.RANDOM:
-			for i in range(hand_size - get_child_count()):
+			for i in range(tiles_needed):
 				_add_tile()
 		hand_types.IN_ORDER:
 			_clear_hand()
-			for i in range(hand_size - get_child_count()):
+			for i in range(tiles_needed):
 				_add_tile(i)
+
+func take_turn() -> void:
+	visible = true
+	controller.take_turn()
+	await controller.end_turn
+	visible = false
+	turn_finished.emit()
 
 func new_hand() -> void:
 	_clear_hand()
 	update()
 
-func _clear_hand() -> void:
-	for tile in get_children():
-		tile.remove()
-
 func return_to_hand(tile: Tile) -> void:
 	if not tile: return
 	tile.reparent(self)
 	update()
+
+func _set_controller() -> void:
+	controller = PLAYER_CONTROLLER.instantiate()
+	add_child(controller)
+	controller.select_tile.connect(_select_tile)
+
+func _clear_hand() -> void:
+	for tile in get_children():
+		tile.remove()
 
 func _add_tile(t: int = -1) -> void:
 	var tile: Tile = TILE.instantiate()
@@ -56,3 +82,10 @@ func _tile_clicked(tile: Tile) -> void:
 	if not tile.selected: 
 		return
 	tile.reparent(get_tree().root)
+
+func _select_tile() -> void:
+	for tile in get_children():
+		if tile is Tile:
+			if tile.try_select():
+				controller.tile_in_hand = tile
+				return

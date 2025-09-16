@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bf4345ljyfpim" path="res://hand.gd" id="1_u4p2i"]
 
 [node name="Hand" type="BoxContainer"]
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -14,5 +15,4 @@ offset_right = -960.0
 offset_bottom = -1080.0
 grow_horizontal = 2
 grow_vertical = 0
-alignment = 1
 script = ExtResource("1_u4p2i")
