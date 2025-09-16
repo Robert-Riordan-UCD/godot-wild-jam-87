@@ -8,6 +8,7 @@ signal place_tile(tile: Tile, global_pos: Vector2)
 @warning_ignore("unused_signal")
 signal remove_tile(gloabl_pos: Vector2)
 @warning_ignore("unused_signal")
+signal drop_tile
 signal end_turn
 
 var tile_in_hand: Tile

@@ -25,10 +25,6 @@ func _process(_delta: float) -> void:
 	
 	global_position = get_global_mouse_position() - (Globals.TILE_SIZE*scale).rotated(rotation)/2
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("remove_tile"):
-		selected = false
-
 func try_select() -> bool:
 	if mouse_over and not selected:
 		tile_clicked.emit(self)

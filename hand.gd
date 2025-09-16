@@ -4,6 +4,7 @@ class_name Hand
 signal new_tile(tile: Tile)
 signal place_tile(from: Hand, tile: Tile, pos: Vector2)
 signal turn_finished
+signal remove_tile(pos: Vector2)
 
 enum hand_types {
 	RANDOM,
@@ -31,16 +32,21 @@ func update() -> void:
 			tiles_needed -= 1
 		if child is BaseController:
 			child.reset()
-	if tiles_needed <= 0: return
+	if tiles_needed <= 0:
+		visible = false
+		await  get_tree().process_frame
+		visible = true
+		return
 	
 	match hand_type:
 		hand_types.RANDOM:
 			for i in range(tiles_needed):
 				_add_tile()
 		hand_types.IN_ORDER:
-			_clear_hand()
-			for i in range(tiles_needed):
+			await _clear_hand()
+			for i in range(hand_size):
 				_add_tile(i)
+				
 
 func take_turn() -> void:
 	visible = true
@@ -66,10 +72,14 @@ func _set_controller() -> void:
 	add_child(controller)
 	controller.select_tile.connect(_select_tile)
 	controller.place_tile.connect(_place_tile)
+	controller.remove_tile.connect(_remove_tile)
+	controller.drop_tile.connect(_drop_tile)
 
 func _clear_hand() -> void:
 	for tile in get_children():
-		tile.remove()
+		if tile is Tile:
+			tile.remove()
+	await get_tree().process_frame
 
 func _add_tile(t: int = -1) -> void:
 	var tile: Tile = TILE.instantiate()
@@ -97,3 +107,9 @@ func _select_tile() -> void:
 
 func _place_tile(tile: Tile, global_pos: Vector2) -> void:
 	place_tile.emit(self, tile, global_pos)
+
+func _remove_tile(pos: Vector2) -> void:
+	remove_tile.emit(pos)
+
+func _drop_tile() -> void:
+	update()

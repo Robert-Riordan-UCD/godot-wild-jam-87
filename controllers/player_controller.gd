@@ -30,6 +30,9 @@ func _input(event: InputEvent) -> void:
 		place_tile.emit(tile_in_hand, get_global_mouse_position())
 	if event.is_action_pressed("rotate_tile") and tile_in_hand:
 		tile_in_hand.rotation_degrees += 90
-	if event.is_action_pressed("remove_tile"):
-		_end_turn()
+	if event.is_action_pressed("drop_tile") and tile_in_hand:
+		tile_in_hand.return_to_hand()
+		tile_in_hand = null
+		drop_tile.emit()
+	elif event.is_action_pressed("remove_tile") and not tile_in_hand:
 		remove_tile.emit(get_global_mouse_position())
