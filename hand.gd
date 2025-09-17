@@ -49,6 +49,7 @@ func take_turn() -> void:
 	controller.take_turn()
 	await controller.end_turn
 	visible = false
+	new_hand()
 	turn_finished.emit()
 
 func new_hand() -> void:

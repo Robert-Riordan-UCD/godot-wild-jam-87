@@ -1,6 +1,9 @@
 extends BaseController
 class_name CPUComtrollerRandom
 
+@export var max_attempts: int = 100
+@onready var attempts: int = 0
+
 """
 	1. Get list of valid locations
 	2. Pick a random locations
@@ -11,6 +14,9 @@ class_name CPUComtrollerRandom
 	6. Place tile
 """
 func take_turn() -> void:
+	# Not sure why this script isn't respecting process_mode
+	while get_tree().paused: await get_tree().create_timer(0.2).timeout
+
 	await get_tree().process_frame
 	var open_locations := _get_valid_tile_locations()
 	var selected_location: Vector2i = open_locations.keys().pick_random()
@@ -23,7 +29,12 @@ func take_turn() -> void:
 	await get_tree().create_timer(2).timeout
 
 func failed_to_place() -> void:
-	take_turn()
+	attempts += 1
+	if attempts == max_attempts:
+		attempts = 0
+		end_turn.emit()
+	else:
+		take_turn()
 
 func _get_valid_tiles_at_location(pos: Vector2i) -> String:
 	return Globals.tile_map.get_valid_tiles_at_location(pos)
