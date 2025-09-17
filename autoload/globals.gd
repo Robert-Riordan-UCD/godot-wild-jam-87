@@ -23,3 +23,5 @@ enum controller_type {
 	PLAYER,
 	CPU_RANDOM,
 }
+
+var tile_map: KnotTileMap

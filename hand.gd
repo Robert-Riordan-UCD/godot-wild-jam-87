@@ -19,6 +19,7 @@ const TILE = preload("res://tile.tscn")
 @export var controller_type: Globals.controller_type = Globals.controller_type.PLAYER
 
 const PLAYER_CONTROLLER = preload("res://controllers/player_controller.tscn")
+const CPU_CONTROLLER_RANDOM = preload("res://controllers/cpu_controller_random.tscn")
 var controller: BaseController
 
 func _ready() -> void:
@@ -62,13 +63,33 @@ func return_to_hand(tile: Tile) -> void:
 func tile_placed():
 	controller.tile_placed()
 
+func set_controller(type: Globals.controller_type) -> void:
+	for child in get_children():
+		if child is BaseController:
+			child.queue_free()
+	controller_type = type
+	_set_controller()
+
+func get_tiles() -> Array[Tile]:
+	var tiles: Array[Tile] = []
+	for child in get_children():
+		if child is Tile:
+			tiles.append(child)
+	return tiles
+
+func failed_to_place() -> void:
+	controller.failed_to_place()
+
 func _set_controller() -> void:
-	controller = PLAYER_CONTROLLER.instantiate()
+	match controller_type:
+		Globals.controller_type.PLAYER: controller = PLAYER_CONTROLLER.instantiate()
+		Globals.controller_type.CPU_RANDOM: controller = CPU_CONTROLLER_RANDOM.instantiate()
 	add_child(controller)
 	controller.select_tile.connect(_select_tile)
 	controller.place_tile.connect(_place_tile)
 	controller.remove_tile.connect(_remove_tile)
 	controller.drop_tile.connect(_drop_tile)
+	controller.hand = self
 
 func _clear_hand() -> void:
 	for tile in get_children():

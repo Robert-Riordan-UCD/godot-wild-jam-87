@@ -20,6 +20,9 @@ enum TileTransform {
 #@export var can_neighbour_other_players: bool = false
 #@export var must_not_link_to_other_players: bool = true
 
+func _ready() -> void:
+	Globals.tile_map = self
+
 """
 	Attempt to remove a tile
 	Returns true if a tile is removed or false if not
@@ -40,36 +43,103 @@ func remove_tile(global_pos: Vector2) -> bool:
 """
 func place_tile(global_pos:Vector2, tile_in_hand: Tile) -> bool:
 	var map_position := local_to_map(to_local(global_pos))
-	var current_cell := get_cell_tile_data(map_position)
-	var neighbors := _get_neighbors(map_position)
 	var tile_rotation := tile_in_hand.rotation_degrees
-
-	# On board
-	if board_size.x > -1 and (map_position.x < 0 or map_position.x >= board_size.x): return false
-	if board_size.y > -1 and (map_position.y < 0 or map_position.y >= board_size.y): return false
 	
-	# First tile
-	if get_used_cells().is_empty():
-		set_cell(map_position, _tile_to_id(tile_in_hand), Vector2i(0, 0))
-		_set_rotation(map_position, _angle_to_transfrom(tile_rotation))
-		return true
-	
-	# Cell occupied
-	if not can_replace_tile and not current_cell == null: return false
-
-	# No neighbours
-	if must_neighbour_own_tile and neighbors.is_empty(): return false
-	
-	# Check placement
-	if must_create_valid_placement and not _check_links_valid(map_position, tile_in_hand, tile_rotation): return false
-	
-	# Check at least one link
-	if must_create_a_link and _count_links(map_position, tile_in_hand, tile_rotation) <= 0: return false
+	if not _can_place(map_position, tile_in_hand, tile_rotation): return false
 	
 	set_cell(map_position, _tile_to_id(tile_in_hand), Vector2i(0, 0))
 	_set_rotation(map_position, _angle_to_transfrom(tile_rotation))
 	
 	return true
+
+func _can_place(map_pos: Vector2i, tile: Tile, rot: float) -> bool:
+	# On board
+	if not _on_board(map_pos): return false
+	
+	# First tile
+	if get_used_cells().is_empty(): return true
+	
+	# Cell occupied
+	if not can_replace_tile and not get_cell_tile_data(map_pos) == null: return false
+
+	# No neighbours
+	if must_neighbour_own_tile and _get_neighbors(map_pos).is_empty(): return false
+	
+	# Check placement
+	if must_create_valid_placement and not _check_links_valid(map_pos, tile, rot): return false
+	
+	# Check at least one link
+	if must_create_a_link and _count_links(map_pos, tile, rot) <= 0: return false
+	
+	return true
+
+"""
+	Returns a set of all cells adjcent to the placed tiles
+"""
+func get_placeable_cells() -> Dictionary[Vector2i, Variant]:
+	var cells: Dictionary[Vector2i, Variant] = {}
+	
+	if get_used_cells().is_empty():
+		for x in range(board_size.x):
+			for y in range(board_size.y):
+				cells[Vector2i(x, y)] = null
+	
+	for cell in get_used_cells():
+		for dir in Globals.directions:
+			if get_cell_tile_data(cell+dir) == null and _on_board(cell+dir):
+				cells[cell+dir] = null
+	
+	return cells
+
+"""
+	Returns a string with either 0, 1, or x (meaning don't care) for each side of the tile at the location
+"""
+func get_valid_tiles_at_location(location: Vector2i) -> String:
+	if not get_cell_tile_data(location) == null:
+		return ""
+	
+	var links := ""
+	
+	# North
+	if get_cell_tile_data(location+Vector2i.UP):
+		var dir := Vector2i.UP
+		var id := get_cell_source_id(location+dir)
+		var alt := get_cell_alternative_tile(location+dir)
+		links += str(int(_get_links(_id_to_type(id), alt)[2]))
+	else:
+		links += "x"
+	# East
+	if get_cell_tile_data(location+Vector2i.RIGHT):
+		var dir := Vector2i.RIGHT
+		var id := get_cell_source_id(location+dir)
+		var alt := get_cell_alternative_tile(location+dir)
+		links += str(int(_get_links(_id_to_type(id), alt)[3]))
+	else:
+		links += "x"
+	# South
+	if get_cell_tile_data(location+Vector2i.DOWN):
+		var dir := Vector2i.DOWN
+		var id := get_cell_source_id(location+dir)
+		var alt := get_cell_alternative_tile(location+dir)
+		links += str(int(_get_links(_id_to_type(id), alt)[0]))
+	else:
+		links += "x"
+	# West
+	if get_cell_tile_data(location+Vector2i.LEFT):
+		var dir := Vector2i.LEFT
+		var id := get_cell_source_id(location+dir)
+		var alt := get_cell_alternative_tile(location+dir)
+		links += str(int(_get_links(_id_to_type(id), alt)[1]))
+	else:
+		links += "x"
+	
+	return links
+
+func _on_board(map_position: Vector2i) -> bool:
+	if board_size.x > -1 and (map_position.x < 0 or map_position.x >= board_size.x): return false
+	if board_size.y > -1 and (map_position.y < 0 or map_position.y >= board_size.y): return false
+	return true
+
 
 func _count_links(map_pos: Vector2i, tile: Tile, rot: float) -> int:
 	var count := 0

@@ -11,6 +11,7 @@ signal remove_tile(gloabl_pos: Vector2)
 signal drop_tile
 signal end_turn
 
+var hand: Hand
 var tile_in_hand: Tile
 
 func take_turn() -> void:
@@ -21,3 +22,6 @@ func reset() -> void:
 
 func tile_placed() -> void:
 	end_turn.emit()
+
+func failed_to_place() -> void:
+	pass

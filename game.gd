@@ -20,6 +20,8 @@ func _on_place_tile(from: Hand, tile: Tile, pos: Vector2) -> void:
 		from.tile_placed()
 		tile.placed()
 		_reset()
+	else:
+		from.failed_to_place()
 
 func _on_remove_tile(pos: Vector2) -> void:
 	knot_tile_map.remove_tile(pos)

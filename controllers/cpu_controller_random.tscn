@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://144mkt1q3yml"]
+
+[ext_resource type="Script" uid="uid://qobvckc6hfv2" path="res://controllers/cpu_controller_random.gd" id="1_ufxvj"]
+
+[node name="CPUControllerRandom" type="Node2D"]
+script = ExtResource("1_ufxvj")
