@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=4 uid="uid://bx18xpobi015t"]
+[gd_scene load_steps=9 format=4 uid="uid://bx18xpobi015t"]
 
 [ext_resource type="Script" uid="uid://d0qmskn58yta5" path="res://game.gd" id="1_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://c31qphkaixitt" path="res://knot_tile_map.tscn" id="2_feb5d"]
 [ext_resource type="Script" uid="uid://dsjklsc2bkfnq" path="res://players.gd" id="3_7jktm"]
 [ext_resource type="PackedScene" uid="uid://cea3413amktgj" path="res://hand.tscn" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://btfna526b0tbe" path="res://menus/pause_menu.tscn" id="5_7jktm"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_feb5d"]
 load_path = "res://.godot/imported/grid.svg-823f1a6e6be43506b3d5bceac6ad83ab.ctex"
@@ -86,6 +87,8 @@ offset_bottom = 0.0
 grow_horizontal = 0
 grow_vertical = 2
 vertical = true
+
+[node name="PauseMenu" parent="." instance=ExtResource("5_7jktm")]
 
 [connection signal="new_tile" from="GUI/Players/Bottom" to="." method="_on_new_tile"]
 [connection signal="place_tile" from="GUI/Players/Bottom" to="." method="_on_place_tile"]
