@@ -32,11 +32,6 @@ func update() -> void:
 			tiles_needed -= 1
 		if child is BaseController:
 			child.reset()
-	if tiles_needed <= 0:
-		visible = false
-		await  get_tree().process_frame
-		visible = true
-		return
 	
 	match hand_type:
 		hand_types.RANDOM:
@@ -112,4 +107,6 @@ func _remove_tile(pos: Vector2) -> void:
 	remove_tile.emit(pos)
 
 func _drop_tile() -> void:
-	update()
+	visible = false
+	await  get_tree().process_frame
+	visible = true

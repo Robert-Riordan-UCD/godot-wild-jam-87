@@ -89,6 +89,7 @@ grow_vertical = 2
 vertical = true
 
 [node name="PauseMenu" parent="." instance=ExtResource("5_7jktm")]
+visible = false
 
 [connection signal="new_tile" from="GUI/Players/Bottom" to="." method="_on_new_tile"]
 [connection signal="place_tile" from="GUI/Players/Bottom" to="." method="_on_place_tile"]
