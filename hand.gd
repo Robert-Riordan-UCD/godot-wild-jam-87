@@ -3,7 +3,7 @@ class_name Hand
 
 signal new_tile(tile: Tile)
 signal place_tile(from: Hand, tile: Tile, pos: Vector2)
-signal turn_finished
+signal turn_finished(passed: bool)
 signal remove_tile(pos: Vector2)
 
 enum hand_types {
@@ -71,10 +71,6 @@ func update() -> void:
 func take_turn() -> void:
 	visible = true
 	controller.take_turn()
-	await controller.end_turn
-	visible = false
-	new_hand()
-	turn_finished.emit()
 
 func new_hand() -> void:
 	_clear_hand()
@@ -114,6 +110,7 @@ func _set_controller() -> void:
 	controller.place_tile.connect(_place_tile)
 	controller.remove_tile.connect(_remove_tile)
 	controller.drop_tile.connect(_drop_tile)
+	controller.end_turn.connect(_end_turn)
 	controller.hand = self
 
 func _clear_hand() -> void:
@@ -130,7 +127,6 @@ func _add_tile(t: int = -1) -> void:
 		tile.type = randi_range(0, 2)
 	tile.colour_index = colour_index
 	add_child(tile)
-	print("Tile added to hand (type: ", tile.type, ", colour: ", tile.colour_index, ")")
 	tile.scale = tile.scale/2
 	new_tile.emit(tile)
 	tile.tile_clicked.connect(_tile_clicked)
@@ -158,3 +154,8 @@ func _drop_tile() -> void:
 	visible = false
 	await  get_tree().process_frame
 	visible = true
+
+func _end_turn(passed: bool) -> void:
+	visible = false
+	new_hand()
+	turn_finished.emit(passed)

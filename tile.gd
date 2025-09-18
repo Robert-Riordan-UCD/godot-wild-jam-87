@@ -14,7 +14,6 @@ signal tile_clicked(tile: Tile)
 func _ready() -> void:
 	await get_tree().process_frame
 	texture.region = Rect2(200*colour_index, 200*type, 200, 200)
-	print("Tile ready (type: ", type, ", colour: ", colour_index, ")")
 
 func _process(_delta: float) -> void:
 	if not selected: return
@@ -23,7 +22,6 @@ func _process(_delta: float) -> void:
 
 func try_select() -> bool:
 	if mouse_over and not selected:
-		print(colour_index, " ", type)
 		tile_clicked.emit(self)
 		selected = true
 		scale *= 0.3

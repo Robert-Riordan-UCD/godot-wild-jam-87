@@ -32,7 +32,7 @@ func failed_to_place() -> void:
 	attempts += 1
 	if attempts == max_attempts:
 		attempts = 0
-		end_turn.emit()
+		end_turn.emit(true)
 	else:
 		take_turn()
 

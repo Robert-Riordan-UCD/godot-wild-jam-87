@@ -9,7 +9,7 @@ signal place_tile(tile: Tile, global_pos: Vector2)
 signal remove_tile(gloabl_pos: Vector2)
 @warning_ignore("unused_signal")
 signal drop_tile
-signal end_turn
+signal end_turn(passed: bool)
 
 var hand: Hand
 var tile_in_hand: Tile
@@ -21,7 +21,7 @@ func reset() -> void:
 	tile_in_hand = null
 
 func tile_placed() -> void:
-	end_turn.emit()
+	end_turn.emit(false)
 
 func failed_to_place() -> void:
 	pass

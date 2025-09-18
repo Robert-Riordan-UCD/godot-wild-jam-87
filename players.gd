@@ -3,7 +3,10 @@ class_name Players
 
 const HAND = preload("res://hand.tscn")
 
+signal game_over
+
 @onready var active_player: int = 0
+@onready var pass_count: int = 0
 
 func _ready() -> void:
 	for i in range(4):
@@ -25,6 +28,12 @@ func update() -> void:
 	for hand: Hand in get_children():
 		hand.update()
 
-func _on_turn_finished() -> void:
+func _on_turn_finished(passed: bool) -> void:
+	if passed:
+		pass_count += 1
+		if pass_count == Globals.num_cpus + Globals.num_players:
+			game_over.emit()
+	else:
+		pass_count = 0
 	active_player = (active_player+1)%get_child_count()
 	get_child(active_player).take_turn()

@@ -4,6 +4,7 @@ class_name Game
 @onready var board: TileMapLayer = $Board
 @onready var knot_tile_map: KnotTileMap = $Board/KnotTileMap
 @onready var players: Players = $GUI/Players
+@onready var end_screen: CanvasLayer = $EndScreen
 
 func _ready() -> void:
 	_center_board()
@@ -25,3 +26,6 @@ func _on_place_tile(from: Hand, tile: Tile, pos: Vector2) -> void:
 
 func _on_remove_tile(pos: Vector2) -> void:
 	knot_tile_map.remove_tile(pos)
+
+func _on_game_over() -> void:
+	end_screen.game_over()

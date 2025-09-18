@@ -51,7 +51,6 @@ func place_tile(global_pos:Vector2, tile_in_hand: Tile, player: Hand=null) -> bo
 	if not _can_place(map_position, tile_in_hand, tile_rotation, player): return false
 	
 	_set_cell(tile_in_hand, map_position, player)
-	print(tile_owners)
 	
 	return true
 
@@ -166,7 +165,6 @@ func _count_links(map_pos: Vector2i, tile: Tile, rot: float, player: Hand=null) 
 	
 	for i in range(4):
 		var dir := map_pos + Globals.directions[i]
-		print(neighbours, dir)
 		if dir-map_pos in neighbours:
 			var atlas_coords := get_cell_atlas_coords(dir)
 			var alt := get_cell_alternative_tile(dir)
