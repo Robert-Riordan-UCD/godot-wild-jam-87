@@ -3,11 +3,8 @@ class_name Tile
 
 signal tile_clicked(tile: Tile)
 
-const tile_C = preload("res://assets/c.svg")
-const tile_T = preload("res://assets/t.svg")
-const tile_X = preload("res://assets/x.svg")
-
 @export_enum("C", "T", "X") var type: = 0
+@export var colour_index: int = 0
 
 @onready var mouse_over: bool = false
 @onready var selected: bool = false
@@ -15,10 +12,9 @@ const tile_X = preload("res://assets/x.svg")
 @onready var player = get_parent()
 
 func _ready() -> void:
-	match type:
-		0: texture = tile_C
-		1: texture = tile_T
-		2: texture = tile_X
+	await get_tree().process_frame
+	texture.region = Rect2(200*colour_index, 200*type, 200, 200)
+	print("Tile ready (type: ", type, ", colour: ", colour_index, ")")
 
 func _process(_delta: float) -> void:
 	if not selected: return
@@ -27,6 +23,7 @@ func _process(_delta: float) -> void:
 
 func try_select() -> bool:
 	if mouse_over and not selected:
+		print(colour_index, " ", type)
 		tile_clicked.emit(self)
 		selected = true
 		scale *= 0.3

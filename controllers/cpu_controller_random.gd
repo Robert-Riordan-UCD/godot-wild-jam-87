@@ -40,4 +40,4 @@ func _get_valid_tiles_at_location(pos: Vector2i) -> String:
 	return Globals.tile_map.get_valid_tiles_at_location(pos)
 
 func _get_valid_tile_locations() -> Dictionary[Vector2i, Variant]:
-	return Globals.tile_map.get_placeable_cells()
+	return Globals.tile_map.get_placeable_cells(hand)

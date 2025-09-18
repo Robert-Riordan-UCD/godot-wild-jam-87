@@ -1,0 +1,65 @@
+<svg width="800" height="600">
+  <path id="green"  d="M20 200 Q0 40 20 20 Q40 0 200 20 L200 180 Q100 80 80 80 Q80 100 180 200"  style="fill:green;"></path>
+  <path id="green"  d="M20 200 Q0 40 20 20 Q40 0 200 20"  style="fill:none;stroke:black;stroke-width:5"></path>
+  <path id="green"  d="M200 180 Q100 80 80 80 Q80 100 180 200"  style="fill:none;stroke:black;stroke-width:5"></path>
+  <path id="east"   d="M200 20 L100 120 L180 200 L200 180"  style="fill:green;stroke:black;stroke-width:5"></path>
+  
+  <path id="orange" d="M220 200 Q200 40 220 20 Q240 0 400 20 L400 180 Q300 80 280 80 Q280 100 380 200"  style="fill:orange;"></path>  
+  <path id="orange" d="M220 200 Q200 40 220 20 Q240 0 400 20"  style="fill:none;stroke:black;stroke-width:5"></path>  
+  <path id="orange" d="M400 180 Q300 80 280 80 Q280 100 380 200"  style="fill:none;stroke:black;stroke-width:5"></path>  
+  <path id="east"   d="M400 20 L300 120 L380 200 L400 180"  style="fill:orange;stroke:black;stroke-width:5"></path>
+  
+  <path id="red"    d="M420 200 Q400 40 420 20 Q440 0 600 20 L600 180 Q500 80 480 80 Q480 100 580 200"  style="fill:red;"></path>  
+  <path id="red"    d="M420 200 Q400 40 420 20 Q440 0 600 20"  style="fill:none;stroke:black;stroke-width:5"></path>  
+  <path id="red"    d="M600 180 Q500 80 480 80 Q480 100 580 200"  style="fill:none;stroke:black;stroke-width:5"></path>  
+  <path id="east"   d="M600 20 L500 120 L580 200 L600 180"  style="fill:red;stroke:black;stroke-width:5"></path>
+  
+  <path id="brown"  d="M620 200 Q600 40 620 20 Q640 0 800 20 L800 180 Q700 80 680 80 Q680 100 780 200"  style="fill:brown;stroke:black;stroke-width:5"></path>  
+  <path id="brown"  d="M620 200 Q600 40 620 20 Q640 0 800 20"  style="fill:none;stroke:black;stroke-width:5"></path>  
+  <path id="brown"  d="M800 180 Q700 80 680 80 Q680 100 780 200"  style="fill:none;stroke:black;stroke-width:5"></path>  
+  <path id="east"   d="M800 20 L700 120 L780 200 L800 180"  style="fill:brown;stroke:black;stroke-width:5"></path>
+  
+  <!-- Green -->
+  <path id="north-west" d="M0 220 Q100 190 200 220 L120 300 Q100 280 80 300 L0 380"  style="fill:green;stroke:black;stroke-width:5"></path>
+  <path id="east"  d="M200 220 L100 320 L180 400 L200 380"  style="fill:green;stroke:black;stroke-width:5"></path>
+  <path id="south" d="M180 400 L80 300 L0 380 L20 400"  style="fill:green;stroke:black;stroke-width:5"></path>
+
+  <!-- Orange -->
+  <path id="north-west" d="M200 220 Q300 190 400 220 L320 300 Q300 280 280 300 L200 380"  style="fill:orange;stroke:black;stroke-width:5"></path>
+  <path id="east"  d="M400 220 L300 320 L380 400 L400 380"  style="fill:orange;stroke:black;stroke-width:5"></path>
+  <path id="south" d="M380 400 L280 300 L200 380 L220 400"  style="fill:orange;stroke:black;stroke-width:5"></path>
+
+  <!-- Red -->
+  <path id="north-west" d="M400 220 Q500 190 600 220 L520 300 Q500 280 480 300 L400 380"  style="fill:red;stroke:black;stroke-width:5"></path>
+  <path id="east"  d="M600 220 L500 320 L580 400 L600 380"  style="fill:red;stroke:black;stroke-width:5"></path>
+  <path id="south" d="M580 400 L480 300 L400 380 L420 400"  style="fill:red;stroke:black;stroke-width:5"></path>
+
+  <!-- Brown -->
+  <path id="north-west" d="M600 220 Q700 190 800 220 L720 300 Q700 280 680 300 L600 380"  style="fill:brown;stroke:black;stroke-width:5"></path>
+  <path id="east"  d="M800 220 L700 320 L780 400 L800 380"  style="fill:brown;stroke:black;stroke-width:5"></path>
+  <path id="south" d="M780 400 L680 300 L600 380 L620 400"  style="fill:brown;stroke:black;stroke-width:5"></path>
+
+  <!-- Green -->
+  <path id="north" d="M20 400 L120 500 L200 420 L180 400"  style="fill:green;stroke:black;stroke-width:5"></path>
+  <path id="east"  d="M200 420 L100 520 L180 600 L200 580"  style="fill:green;stroke:black;stroke-width:5"></path>
+  <path id="south" d="M180 600 L80 500 L0 580 L20 600"  style="fill:green;stroke:black;stroke-width:5"></path>
+  <path id="west"  d="M0 580 L100 480 L20 400 L0 420"  style="fill:green;stroke:black;stroke-width:5"></path>
+
+  <!-- Orange -->
+  <path id="north" d="M220 400 L320 500 L400 420 L380 400"  style="fill:orange;stroke:black;stroke-width:5"></path>
+  <path id="east"  d="M400 420 L300 520 L380 600 L400 580"  style="fill:orange;stroke:black;stroke-width:5"></path>
+  <path id="south" d="M380 600 L280 500 L200 580 L220 600"  style="fill:orange;stroke:black;stroke-width:5"></path>
+  <path id="west"  d="M200 580 L300 480 L220 400 L200 420"  style="fill:orange;stroke:black;stroke-width:5"></path>
+
+  <!-- Red -->
+  <path id="north" d="M420 400 L520 500 L600 420 L580 400"  style="fill:red;stroke:black;stroke-width:5"></path>
+  <path id="east"  d="M600 420 L500 520 L580 600 L600 580"  style="fill:red;stroke:black;stroke-width:5"></path>
+  <path id="south" d="M580 600 L480 500 L400 580 L420 600"  style="fill:red;stroke:black;stroke-width:5"></path>
+  <path id="west"  d="M400 580 L500 480 L420 400 L400 420"  style="fill:red;stroke:black;stroke-width:5"></path>
+
+  <!-- Brown -->
+  <path id="north" d="M620 400 L720 500 L800 420 L780 400"  style="fill:brown;stroke:black;stroke-width:5"></path>
+  <path id="east"  d="M800 420 L700 520 L780 600 L800 580"  style="fill:brown;stroke:black;stroke-width:5"></path>
+  <path id="south" d="M780 600 L680 500 L600 580 L620 600"  style="fill:brown;stroke:black;stroke-width:5"></path>
+  <path id="west"  d="M600 580 L700 480 L620 400 L600 420"  style="fill:brown;stroke:black;stroke-width:5"></path>
+</svg>

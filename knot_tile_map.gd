@@ -20,6 +20,8 @@ enum TileTransform {
 #@export var can_neighbour_other_players: bool = false
 #@export var must_not_link_to_other_players: bool = true
 
+@onready var tile_owners: Dictionary[Hand, Array] = {}
+
 func _ready() -> void:
 	Globals.tile_map = self
 
@@ -41,23 +43,35 @@ func remove_tile(global_pos: Vector2) -> bool:
 	Attempt to place a tile
 	Returns true if the tile is places or false if not
 """
-func place_tile(global_pos:Vector2, tile_in_hand: Tile) -> bool:
+func place_tile(global_pos:Vector2, tile_in_hand: Tile, player: Hand=null) -> bool:
 	var map_position := local_to_map(to_local(global_pos))
 	var tile_rotation := tile_in_hand.rotation_degrees
 	
-	if not _can_place(map_position, tile_in_hand, tile_rotation): return false
+	if not _can_place(map_position, tile_in_hand, tile_rotation, player): return false
 	
-	set_cell(map_position, _tile_to_id(tile_in_hand), Vector2i(0, 0))
-	_set_rotation(map_position, _angle_to_transfrom(tile_rotation))
+	_set_cell(tile_in_hand, map_position, player)
+	print(tile_owners)
 	
 	return true
 
-func _can_place(map_pos: Vector2i, tile: Tile, rot: float) -> bool:
+func force_place_tile(tile: Tile, pos: Vector2i, player: Hand) -> void:
+	_set_cell(tile, pos, player)
+
+func _set_cell(tile: Tile, pos: Vector2i, player: Hand) -> void:
+	set_cell(pos, 0, Vector2i(tile.colour_index, tile.type))
+	_set_rotation(pos, _angle_to_transfrom(tile.rotation_degrees))
+	tile_owners[player] = tile_owners.get(player, []) + [pos]
+
+func _can_place(map_pos: Vector2i, tile: Tile, rot: float, player: Hand) -> bool:
 	# On board
 	if not _on_board(map_pos): return false
 	
 	# First tile
-	if get_used_cells().is_empty(): return true
+	if tile_owners.get(player, []).is_empty():
+		for p in tile_owners:
+			for t in tile_owners[p]:
+				if t == map_pos: return false
+		return true
 	
 	# Cell occupied
 	if not can_replace_tile and not get_cell_tile_data(map_pos) == null: return false
@@ -76,10 +90,10 @@ func _can_place(map_pos: Vector2i, tile: Tile, rot: float) -> bool:
 """
 	Returns a set of all cells adjcent to the placed tiles
 """
-func get_placeable_cells() -> Dictionary[Vector2i, Variant]:
+func get_placeable_cells(player: Hand) -> Dictionary[Vector2i, Variant]:
 	var cells: Dictionary[Vector2i, Variant] = {}
 	
-	if get_used_cells().is_empty():
+	if tile_owners.get(player, []).is_empty():
 		for x in range(board_size.x):
 			for y in range(board_size.y):
 				cells[Vector2i(x, y)] = null
@@ -148,15 +162,15 @@ func _count_links(map_pos: Vector2i, tile: Tile, rot: float) -> int:
 	for i in range(4):
 		var dir := map_pos + Globals.directions[i]
 		if get_cell_tile_data(dir):
-			var id := get_cell_source_id(dir)
+			var atlas_coords := get_cell_atlas_coords(dir)
 			var alt := get_cell_alternative_tile(dir)
 	
 			var valid: bool
 			match Globals.directions[i]:
-				Vector2i.UP: valid = links[0] and _get_links(_id_to_type(id), alt)[2]
-				Vector2i.RIGHT: valid = links[1] and _get_links(_id_to_type(id), alt)[3]
-				Vector2i.DOWN: valid = links[2] and _get_links(_id_to_type(id), alt)[0]
-				Vector2i.LEFT: valid = links[3] and _get_links(_id_to_type(id), alt)[1]
+				Vector2i.UP: valid = links[0] and _get_links(atlas_coords.y, alt)[2]
+				Vector2i.RIGHT: valid = links[1] and _get_links(atlas_coords.y, alt)[3]
+				Vector2i.DOWN: valid = links[2] and _get_links(atlas_coords.y, alt)[0]
+				Vector2i.LEFT: valid = links[3] and _get_links(atlas_coords.y, alt)[1]
 			count += int(valid)
 	
 	return count
@@ -167,15 +181,15 @@ func _check_links_valid(map_pos: Vector2i, tile: Tile, rot: float) -> bool:
 	for i in range(4):
 		var dir := map_pos + Globals.directions[i]
 		if get_cell_tile_data(dir):
-			var id := get_cell_source_id(dir)
+			var atlas_coords := get_cell_atlas_coords(dir)
 			var alt := get_cell_alternative_tile(dir)
 	
 			var valid: bool
 			match Globals.directions[i]:
-				Vector2i.UP: valid = links[0] == _get_links(_id_to_type(id), alt)[2]
-				Vector2i.RIGHT: valid = links[1] == _get_links(_id_to_type(id), alt)[3]
-				Vector2i.DOWN: valid = links[2] == _get_links(_id_to_type(id), alt)[0]
-				Vector2i.LEFT: valid = links[3] == _get_links(_id_to_type(id), alt)[1]
+				Vector2i.UP: valid = links[0] == _get_links(atlas_coords.y, alt)[2]
+				Vector2i.RIGHT: valid = links[1] == _get_links(atlas_coords.y, alt)[3]
+				Vector2i.DOWN: valid = links[2] == _get_links(atlas_coords.y, alt)[0]
+				Vector2i.LEFT: valid = links[3] == _get_links(atlas_coords.y, alt)[1]
 			if not valid: return false
 	
 	return true

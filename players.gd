@@ -9,8 +9,10 @@ func _ready() -> void:
 	for i in range(4):
 		if i < Globals.num_players:
 			get_child(i).set_controller(Globals.controller_type.PLAYER)
+			get_child(i).setup()
 		elif i < Globals.num_cpus + Globals.num_players:
 			get_child(i).set_controller(Globals.controller_type.CPU_RANDOM)
+			get_child(i).setup()
 		else:
 			get_child(i).queue_free()
 	

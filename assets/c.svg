@@ -1,4 +1,0 @@
-<svg width="200" height="200">
-  <path id="north-west-south" d="M20 200 Q0 40 20 20 Q40 0 200 20 L200 180 Q100 80 80 80 Q80 100 180 200"  style="fill:green;stroke:black;stroke-width:5"></path>  
-  <path id="east"  d="M200 20 L100 120 L180 200 L200 180"  style="fill:green;stroke:black;stroke-width:5"></path>
-</svg>

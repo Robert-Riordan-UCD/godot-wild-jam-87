@@ -15,7 +15,7 @@ func _reset() -> void:
 	players.update()
 
 func _on_place_tile(from: Hand, tile: Tile, pos: Vector2) -> void:
-	var success: bool = knot_tile_map.place_tile(pos, tile)
+	var success: bool = knot_tile_map.place_tile(pos, tile, from)
 	if success:
 		from.tile_placed()
 		tile.placed()

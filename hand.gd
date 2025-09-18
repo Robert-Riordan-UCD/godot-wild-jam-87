@@ -17,6 +17,7 @@ const TILE = preload("res://tile.tscn")
 @export var hand_type: hand_types = hand_types.RANDOM
 @export var location: Vector2i = Vector2i.DOWN
 @export var controller_type: Globals.controller_type = Globals.controller_type.PLAYER
+@export var colour_index: int = 0
 
 const PLAYER_CONTROLLER = preload("res://controllers/player_controller.tscn")
 const CPU_CONTROLLER_RANDOM = preload("res://controllers/cpu_controller_random.tscn")
@@ -25,6 +26,29 @@ var controller: BaseController
 func _ready() -> void:
 	_set_controller()
 	update()
+
+func setup() -> void:
+	if not Globals.tile_map.is_node_ready():
+		await Globals.tile_map.ready
+	var t: Tile = load("res://tile.tscn").instantiate()
+	t.type = 1
+	var board_size: Vector2i = Globals.tile_map.board_size
+	
+	match location:
+		Vector2i.DOWN:
+			t.rotation_degrees = 180
+			Globals.tile_map.force_place_tile(t, Vector2i(board_size.x/2, board_size.y-1), self)
+		Vector2i.RIGHT:
+			t.rotation_degrees = 90
+			t.colour_index = 3
+			Globals.tile_map.force_place_tile(t, Vector2i(board_size.x-1, board_size.y/2), self)
+		Vector2i.UP:
+			t.colour_index = 1
+			Globals.tile_map.force_place_tile(t, Vector2i(board_size.x/2, 0), self)
+		Vector2i.LEFT:
+			t.rotation_degrees = 270
+			t.colour_index = 2
+			Globals.tile_map.force_place_tile(t, Vector2i(0, board_size.y/2), self)
 
 func update() -> void:
 	var tiles_needed: int = hand_size
@@ -104,7 +128,9 @@ func _add_tile(t: int = -1) -> void:
 		tile.type = t
 	else:
 		tile.type = randi_range(0, 2)
+	tile.colour_index = colour_index
 	add_child(tile)
+	print("Tile added to hand (type: ", tile.type, ", colour: ", tile.colour_index, ")")
 	tile.scale = tile.scale/2
 	new_tile.emit(tile)
 	tile.tile_clicked.connect(_tile_clicked)
