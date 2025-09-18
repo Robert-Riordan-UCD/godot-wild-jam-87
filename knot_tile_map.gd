@@ -17,6 +17,7 @@ enum TileTransform {
 @export var must_neighbour_own_tile: bool = true
 @export var must_create_valid_placement: bool = true
 @export var must_create_a_link: bool = true
+@export var must_create_a_link_with_self: bool = true
 #@export var can_neighbour_other_players: bool = false
 #@export var must_not_link_to_other_players: bool = true
 
@@ -77,13 +78,16 @@ func _can_place(map_pos: Vector2i, tile: Tile, rot: float, player: Hand) -> bool
 	if not can_replace_tile and not get_cell_tile_data(map_pos) == null: return false
 
 	# No neighbours
-	if must_neighbour_own_tile and _get_neighbors(map_pos).is_empty(): return false
+	if must_neighbour_own_tile and _get_neighbors(map_pos, player).is_empty(): return false
 	
 	# Check placement
 	if must_create_valid_placement and not _check_links_valid(map_pos, tile, rot): return false
 	
 	# Check at least one link
 	if must_create_a_link and _count_links(map_pos, tile, rot) <= 0: return false
+	
+	# Check at least one link
+	if must_create_a_link_with_self and _count_links(map_pos, tile, rot, player) <= 0: return false
 	
 	return true
 
@@ -155,13 +159,15 @@ func _on_board(map_position: Vector2i) -> bool:
 	return true
 
 
-func _count_links(map_pos: Vector2i, tile: Tile, rot: float) -> int:
+func _count_links(map_pos: Vector2i, tile: Tile, rot: float, player: Hand=null) -> int:
 	var count := 0
 	var links := _get_links(tile.type, _angle_to_transfrom(rot))
+	var neighbours: Array[Vector2i] = _get_neighbors(map_pos, player)
 	
 	for i in range(4):
 		var dir := map_pos + Globals.directions[i]
-		if get_cell_tile_data(dir):
+		print(neighbours, dir)
+		if dir-map_pos in neighbours:
 			var atlas_coords := get_cell_atlas_coords(dir)
 			var alt := get_cell_alternative_tile(dir)
 	
@@ -212,12 +218,16 @@ func _get_links(tile_type: int, tile_transform: TileTransform) -> Array[bool]:
 	
 	return links
 
-func _get_neighbors(map_pos: Vector2i) -> Array:
+func _get_neighbors(map_pos: Vector2i, player: Hand=null) -> Array:
 	var neighbors: Array[Vector2i] = []
 	
 	for d in Globals.directions:
 		if not get_cell_tile_data(map_pos + d) == null:
-			neighbors.append(d)
+			if player == null:
+				neighbors.append(d)
+			else:
+				if map_pos + d in tile_owners[player]:
+					neighbors.append(d)
 	
 	return neighbors
 
