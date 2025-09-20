@@ -5,6 +5,7 @@ extends CanvasLayer
 
 const COMPETITIVE = "res://modes/competitive.tscn"
 const CREATIVE = "res://modes/creative.tscn"
+const CREDITS = "res://menus/credits.tscn"
 
 @export var max_total_players: int = 4
 
@@ -17,7 +18,7 @@ func _on_creative_pressed() -> void:
 	get_tree().change_scene_to_file(CREATIVE)
 
 func _on_credits_pressed() -> void:
-	push_warning("Not implemented")
+	get_tree().change_scene_to_file(CREDITS)
 
 func _on_decrease_players_pressed() -> void:
 	player_count.text = str(max(int(player_count.text)-1, 0))

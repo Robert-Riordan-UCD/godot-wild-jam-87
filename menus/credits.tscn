@@ -1,0 +1,96 @@
+[gd_scene load_steps=3 format=4 uid="uid://cu7q5dtrd0bje"]
+
+[ext_resource type="Script" uid="uid://dineu5viitn6v" path="res://menus/credits.gd" id="1_jkw7x"]
+[ext_resource type="PackedScene" uid="uid://c31qphkaixitt" path="res://knot_tile_map.tscn" id="1_xlg2h"]
+
+[node name="Credits" type="CanvasLayer"]
+script = ExtResource("1_jkw7x")
+
+[node name="KnotTileMap" parent="." instance=ExtResource("1_xlg2h")]
+position = Vector2(153, 242)
+scale = Vector2(0.162323, 0.162323)
+tile_map_data = PackedByteArray("AAD/////AAAAAAEAAAD//wAAAAAAAAEAADD//wMAAAAAAAEAAAD//wQAAAAAAAEAADAAAP//AAAAAAAAAFAAAAAAAAAAAAAAADAAAAMAAAAAAAAAAFAAAAQAAAAAAAAAADABAP//AAAAAAAAAAABAAAAAAAAAAEAAGABAAMAAAAAAAEAAGABAAQAAAAAAAAAAGACAP//AAAAAAEAAAACAAAAAAAAAAIAAAACAAMAAAAAAAIAAAACAAQAAAAAAAAAADADAP//AAAAAAEAAAADAAAAAAAAAAEAADADAAIAAAAAAAEAAAADAAMAAAAAAAEAADAEAP//AAAAAAEAAAAEAAAAAAAAAAIAAAAEAAEAAAAAAAEAAGAEAAIAAAAAAAEAAFAEAAMAAAAAAAIAAAAEAAQAAAAAAAAAAGAFAP//AAAAAAAAAFAFAAAAAAAAAAEAAFAFAAMAAAAAAAAAAFAGAP//AAAAAAAAAAAGAAAAAAAAAAEAAGAGAAEAAAAAAAEAAGAGAAIAAAAAAAEAAGAGAAMAAAAAAAEAAGAGAAQAAAAAAAAAAGAHAP//AAAAAAEAAAAHAAAAAAAAAAIAAAAHAAEAAAAAAAIAAAAHAAMAAAAAAAIAAAAHAAQAAAAAAAEAADAIAP//AAAAAAEAAAAIAAAAAAAAAAEAADAIAAEAAAAAAAAAAFAIAAIAAAAAAAAAADAIAAMAAAAAAAEAAAAIAAQAAAAAAAEAADAJAP//AAAAAAAAAFAJAAAAAAAAAAAAADAJAAMAAAAAAAAAAFAJAAQAAAAAAAAAADD9////AAAAAAAAAAD9/wAAAAAAAAEAAGD9/wEAAAAAAAEAAGD9/wIAAAAAAAEAAGD9/wMAAAAAAAEAAGD9/wQAAAAAAAAAAGD+////AAAAAAEAAAD+/wAAAAAAAAIAAAD+/wEAAAAAAAEAAFD+/wIAAAAAAAEAAFD+/wMAAAAAAAIAAAD+/wQAAAAAAAEAADABAAEAAAAAAAEAAGABAAIAAAAAAAEAAGACAAEAAAAAAAEAAFACAAIAAAAAAAIAAAAFAAEAAAAAAAAAADAFAAQAAAAAAAAAADAHAAIAAAAAAAIAAAAKAP//AAAAAAAAAAAKAAAAAAAAAAEAAGALAAEAAAAAAAEAAFALAAIAAAAAAAEAAFALAAMAAAAAAAIAAAALAAQAAAAAAAEAADAKAAQAAAAAAAAAAGAKAAMAAAAAAAEAAGAKAAIAAAAAAAEAAGAKAAEAAAAAAAEAAGALAAAAAAAAAAIAAAALAP//AAAAAAEAAAAMAP//AAAAAAEAAAANAP//AAAAAAAAAFANAAAAAAAAAAIAAAAMAAAAAAAAAAEAADANAAEAAAAAAAEAAGAOAAAAAAAAAAAAAFAOAAEAAAAAAAEAAFAOAAIAAAAAAAEAAFAOAAMAAAAAAAAAADANAAMAAAAAAAIAAAANAAIAAAAAAAEAAGANAAQAAAAAAAAAADAMAAQAAAAAAAEAADAMAAMAAAAAAAEAAAAPAP//AAAAAAAAAAAPAAAAAAAAAAAAAGAQAAAAAAAAAAIAAAARAAAAAAAAAAIAAAASAAAAAAAAAAAAADASAP//AAAAAAAAAFARAP//AAAAAAEAAAAQAP//AAAAAAEAAAAQAAEAAAAAAAEAAGAQAAIAAAAAAAEAAGAQAAMAAAAAAAIAAAAQAAQAAAAAAAEAADAPAAQAAAAAAAAAAGAPAAMAAAAAAAAAAAARAAMAAAAAAAIAAAASAAMAAAAAAAAAAFASAAQAAAAAAAAAADARAAQAAAAAAAEAADARAAIAAAAAAAEAAFARAAEAAAAAAAEAAFATAP//AAAAAAAAAAATAAAAAAAAAAAAAGAUAAAAAAAAAAIAAAAVAAAAAAAAAAIAAAAWAAAAAAAAAAAAADAWAP//AAAAAAAAAFAVAP//AAAAAAEAAAAUAP//AAAAAAEAAAAUAAEAAAAAAAEAAGAUAAIAAAAAAAEAAGAUAAMAAAAAAAEAAGAUAAQAAAAAAAAAAGAVAAQAAAAAAAAAADAVAAMAAAAAAAEAAFAVAAIAAAAAAAEAAFAVAAEAAAAAAAEAAFAXAP//AAAAAAAAAAAXAAAAAAAAAAEAAGAXAAEAAAAAAAEAAGAXAAIAAAAAAAAAAGAXAAMAAAAAAAAAAAAXAAQAAAAAAAAAAGAYAAQAAAAAAAEAADAZAAQAAAAAAAEAADAaAAQAAAAAAAAAADAaAAMAAAAAAAEAAFAZAAMAAAAAAAIAAAAYAAMAAAAAAAEAAAAYAAIAAAAAAAEAADAZAAIAAAAAAAIAAAAaAAIAAAAAAAEAAFAaAAEAAAAAAAAAAFAZAAEAAAAAAAEAAAAYAAEAAAAAAAIAAAAYAAAAAAAAAAIAAAAZAAAAAAAAAAEAADAaAAAAAAAAAAAAADAaAP//AAAAAAAAAFAZAP//AAAAAAEAAAAYAP//AAAAAAEAAAA=")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_top = 60
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Sound Effect by"
+
+[node name="LinkButton" type="LinkButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "freesound_community"
+uri = "https://pixabay.com/users/freesound_community-46691455/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=63870"
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "from"
+
+[node name="LinkButton2" type="LinkButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "Pixabay"
+uri = "https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=63870"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Music by"
+
+[node name="LinkButton" type="LinkButton" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "Brian Cradden"
+uri = "https://pixabay.com/users/grumpynora-14374548/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=310587"
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "from"
+
+[node name="LinkButton2" type="LinkButton" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "Pixabay"
+uri = "https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=310587"
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 64
+text = "Back"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
