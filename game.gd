@@ -6,6 +6,7 @@ class_name Game
 @onready var players: Players = $GUI/Players
 @onready var end_screen: CanvasLayer = $EndScreen
 @onready var score_calculator: ScoreCalculator = $ScoreCalculator
+@onready var tiles: Node2D = $Sound/Tiles
 
 func _ready() -> void:
 	_setup_board()
@@ -35,13 +36,19 @@ func _on_place_tile(from: Hand, tile: Tile, pos: Vector2) -> void:
 	if success:
 		from.tile_placed()
 		tile.placed()
+		_play_tile_places_sound()
 		_reset()
 	else:
 		from.failed_to_place()
 
 func _on_remove_tile(pos: Vector2) -> void:
 	knot_tile_map.remove_tile(pos)
+	_play_tile_places_sound()
 
 func _on_game_over() -> void:
 	#print(score_calculator.get_score())
 	end_screen.game_over()
+
+func _play_tile_places_sound() -> void:
+	tiles.get_child(randi_range(0, tiles.get_child_count()-1)).play()
+	
