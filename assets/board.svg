@@ -1,0 +1,16 @@
+<svg width="200" height="600">
+  <rect x="0" y="400" width="200" height="200" fill="#442700"/>
+  <rect x="0" y="400" width="198" height="198" fill="none" stroke="#332000" stroke-width="4"/>
+
+  <rect x="150" y="150" width="50" height="50" fill="#442700"/>
+  <rect x="0" y="350" width="200" height="50" fill="#442700"/>
+
+  <path id="#6c4808"  d="M20 200 Q0 40 20 20 Q40 0 200 20 L200 180 Q100 80 80 80 Q80 100 180 200"  style="fill:#6c4808;"></path>
+  <path id="#6c4808"  d="M20 200 Q0 40 20 20 Q40 0 200 20"  style="fill:none;stroke:#332000;stroke-width:5"></path>
+  <path id="#6c4808"  d="M200 180 Q100 80 80 80 Q80 100 180 200"  style="fill:none;stroke:#332000;stroke-width:5"></path>
+  <path id="east"   d="M200 20 L100 120 L180 200 L200 180"  style="fill:#6c4808;stroke:#332000;stroke-width:5"></path>
+
+  <path id="north-west" d="M0 220 Q100 190 200 220 L120 300 Q100 280 80 300 L0 380"  style="fill:#6c4808;stroke:#332000;stroke-width:5"></path>
+  <path id="north-west" d="M200 380 Q100 410 0 380 L80 300 Q100 320 120 300 L200 220"  style="fill:#6c4808;stroke:#332000;stroke-width:5"></path>
+  
+</svg>
