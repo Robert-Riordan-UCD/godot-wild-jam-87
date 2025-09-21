@@ -12,13 +12,13 @@ const CREDITS = "res://menus/credits.tscn"
 func _on_play_pressed() -> void:
 	Globals.num_players = int(player_count.text)
 	Globals.num_cpus = int(cpu_count.text)
-	get_tree().change_scene_to_file(COMPETITIVE)
+	SceneTransition.change_scene(COMPETITIVE)
 
 func _on_creative_pressed() -> void:
-	get_tree().change_scene_to_file(CREATIVE)
+	SceneTransition.change_scene(CREATIVE)
 
 func _on_credits_pressed() -> void:
-	get_tree().change_scene_to_file(CREDITS)
+	SceneTransition.change_scene(CREDITS)
 
 func _on_decrease_players_pressed() -> void:
 	player_count.text = str(max(int(player_count.text)-1, 0))

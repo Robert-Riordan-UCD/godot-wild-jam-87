@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://q3llnbt3thqx"]
+
+[ext_resource type="Script" uid="uid://ba5fy5cnayo7u" path="res://autoload/scene_transition.gd" id="1_ek7s4"]
+[ext_resource type="Texture2D" uid="uid://dmh75u5dw8s5w" path="res://assets/scene_transition.png" id="1_umwhv"]
+[ext_resource type="Shader" uid="uid://d3cq8jogttout" path="res://autoload/SceneTransition.gdshader" id="2_tsno3"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tsno3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ln7hx"]
+shader = ExtResource("2_tsno3")
+shader_parameter/noise = SubResource("NoiseTexture2D_tsno3")
+shader_parameter/left_bound = 0.0
+shader_parameter/right_bound = 1.0
+
+[node name="SceneTransition" type="CanvasLayer"]
+layer = 128
+visible = false
+script = ExtResource("1_ek7s4")
+
+[node name="SceneTransition" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ln7hx")
+position = Vector2(555, 555)
+scale = Vector2(1.17177, 1.17177)
+texture = ExtResource("1_umwhv")

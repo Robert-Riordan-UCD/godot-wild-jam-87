@@ -34,4 +34,4 @@ func _on_settings_pressed() -> void:
 func _on_main_menu_pressed() -> void:
 	visible = false
 	get_tree().paused = false
-	get_tree().change_scene_to_file(MAIN_MENU)
+	SceneTransition.change_scene(MAIN_MENU)
