@@ -18,7 +18,7 @@ func take_turn() -> void:
 	_try_turn()
 
 func _try_turn() -> void:
-	if attempts == 0:
+	if attempts == 0 and Globals.num_players > 0:
 		await get_tree().create_timer(1).timeout
 	# Not sure why this script isn't respecting process_mode
 	while get_tree().paused: await get_tree().create_timer(0.2).timeout
