@@ -52,7 +52,15 @@ alignment = 1
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Art by Emma"
+text = "Art by"
+
+[node name="LinkButton" type="LinkButton" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "lambkindoodles"
+uri = "https://www.instagram.com/lambkindoodles/"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
