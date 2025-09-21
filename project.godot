@@ -25,7 +25,7 @@ SceneTransition="*res://autoload/SceneTransition.tscn"
 
 window/size/viewport_width=1080
 window/size/viewport_height=1080
-window/stretch/aspect="expand"
+window/stretch/mode="viewport"
 
 [input]
 
