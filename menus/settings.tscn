@@ -1,0 +1,81 @@
+[gd_scene load_steps=3 format=4 uid="uid://ctg42hun660wl"]
+
+[ext_resource type="Script" uid="uid://rlcakvmcil74" path="res://menus/settings.gd" id="1_kot5a"]
+[ext_resource type="PackedScene" uid="uid://c31qphkaixitt" path="res://knot_tile_map.tscn" id="1_urrvo"]
+
+[node name="Settings" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_kot5a")
+
+[node name="KnotTileMap" parent="." instance=ExtResource("1_urrvo")]
+position = Vector2(208, 28)
+scale = Vector2(0.16665, 0.16665)
+tile_map_data = PackedByteArray("AAD8/wIAAAAAAAAAAAD9/wIAAAAAAAEAAAD+/wIAAAAAAAEAAAAAAAQAAAAAAAEAAFAAAAUAAAAAAAEAAFD9/wgAAAAAAAEAAFD9/wUAAAAAAAEAAFD9/wQAAAAAAAEAAFD8/wgAAAAAAAEAAGD8/wcAAAAAAAEAAGD8/wYAAAAAAAEAAGD8/wUAAAAAAAEAAGD8/wQAAAAAAAEAAGD8/wMAAAAAAAEAAGD9/wkAAAAAAAAAADD8/wkAAAAAAAAAAGD//wIAAAAAAAAAAFAAAAMAAAAAAAAAAFAAAAYAAAAAAAAAADD//wcAAAAAAAAAADD9/wYAAAAAAAIAAAD9/wcAAAAAAAIAAAD9/wMAAAAAAAIAAAD+/wMAAAAAAAEAADD//wMAAAAAAAIAAAD//wQAAAAAAAEAAGD//wUAAAAAAAEAAGD//wYAAAAAAAIAAAD+/wYAAAAAAAEAAAD+/wcAAAAAAAEAADABAAgAAAABAAEAAGABAAcAAAABAAEAAGABAAYAAAABAAEAAGADAAQAAAABAAEAAAAFAAYAAAABAAEAAFAFAAcAAAABAAEAAFAFAAgAAAABAAEAAFADAAgAAAABAAEAADADAAcAAAABAAEAAAADAAUAAAABAAEAADACAAYAAAABAAEAAFAEAAYAAAABAAEAAGABAAUAAAABAAAAAAACAAQAAAABAAAAAAAEAAQAAAABAAAAAFAFAAUAAAABAAAAAFAFAAkAAAABAAAAADACAAkAAAABAAAAADABAAkAAAABAAAAAGAEAAkAAAABAAAAAGACAAgAAAABAAIAAAACAAcAAAABAAIAAAACAAUAAAABAAIAAAAEAAUAAAABAAIAAAAEAAcAAAABAAIAAAAEAAgAAAABAAIAAAAGAAQAAAACAAAAAAAGAAUAAAACAAEAAGAGAAYAAAACAAEAAGAGAAcAAAACAAEAAGAGAAgAAAACAAEAAGAGAAkAAAACAAAAAGAHAAkAAAACAAEAADAIAAkAAAACAAEAADAJAAkAAAACAAEAADAKAAkAAAACAAAAADAKAAgAAAACAAEAAFAKAAcAAAACAAEAAFAKAAYAAAACAAEAAFAKAAUAAAACAAEAAFAKAAQAAAACAAAAAFAJAAQAAAACAAAAAAAJAAUAAAACAAEAAGAJAAYAAAACAAEAAGAJAAcAAAACAAEAAGAJAAgAAAACAAIAAAAIAAgAAAACAAEAAAAHAAgAAAACAAIAAAAHAAcAAAACAAEAAFAHAAYAAAACAAEAAFAHAAUAAAACAAEAAFAHAAQAAAACAAAAAFALAAQAAAADAAAAAAALAAgAAAADAAAAAAAOAAQAAAADAAAAAFAOAAYAAAADAAAAAFAOAAUAAAADAAAAADAOAAkAAAADAAAAADALAAkAAAADAAAAAGALAAcAAAADAAAAAGAMAAQAAAADAAEAAAANAAQAAAADAAEAAAANAAYAAAADAAEAAAAMAAgAAAADAAEAAAAOAAcAAAADAAEAAFAOAAgAAAADAAEAAFANAAkAAAADAAEAADAMAAkAAAADAAEAADAMAAcAAAADAAEAADALAAYAAAADAAEAAGALAAUAAAADAAEAAGANAAcAAAADAAIAAAANAAgAAAADAAIAAAAMAAYAAAADAAIAAAAMAAUAAAADAAIAAAANAAUAAAADAAIAAAAPAAQAAAAAAAAAAAASAAQAAAAAAAAAAFARAAYAAAAAAAAAAFASAAgAAAAAAAAAAFASAAkAAAAAAAAAADARAAcAAAAAAAAAADASAAUAAAAAAAAAADAPAAkAAAAAAAAAAGARAAQAAAAAAAEAAAAQAAQAAAAAAAEAAAARAAgAAAAAAAEAAAAPAAgAAAAAAAEAAGAPAAcAAAAAAAEAAGAPAAYAAAAAAAEAAGAPAAUAAAAAAAEAAGARAAkAAAAAAAEAADAQAAkAAAAAAAEAADARAAUAAAAAAAEAADAQAAUAAAAAAAIAAAAQAAYAAAAAAAIAAAAQAAcAAAAAAAIAAAAQAAgAAAAAAAIAAAATAAQAAAABAAAAAAAVAAQAAAABAAEAAAAWAAUAAAABAAIAAAAWAAgAAAABAAIAAAAVAAkAAAABAAEAADATAAkAAAABAAAAAGATAAgAAAABAAEAAGATAAcAAAABAAEAAGATAAYAAAABAAEAAGATAAUAAAABAAEAAGAUAAQAAAABAAEAAAAWAAYAAAABAAEAAGAWAAcAAAABAAEAAGAUAAkAAAABAAEAADAUAAcAAAABAAEAAFAUAAYAAAABAAEAAFAVAAUAAAABAAEAADAVAAgAAAABAAEAAAAWAAQAAAABAAAAAFAXAAUAAAABAAAAAFAXAAgAAAABAAAAADAWAAkAAAABAAAAADAXAAcAAAABAAEAAFAXAAYAAAABAAEAAFAUAAUAAAABAAIAAAAUAAgAAAABAAIAAAA=")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -18.0
+offset_right = 4.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="Audio" type="Label" parent="VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Music"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/VBoxContainer/GridContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = -30.0
+max_value = 10.0
+step = 0.25
+
+[node name="Audio2" type="Label" parent="VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Sound Effects"
+
+[node name="HSlider2" type="HSlider" parent="VBoxContainer/VBoxContainer/GridContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = -30.0
+max_value = 10.0
+step = 0.25
+
+[node name="Back" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Back"
+
+[connection signal="value_changed" from="VBoxContainer/VBoxContainer/GridContainer/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/VBoxContainer/GridContainer/HSlider2" to="." method="_effects_value_changed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]

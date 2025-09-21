@@ -4,6 +4,7 @@ class_name PauseMenu
 const MAIN_MENU = "res://menus/main_menu.tscn"
 
 @onready var paused: bool = false
+@onready var settings: CanvasLayer = $"../Settings"
 
 func _ready() -> void:
 	resume()
@@ -27,7 +28,8 @@ func _on_resume_pressed() -> void:
 	resume()
 
 func _on_settings_pressed() -> void:
-	pass # Replace with function body.
+	visible = false
+	settings.visible = true
 
 func _on_main_menu_pressed() -> void:
 	visible = false

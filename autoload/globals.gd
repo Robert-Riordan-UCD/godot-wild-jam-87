@@ -25,3 +25,5 @@ enum controller_type {
 }
 
 var tile_map: KnotTileMap
+
+var sound_fx_db: float = 0
