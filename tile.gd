@@ -24,7 +24,7 @@ func try_select() -> bool:
 	if mouse_over and not selected:
 		tile_clicked.emit(self)
 		selected = true
-		scale *= 0.3
+		scale = Vector2(Globals.tile_scale, Globals.tile_scale)
 		return true
 	return false
 

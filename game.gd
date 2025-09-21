@@ -12,6 +12,7 @@ func _ready() -> void:
 	_setup_board()
 
 func _setup_board() -> void:
+	board.scale = Vector2(Globals.tile_scale, Globals.tile_scale)
 	board.global_position = get_viewport_rect().size/2 - Vector2(Globals.TILE_SIZE.x*knot_tile_map.board_size.x*board.scale.x, Globals.TILE_SIZE.y*knot_tile_map.board_size.y*board.scale.y)/2
 	var board_size := knot_tile_map.board_size
 	for x in range(board_size.x):

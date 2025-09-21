@@ -4,8 +4,8 @@
 
 [node name="Competitive" instance=ExtResource("1_og65u")]
 
-[node name="Board" parent="." index="0"]
+[node name="Board" parent="." index="1"]
 tile_map_data = PackedByteArray()
 
 [node name="KnotTileMap" parent="Board" index="0"]
-board_size = Vector2i(11, 11)
+board_size = Vector2i(9, 9)
