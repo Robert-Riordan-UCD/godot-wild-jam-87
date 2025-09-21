@@ -27,8 +27,11 @@ func _process(delta: float) -> void:
 		child.queue_free()
 	get_score()
 
-func get_score() -> Array[int]:
+func get_score() -> Dictionary[Hand, int]:
 	tile_map = Globals.tile_map
+	
+	var scores := _get_player_tile_count()
+	return scores
 	
 	var traversed_over: Array[Array] = []
 	var traversed_under: Array[Array] = []
@@ -63,7 +66,13 @@ func get_score() -> Array[int]:
 		
 		#var over = _traverse(edge, true)
 		#var under = _traverse(edge, false)
-	return []
+	return scores
+
+func _get_player_tile_count() -> Dictionary[Hand, int]:
+	var count: Dictionary[Hand, int] = {}
+	for player in tile_map.tile_owners:
+		count[player] = tile_map.tile_owners[player].size()
+	return count
 
 func _traverse(starting_edge: Vector2, coming_from_dir: int, over: bool) -> Array:
 	var lengths: Array[int] = [0, 0, 0, 0]

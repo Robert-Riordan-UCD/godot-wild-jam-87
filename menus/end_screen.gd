@@ -1,8 +1,10 @@
 extends CanvasLayer
 
 const MAIN_MENU = "res://menus/main_menu.tscn"
+@onready var label: Label = $VBoxContainer/Label
 
-func game_over() -> void:
+func game_over(win_text: String="Player ¯\\_(ツ)_/¯ wins!") -> void:
+	label.text = win_text
 	visible = true
 	get_tree().paused = true
 

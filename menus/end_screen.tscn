@@ -23,6 +23,14 @@ alignment = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Player ¯\\_(ツ)_/¯ wins!"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "I tried to base scoring on who has the longest paths, 
+but I counldn't get it working so it's just who has the most tiles for now. :("
+horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2

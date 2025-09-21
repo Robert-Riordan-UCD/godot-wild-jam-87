@@ -43,9 +43,24 @@ func _on_remove_tile(pos: Vector2) -> void:
 	_play_tile_places_sound()
 
 func _on_game_over() -> void:
-	#print(score_calculator.get_score())
+	var scores := score_calculator.get_score()
+	var winner: Hand
+	var winner_score: int = -1
+	var tie: bool = false
+	for player in scores:
+		if scores[player] > winner_score:
+			winner = player
+			winner_score = scores[player]
+			tie = false
+		elif scores[player] == winner_score:
+			tie = true
+	print(scores)
+	print(winner, winner_score)
 	players.queue_free()
-	end_screen.game_over()
+	if tie:
+		end_screen.game_over("It's a tie!")
+	else:
+		end_screen.game_over(winner.name + " wins!")
 
 func _play_tile_places_sound() -> void:
 	for tile in tiles.get_children():
