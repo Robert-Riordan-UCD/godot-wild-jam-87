@@ -66,8 +66,6 @@ func _set_cell(tile: Tile, pos: Vector2i, player: Hand) -> void:
 	set_cell(pos, 0, Vector2i(tile.colour_index, tile.type))
 	_set_rotation(pos, _angle_to_transfrom(tile.rotation_degrees))
 	tile_owners[player] = tile_owners.get(player, []) + [pos]
-	print(tile_owners)
-	print(self)
 
 func _can_place(map_pos: Vector2i, tile: Tile, rot: float, player: Hand) -> bool:
 	# On board
@@ -101,8 +99,6 @@ func _can_place(map_pos: Vector2i, tile: Tile, rot: float, player: Hand) -> bool
 	Returns a set of all cells adjcent to the placed tiles
 """
 func get_placeable_cells(player: Hand) -> Dictionary[Vector2i, Variant]:
-	print(tile_owners)
-	print(self)
 	var cells: Dictionary[Vector2i, Variant] = {}
 	
 	if tile_owners.get(player, []).is_empty():
@@ -110,8 +106,14 @@ func get_placeable_cells(player: Hand) -> Dictionary[Vector2i, Variant]:
 			for y in range(board_size.y):
 				cells[Vector2i(x, y)] = null
 	
-	for cell in get_used_cells():
-		#if must_neighbour_own_tile and not cell in tile_owners.get(player, []): continue
+	var used_cells: Array
+	if must_neighbour_own_tile:
+		used_cells = tile_owners[player]
+	else:
+		used_cells = get_used_cells()
+	
+	for cell in used_cells:
+		if must_neighbour_own_tile and not cell in tile_owners.get(player, []): continue
 		for dir in Globals.directions:
 			if get_cell_tile_data(cell+dir) == null and _on_board(cell+dir):
 				cells[cell+dir] = null
