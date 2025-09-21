@@ -1,10 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://cj45bra6w0gxe"]
+[gd_scene load_steps=3 format=3 uid="uid://cj45bra6w0gxe"]
 
 [ext_resource type="PackedScene" uid="uid://bx18xpobi015t" path="res://game.tscn" id="1_neckg"]
+[ext_resource type="Script" uid="uid://c38613eogn3xn" path="res://modes/creative_setup.gd" id="2_pk8er"]
 
 [node name="Creative" instance=ExtResource("1_neckg")]
 
-[node name="Board" parent="." index="1"]
+[node name="CreativeSetup" type="Node" parent="." index="0"]
+script = ExtResource("2_pk8er")
+
+[node name="Board" parent="." index="2"]
 tile_map_data = PackedByteArray()
 
 [node name="KnotTileMap" parent="Board" index="0"]
