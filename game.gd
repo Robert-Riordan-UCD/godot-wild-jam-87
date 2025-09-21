@@ -44,6 +44,7 @@ func _on_remove_tile(pos: Vector2) -> void:
 
 func _on_game_over() -> void:
 	#print(score_calculator.get_score())
+	players.queue_free()
 	end_screen.game_over()
 
 func _play_tile_places_sound() -> void:

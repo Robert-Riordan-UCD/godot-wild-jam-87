@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d0qmskn58yta5" path="res://game.gd" id="1_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://c31qphkaixitt" path="res://knot_tile_map.tscn" id="2_feb5d"]
-[ext_resource type="Texture2D" uid="uid://cb2j1e42yamdf" path="res://assets/stump.png" id="2_hb5m1"]
+[ext_resource type="Texture2D" uid="uid://x8cib3a3ihm3" path="res://assets/stump.png" id="2_hb5m1"]
 [ext_resource type="Texture2D" uid="uid://b2vwdgbn4qkas" path="res://assets/board.svg" id="2_j5wjh"]
 [ext_resource type="Script" uid="uid://dsjklsc2bkfnq" path="res://players.gd" id="3_7jktm"]
 [ext_resource type="PackedScene" uid="uid://cea3413amktgj" path="res://hand.tscn" id="4_fc0e3"]
@@ -37,8 +37,8 @@ sources/1 = SubResource("TileSetAtlasSource_vef74")
 script = ExtResource("1_e2o6t")
 
 [node name="Stump" type="Sprite2D" parent="."]
-position = Vector2(492, 595)
-scale = Vector2(0.55, 0.55)
+position = Vector2(525, 596)
+scale = Vector2(0.542822, 0.542822)
 texture = ExtResource("2_hb5m1")
 
 [node name="Board" type="TileMapLayer" parent="."]
@@ -130,7 +130,6 @@ visible = false
 visible = false
 
 [node name="ScoreCalculator" type="Node2D" parent="."]
-visible = false
 script = ExtResource("7_eow3j")
 
 [node name="Sound" type="Node2D" parent="."]
