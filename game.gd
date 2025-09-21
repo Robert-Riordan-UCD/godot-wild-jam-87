@@ -19,7 +19,7 @@ func _setup_board() -> void:
 			board.set_cell(Vector2i(x, y), 1, Vector2i(0, 2))
 	for x in range(board_size.x):
 		board.set_cell(Vector2i(x, -1), 1, Vector2i(0, 1))
-		board.set_cell(Vector2i(x, board_size.y), 1, Vector2i(0, 1))
+		board.set_cell(Vector2i(x, board_size.y), 1, Vector2i(0, 1), TileSetAtlasSource.TRANSFORM_FLIP_H | TileSetAtlasSource.TRANSFORM_FLIP_V)
 	for y in range(board_size.y):
 		board.set_cell(Vector2i(-1, y), 1, Vector2i(0, 1), TileSetAtlasSource.TRANSFORM_TRANSPOSE | TileSetAtlasSource.TRANSFORM_FLIP_V)
 		board.set_cell(Vector2i(board_size.x, y), 1, Vector2i(0, 1), TileSetAtlasSource.TRANSFORM_TRANSPOSE | TileSetAtlasSource.TRANSFORM_FLIP_H)
