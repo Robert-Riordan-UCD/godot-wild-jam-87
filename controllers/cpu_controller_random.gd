@@ -25,6 +25,11 @@ func _try_turn() -> void:
 
 	await get_tree().process_frame
 	var open_locations := _get_valid_tile_locations()
+	if open_locations.is_empty():
+		end_turn.emit(false)
+		hand.queue_free()
+		queue_free()
+		return
 	var selected_location: Vector2i = open_locations.keys().pick_random()
 	var selected_tile: Tile = hand.get_tiles().pick_random()
 	selected_tile.rotation_degrees += randi_range(0, 3)*90
