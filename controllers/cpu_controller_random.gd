@@ -14,6 +14,12 @@ class_name CPUComtrollerRandom
 	6. Place tile
 """
 func take_turn() -> void:
+	attempts = 0
+	_try_turn()
+
+func _try_turn() -> void:
+	if attempts == 0:
+		await get_tree().create_timer(1).timeout
 	# Not sure why this script isn't respecting process_mode
 	while get_tree().paused: await get_tree().create_timer(0.2).timeout
 
@@ -34,7 +40,7 @@ func failed_to_place() -> void:
 		attempts = 0
 		end_turn.emit(true)
 	else:
-		take_turn()
+		_try_turn()
 
 func _get_valid_tiles_at_location(pos: Vector2i) -> String:
 	return Globals.tile_map.get_valid_tiles_at_location(pos)
