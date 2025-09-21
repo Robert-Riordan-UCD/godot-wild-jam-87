@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=4 uid="uid://ctg42hun660wl"]
+[gd_scene load_steps=4 format=4 uid="uid://ctg42hun660wl"]
 
 [ext_resource type="Script" uid="uid://rlcakvmcil74" path="res://menus/settings.gd" id="1_kot5a"]
 [ext_resource type="PackedScene" uid="uid://c31qphkaixitt" path="res://knot_tile_map.tscn" id="1_urrvo"]
+[ext_resource type="Theme" uid="uid://gjeb5b86341u" path="res://menus/button_theme.tres" id="3_0uirt"]
 
 [node name="Settings" type="CanvasLayer"]
 process_mode = 3
@@ -74,6 +75,7 @@ step = 0.25
 
 [node name="Back" type="Button" parent="VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_0uirt")
 theme_override_font_sizes/font_size = 60
 text = "Back"
 

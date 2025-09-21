@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=4 uid="uid://cu7q5dtrd0bje"]
+[gd_scene load_steps=4 format=4 uid="uid://cu7q5dtrd0bje"]
 
 [ext_resource type="Script" uid="uid://dineu5viitn6v" path="res://menus/credits.gd" id="1_jkw7x"]
 [ext_resource type="PackedScene" uid="uid://c31qphkaixitt" path="res://knot_tile_map.tscn" id="1_xlg2h"]
+[ext_resource type="Theme" uid="uid://gjeb5b86341u" path="res://menus/button_theme.tres" id="3_5jbn1"]
 
 [node name="Credits" type="CanvasLayer"]
 script = ExtResource("1_jkw7x")
@@ -25,7 +26,7 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/margin_top = 60
+theme_override_constants/margin_top = 200
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -34,9 +35,35 @@ alignment = 1
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Sound Effect by"
+text = "Programming by"
 
 [node name="LinkButton" type="LinkButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "ThisIsRob"
+uri = "https://thisisrob.itch.io/"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Art by Emma"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Sound Effect by"
+
+[node name="LinkButton" type="LinkButton" parent="VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -44,12 +71,12 @@ theme_override_font_sizes/font_size = 32
 text = "freesound_community"
 uri = "https://pixabay.com/users/freesound_community-46691455/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=63870"
 
-[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "from"
 
-[node name="LinkButton2" type="LinkButton" parent="VBoxContainer/HBoxContainer"]
+[node name="LinkButton2" type="LinkButton" parent="VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -91,6 +118,7 @@ uri = "https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("3_5jbn1")
 theme_override_font_sizes/font_size = 64
 text = "Back"
 
