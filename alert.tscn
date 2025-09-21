@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://difq5e21evnf7"]
+
+[ext_resource type="Script" uid="uid://bh1j7qu0x8881" path="res://alert.gd" id="1_727io"]
+
+[node name="Alert" type="Label"]
+process_mode = 3
+z_index = 100
+z_as_relative = false
+offset_right = 52.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 32
+text = "ALERT!"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_727io")

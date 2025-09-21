@@ -12,12 +12,18 @@ enum hand_types {
 }
 
 const TILE = preload("res://tile.tscn")
+const ALERT = preload("res://alert.tscn")
 
 @export_range(0, 10) var hand_size: int = 3
 @export var hand_type: hand_types = hand_types.RANDOM
 @export var location: Vector2i = Vector2i.DOWN
 @export var controller_type: Globals.controller_type = Globals.controller_type.PLAYER
 @export var colour_index: int = 0
+
+@export var alert_pos: Vector2 = Vector2(540, 540)
+
+@export var on_screen_pos: Vector2 = Vector2.ZERO
+@export var off_screen_pos: Vector2 = Vector2(1080, 1080)
 
 const PLAYER_CONTROLLER = preload("res://controllers/player_controller.tscn")
 const CPU_CONTROLLER_RANDOM = preload("res://controllers/cpu_controller_random.tscn")
@@ -69,6 +75,7 @@ func update() -> void:
 				
 
 func take_turn() -> void:
+	#await _slide_on_screen()
 	visible = true
 	controller.take_turn()
 
@@ -157,5 +164,23 @@ func _drop_tile() -> void:
 
 func _end_turn(passed: bool) -> void:
 	visible = false
+	#await _slide_off_screen()
 	new_hand()
 	turn_finished.emit(passed)
+	if passed:
+		_alert("Passed", alert_pos, 1.0)
+
+#func _slide_off_screen() -> void:
+	#var tween: Tween = create_tween()
+	#tween.tween_property(self, "global_position", off_screen_pos, 1)
+	#await tween.finished
+#
+#func _slide_on_screen() -> void:
+	#var tween: Tween = create_tween()
+	#tween.tween_property(self, "global_position", on_screen_pos, 1)
+	#await tween.finished
+
+func _alert(text: String, pos: Vector2, duration: float) -> void:
+	var new_alert: Alert = ALERT.instantiate()
+	get_tree().root.add_child(new_alert)
+	new_alert.alert(text, pos, duration)
