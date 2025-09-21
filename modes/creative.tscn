@@ -1,7 +1,41 @@
-[gd_scene load_steps=3 format=3 uid="uid://cj45bra6w0gxe"]
+[gd_scene load_steps=12 format=3 uid="uid://cj45bra6w0gxe"]
 
 [ext_resource type="PackedScene" uid="uid://bx18xpobi015t" path="res://game.tscn" id="1_neckg"]
 [ext_resource type="Script" uid="uid://c38613eogn3xn" path="res://modes/creative_setup.gd" id="2_pk8er"]
+[ext_resource type="Script" uid="uid://d0kq0hmcvrsfg" path="res://modes/colour_select.gd" id="3_36ct2"]
+
+[sub_resource type="Gradient" id="Gradient_36ct2"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.270588, 0.317647, 0.0392157, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1wwjk"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_36ct2")
+width = 100
+
+[sub_resource type="Gradient" id="Gradient_iu3nb"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.494118, 0.054902, 0.0588235, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pabhk"]
+gradient = SubResource("Gradient_iu3nb")
+width = 100
+
+[sub_resource type="Gradient" id="Gradient_v8kig"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.803922, 0.466667, 0.0901961, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f2jcs"]
+gradient = SubResource("Gradient_v8kig")
+width = 100
+
+[sub_resource type="Gradient" id="Gradient_7200o"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.85098, 0.294118, 0.0980392, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g1et2"]
+gradient = SubResource("Gradient_7200o")
+width = 100
 
 [node name="Creative" instance=ExtResource("1_neckg")]
 
@@ -22,3 +56,57 @@ must_create_a_link_with_self = false
 
 [node name="Bottom" parent="GUI/Players" index="0"]
 hand_type = 1
+
+[node name="ColourSelect" type="CanvasLayer" parent="." index="4"]
+script = ExtResource("3_36ct2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColourSelect" index="0"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="green" type="Button" parent="ColourSelect/HBoxContainer" index="0"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ColourSelect/HBoxContainer/green" index="0"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+texture = SubResource("GradientTexture1D_1wwjk")
+
+[node name="red" type="Button" parent="ColourSelect/HBoxContainer" index="1"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ColourSelect/HBoxContainer/red" index="0"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+texture = SubResource("GradientTexture1D_pabhk")
+
+[node name="orange_light" type="Button" parent="ColourSelect/HBoxContainer" index="2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ColourSelect/HBoxContainer/orange_light" index="0"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+texture = SubResource("GradientTexture1D_f2jcs")
+
+[node name="orange_dark" type="Button" parent="ColourSelect/HBoxContainer" index="3"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ColourSelect/HBoxContainer/orange_dark" index="0"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+texture = SubResource("GradientTexture1D_g1et2")
+
+[connection signal="pressed" from="ColourSelect/HBoxContainer/green" to="ColourSelect" method="_on_green_pressed"]
+[connection signal="pressed" from="ColourSelect/HBoxContainer/red" to="ColourSelect" method="_on_red_pressed"]
+[connection signal="pressed" from="ColourSelect/HBoxContainer/orange_light" to="ColourSelect" method="_on_orange_light_pressed"]
+[connection signal="pressed" from="ColourSelect/HBoxContainer/orange_dark" to="ColourSelect" method="_on_orange_dark_pressed"]

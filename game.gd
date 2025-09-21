@@ -66,4 +66,3 @@ func _play_tile_places_sound() -> void:
 	for tile in tiles.get_children():
 		tile.volume_db = Globals.sound_fx_db
 	tiles.get_child(randi_range(0, tiles.get_child_count()-1)).play()
-	
