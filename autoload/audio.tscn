@@ -3,6 +3,7 @@
 [ext_resource type="AudioStream" uid="uid://dkvxnulkba4mf" path="res://audio/brendon-310587.mp3" id="1_7246o"]
 
 [node name="Audio" type="AudioStreamPlayer2D"]
+process_mode = 3
 stream = ExtResource("1_7246o")
 volume_db = -10.667
 autoplay = true
