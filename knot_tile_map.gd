@@ -10,6 +10,7 @@ enum TileTransform {
 
 # set to -1 for infinite
 @export var board_size: Vector2i = Vector2i(-1, -1)
+@export var just_for_art: bool = false
 
 @export_category("Placement Rules")
 @export var can_remove_tile: bool = false
@@ -24,12 +25,10 @@ enum TileTransform {
 @onready var tile_owners: Dictionary[Hand, Array] = {}
 
 func _ready() -> void:
-	# There can only be ONE!
-	# But for real there seems to be 2 somehow so this stops it
-	if Globals.tile_map:
-		queue_free()
-		return
-	Globals.tile_map = self
+	if not just_for_art:
+		Globals.tile_map = self
+	if not just_for_art and Globals.num_cpus + Globals.num_players > 0:
+		clear()
 
 """
 	Attempt to remove a tile
