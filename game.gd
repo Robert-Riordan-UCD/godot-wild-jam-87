@@ -28,16 +28,12 @@ func _setup_board() -> void:
 	board.set_cell(Vector2i(board_size.x, board_size.y), 1, Vector2i(0, 0), TileSetAtlasSource.TRANSFORM_FLIP_H | TileSetAtlasSource.TRANSFORM_FLIP_V)
 	board.set_cell(Vector2i(-1, board_size.y), 1, Vector2i(0, 0), TileSetAtlasSource.TRANSFORM_TRANSPOSE | TileSetAtlasSource.TRANSFORM_FLIP_V)
 
-func _reset() -> void:
-	players.update()
-
 func _on_place_tile(from: Hand, tile: Tile, pos: Vector2) -> void:
 	var success: bool = knot_tile_map.place_tile(pos, tile, from)
 	if success:
 		from.tile_placed()
 		tile.placed()
 		_play_tile_places_sound()
-		_reset()
 	else:
 		from.failed_to_place()
 
