@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4jc70ntw8pl7"]
+[gd_scene load_steps=3 format=3 uid="uid://b4jc70ntw8pl7"]
 
 [ext_resource type="AudioStream" uid="uid://dkvxnulkba4mf" path="res://audio/brendon-310587.mp3" id="1_7246o"]
+[ext_resource type="Script" uid="uid://vdhbvgcpf4i" path="res://autoload/audio.gd" id="2_m5bje"]
 
 [node name="Audio" type="AudioStreamPlayer2D"]
 process_mode = 3
@@ -8,3 +9,6 @@ stream = ExtResource("1_7246o")
 volume_db = -10.667
 autoplay = true
 parameters/looping = false
+script = ExtResource("2_m5bje")
+
+[connection signal="finished" from="." to="." method="_on_finished"]
