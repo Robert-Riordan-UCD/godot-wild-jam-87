@@ -43,18 +43,18 @@ func setup() -> void:
 	match location:
 		Vector2i.DOWN:
 			t.rotation_degrees = 180
-			Globals.tile_map.force_place_tile(t, Vector2i(board_size.x/2, board_size.y-1), self)
+			Globals.tile_map.force_place_tile(t, Vector2i(int(board_size.x/2.0), board_size.y-1), self)
 		Vector2i.RIGHT:
 			t.rotation_degrees = 90
 			t.colour_index = 3
-			Globals.tile_map.force_place_tile(t, Vector2i(board_size.x-1, board_size.y/2), self)
+			Globals.tile_map.force_place_tile(t, Vector2i(board_size.x-1, int(board_size.y/2.0)), self)
 		Vector2i.UP:
 			t.colour_index = 1
-			Globals.tile_map.force_place_tile(t, Vector2i(board_size.x/2, 0), self)
+			Globals.tile_map.force_place_tile(t, Vector2i(int(board_size.x/2.0), 0), self)
 		Vector2i.LEFT:
 			t.rotation_degrees = 270
 			t.colour_index = 2
-			Globals.tile_map.force_place_tile(t, Vector2i(0, board_size.y/2), self)
+			Globals.tile_map.force_place_tile(t, Vector2i(0, int(board_size.y/2.0)), self)
 
 func update() -> void:
 	var tiles_needed: int = hand_size
