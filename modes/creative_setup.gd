@@ -9,3 +9,4 @@ func _ready() -> void:
 		players.get_child(i).queue_free()
 	
 	knot_tile_map.clear()
+	knot_tile_map.tile_owners.clear()

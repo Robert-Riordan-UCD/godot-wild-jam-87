@@ -1,0 +1,173 @@
+[gd_scene load_steps=6 format=3 uid="uid://3dkl7flf5avk"]
+
+[ext_resource type="Theme" uid="uid://gjeb5b86341u" path="res://menus/button_theme.tres" id="1_foh8p"]
+[ext_resource type="Script" uid="uid://cdwoooler1a57" path="res://modes/creative_setup_menu.gd" id="1_sa2ey"]
+[ext_resource type="Shader" uid="uid://skhbbkg33i3p" path="res://menus/blur.gdshader" id="2_4ow86"]
+[ext_resource type="Texture2D" uid="uid://cb2j1e42yamdf" path="res://assets/menu_stump.png" id="3_ibxue"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ca0h"]
+shader = ExtResource("2_4ow86")
+shader_parameter/strength = 19.355
+shader_parameter/sample_power = 4
+shader_parameter/is_canvas_group = false
+
+[node name="CreativeSetupMenu" type="CanvasLayer"]
+script = ExtResource("1_sa2ey")
+
+[node name="Stump" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_0ca0h")
+position = Vector2(536, 555)
+scale = Vector2(0.407679, 0.392047)
+texture = ExtResource("3_ibxue")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -174.5
+offset_top = -185.5
+offset_right = 174.5
+offset_bottom = 185.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="Preset" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Preset"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = " Preset"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/Preset"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 32
+alignment = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "Creative"
+popup/item_0/id = 0
+popup/item_1/text = "Competative"
+popup/item_1/id = 1
+popup/item_2/text = "Custom"
+popup/item_2/id = 2
+
+[node name="Board width" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Board width"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = " Board width"
+
+[node name="DecreaseWidth" type="Button" parent="VBoxContainer/Board width"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_foh8p")
+theme_override_font_sizes/font_size = 32
+text = "  - "
+
+[node name="Width" type="Label" parent="VBoxContainer/Board width"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "9"
+horizontal_alignment = 1
+
+[node name="IncreaseWidth" type="Button" parent="VBoxContainer/Board width"]
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_foh8p")
+theme_override_font_sizes/font_size = 32
+text = " +  "
+
+[node name="Board height" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Board height"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = " Board height"
+
+[node name="DecreaseHeight" type="Button" parent="VBoxContainer/Board height"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_foh8p")
+theme_override_font_sizes/font_size = 32
+text = "  - "
+
+[node name="Height" type="Label" parent="VBoxContainer/Board height"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "9"
+horizontal_alignment = 1
+
+[node name="IncreaseHeight" type="Button" parent="VBoxContainer/Board height"]
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("1_foh8p")
+theme_override_font_sizes/font_size = 32
+text = " +  "
+
+[node name="RemovableTiles" type="CheckButton" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_font_sizes/font_size = 32
+button_pressed = true
+text = "Removable tiles"
+
+[node name="MustNeighbour" type="CheckButton" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_font_sizes/font_size = 32
+text = "Tile must neighbour another tile"
+
+[node name="MustLink" type="CheckButton" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_font_sizes/font_size = 32
+text = "Placed tile must link to another tile"
+
+[node name="EdgeValid" type="CheckButton" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_font_sizes/font_size = 32
+text = "Can not create invalid link"
+
+[node name="Buttons" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="Play" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+theme = ExtResource("1_foh8p")
+theme_override_font_sizes/font_size = 64
+text = "Play"
+
+[node name="MainMenu" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+theme = ExtResource("1_foh8p")
+theme_override_font_sizes/font_size = 64
+text = "Main Menu"
+
+[connection signal="item_selected" from="VBoxContainer/Preset/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="VBoxContainer/Board width/DecreaseWidth" to="." method="_on_decrease_width_pressed"]
+[connection signal="pressed" from="VBoxContainer/Board width/IncreaseWidth" to="." method="_on_increase_width_pressed"]
+[connection signal="pressed" from="VBoxContainer/Board height/DecreaseHeight" to="." method="_on_decrease_height_pressed"]
+[connection signal="pressed" from="VBoxContainer/Board height/IncreaseHeight" to="." method="_on_increase_height_pressed"]
+[connection signal="toggled" from="VBoxContainer/RemovableTiles" to="." method="_on_removable_tiles_toggled"]
+[connection signal="toggled" from="VBoxContainer/MustNeighbour" to="." method="_on_must_neighbour_toggled"]
+[connection signal="toggled" from="VBoxContainer/MustLink" to="." method="_on_must_link_toggled"]
+[connection signal="toggled" from="VBoxContainer/EdgeValid" to="." method="_on_edge_valid_toggled"]
+[connection signal="pressed" from="VBoxContainer/Buttons/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Buttons/MainMenu" to="." method="_on_main_menu_pressed"]

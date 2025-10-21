@@ -4,10 +4,13 @@ extends CanvasLayer
 @onready var cpu_count: Label = $VBoxContainer/Setup/CPUs/HBoxContainer/CPUCount
 
 const COMPETITIVE = "res://modes/competitive.tscn"
-const CREATIVE = "res://modes/creative.tscn"
+const CREATIVE = "res://modes/creative_setup_menu.tscn"
 const CREDITS = "res://menus/credits.tscn"
 
 @export var max_total_players: int = 4
+
+func _ready() -> void:
+	Globals.custom_game = false
 
 func _on_play_pressed() -> void:
 	Globals.num_players = int(player_count.text)

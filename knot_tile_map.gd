@@ -25,6 +25,15 @@ enum TileTransform {
 @onready var tile_owners: Dictionary[Hand, Array] = {}
 
 func _ready() -> void:
+	if Globals.custom_game:
+		board_size = Vector2i(Globals.board_width, Globals.board_height)
+		can_remove_tile = Globals.can_remove_tile
+		can_replace_tile = Globals.can_replace_tile
+		must_neighbour_own_tile = Globals.must_neighbour_own_tile
+		must_create_valid_placement = Globals.must_create_valid_placement
+		must_create_a_link = Globals.must_create_a_link
+		must_create_a_link_with_self = Globals.must_create_a_link_with_self
+	
 	if not just_for_art:
 		Globals.tile_map = self
 	if not just_for_art and Globals.num_cpus + Globals.num_players > 0:
