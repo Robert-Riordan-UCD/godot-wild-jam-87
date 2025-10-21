@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://cj45bra6w0gxe"]
+[gd_scene load_steps=13 format=3 uid="uid://cj45bra6w0gxe"]
 
 [ext_resource type="PackedScene" uid="uid://bx18xpobi015t" path="res://game.tscn" id="1_neckg"]
 [ext_resource type="Script" uid="uid://c38613eogn3xn" path="res://modes/creative_setup.gd" id="2_pk8er"]
 [ext_resource type="Script" uid="uid://d0kq0hmcvrsfg" path="res://modes/colour_select.gd" id="3_36ct2"]
+[ext_resource type="Script" uid="uid://cnf0424k8bii5" path="res://utils/texture_rect_juice.gd" id="4_iu3nb"]
 
 [sub_resource type="Gradient" id="Gradient_36ct2"]
 offsets = PackedFloat32Array(0)
@@ -75,6 +76,7 @@ layout_mode = 0
 offset_right = 100.0
 offset_bottom = 100.0
 texture = SubResource("GradientTexture1D_1wwjk")
+script = ExtResource("4_iu3nb")
 
 [node name="red" type="Button" parent="ColourSelect/HBoxContainer" index="1"]
 custom_minimum_size = Vector2(100, 100)
@@ -85,6 +87,7 @@ layout_mode = 0
 offset_right = 100.0
 offset_bottom = 100.0
 texture = SubResource("GradientTexture1D_pabhk")
+script = ExtResource("4_iu3nb")
 
 [node name="orange_light" type="Button" parent="ColourSelect/HBoxContainer" index="2"]
 custom_minimum_size = Vector2(100, 100)
@@ -95,6 +98,7 @@ layout_mode = 0
 offset_right = 100.0
 offset_bottom = 100.0
 texture = SubResource("GradientTexture1D_f2jcs")
+script = ExtResource("4_iu3nb")
 
 [node name="orange_dark" type="Button" parent="ColourSelect/HBoxContainer" index="3"]
 custom_minimum_size = Vector2(100, 100)
@@ -105,6 +109,7 @@ layout_mode = 0
 offset_right = 100.0
 offset_bottom = 100.0
 texture = SubResource("GradientTexture1D_g1et2")
+script = ExtResource("4_iu3nb")
 
 [connection signal="pressed" from="ColourSelect/HBoxContainer/green" to="ColourSelect" method="_on_green_pressed"]
 [connection signal="pressed" from="ColourSelect/HBoxContainer/red" to="ColourSelect" method="_on_red_pressed"]
