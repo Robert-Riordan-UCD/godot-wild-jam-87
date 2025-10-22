@@ -1,8 +1,12 @@
 extends CanvasLayer
 
+signal change_scene_begin
+signal change_scene_end
+
 @onready var texture_rect: TextureRect = $TextureRect
 
 func change_scene(new_scene: String, min_duration: float=1.5) -> void:
+	change_scene_begin.emit()
 	visible = true
 	texture_rect.material.set_shader_parameter("left_bound", 0.0);
 	texture_rect.material.set_shader_parameter("right_bound", 0.0);
@@ -18,3 +22,4 @@ func change_scene(new_scene: String, min_duration: float=1.5) -> void:
 	await tween.finished
 	
 	visible = false
+	change_scene_end.emit()
