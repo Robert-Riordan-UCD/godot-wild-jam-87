@@ -39,8 +39,9 @@ func _on_place_tile(from: Hand, tile: Tile, pos: Vector2) -> void:
 		from.failed_to_place()
 
 func _on_remove_tile(pos: Vector2) -> void:
-	knot_tile_map.remove_tile(pos)
-	_play_tile_places_sound()
+	var success: bool = knot_tile_map.remove_tile(pos)
+	if success:
+		_play_tile_places_sound()
 
 func _on_game_over() -> void:
 	var scores := score_calculator.get_score()
