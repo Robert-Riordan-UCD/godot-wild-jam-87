@@ -18,6 +18,8 @@ func take_turn() -> void:
 	await get_tree().process_frame
 
 func reset() -> void:
+	if tile_in_hand:
+		tile_in_hand.remove()
 	tile_in_hand = null
 
 func tile_placed() -> void:
