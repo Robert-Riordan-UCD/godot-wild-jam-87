@@ -17,11 +17,6 @@ func _ready() -> void:
 	await get_tree().process_frame
 	texture.region = Rect2(200*colour_index, 200*type, 200, 200)
 
-func _process(_delta: float) -> void:
-	if not selected: return
-	
-	global_position = get_global_mouse_position() - (Globals.TILE_SIZE*scale).rotated(rotation)/2
-
 func try_select() -> bool:
 	if mouse_over and not selected:
 		z_index = 1000
@@ -49,12 +44,20 @@ func return_to_hand() -> void:
 
 func _on_mouse_entered() -> void:
 	if selected: return
+	if player.controller is CPUComtrollerRandom: return
 	mouse_over = true
+	
+	if tween: tween.stop()
 	tween = create_tween()
 	tween.tween_property(self, "scale", Vector2(1.1, 1.1), 0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.parallel().tween_property(self, "position:y", -20, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 
 func _on_mouse_exited() -> void:
 	if selected: return
+	if player.controller is CPUComtrollerRandom: return
 	mouse_over = false
+	
+	if tween: tween.stop()
 	tween = create_tween()
-	tween.tween_property(self, "scale", Vector2(1, 1), 0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(self, "scale", Vector2(1, 1), 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.parallel().tween_property(self, "position:y", 0, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)

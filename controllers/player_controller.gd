@@ -2,11 +2,13 @@ extends BaseController
 class_name PlayerController
 
 var active: bool = false
+var rotation_tween: Tween
+@onready var target_rotation: float = 0
 
 func _process(_delta: float) -> void:
 	if not tile_in_hand: return
 	
-	tile_in_hand.global_position = get_global_mouse_position() - (Globals.TILE_SIZE*scale).rotated(rotation)/2
+	tile_in_hand.global_position = get_global_mouse_position() - (Globals.TILE_SIZE*tile_in_hand.scale/2).rotated(tile_in_hand.rotation)
 
 func take_turn() -> void:
 	active = true
@@ -29,7 +31,10 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("place_tile") and tile_in_hand:
 		place_tile.emit(tile_in_hand, get_global_mouse_position())
 	if event.is_action_pressed("rotate_tile") and tile_in_hand:
-		tile_in_hand.rotation_degrees += 90
+		if rotation_tween: rotation_tween.stop()
+		rotation_tween = create_tween()
+		target_rotation += 90
+		rotation_tween.tween_property(tile_in_hand, "rotation_degrees", target_rotation, 0.1)
 	if event.is_action_pressed("drop_tile") and tile_in_hand:
 		tile_in_hand.return_to_hand()
 		tile_in_hand = null
