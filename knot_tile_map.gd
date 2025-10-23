@@ -61,7 +61,7 @@ func place_tile(global_pos:Vector2, tile_in_hand: Tile, player: Hand=null) -> bo
 	var map_position := local_to_map(to_local(global_pos))
 	var tile_rotation := tile_in_hand.rotation_degrees
 	
-	if not _can_place(map_position, tile_in_hand, tile_rotation, player): return false
+	if not can_place(map_position, tile_in_hand, tile_rotation, player): return false
 	
 	_set_cell(tile_in_hand, map_position, player)
 	
@@ -75,7 +75,7 @@ func _set_cell(tile: Tile, pos: Vector2i, player: Hand) -> void:
 	_set_rotation(pos, _angle_to_transfrom(tile.rotation_degrees))
 	tile_owners[player] = tile_owners.get(player, []) + [pos]
 
-func _can_place(map_pos: Vector2i, tile: Tile, rot: float, player: Hand) -> bool:
+func can_place(map_pos: Vector2i, tile: Tile, rot: float, player: Hand) -> bool:
 	# On board
 	if not _on_board(map_pos): return false
 	

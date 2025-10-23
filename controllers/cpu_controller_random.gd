@@ -2,6 +2,8 @@ extends BaseController
 class_name CPUComtrollerRandom
 
 @export var max_attempts: int = 100
+@export var tile_placement_duration: float = 0.8
+
 @onready var attempts: int = 0
 
 """
@@ -30,12 +32,37 @@ func _try_turn() -> void:
 		return
 	var selected_location: Vector2i = open_locations.keys().pick_random()
 	var selected_tile: Tile = hand.get_tiles().pick_random()
-	selected_tile.rotation_degrees += randi_range(0, 3)*90
+	var rand_rotation_degrees = randi_range(0, 3)*90
+	if not Globals.tile_map.can_place(selected_location, selected_tile, rand_rotation_degrees, hand):
+		failed_to_place()
+		return
+	
+	var final_rot: float = rand_rotation_degrees
+	var final_scale: Vector2 = Globals.tile_scale*Vector2(1, 1)
+	var final_pos: Vector2 = Globals.tile_map.to_global(Globals.tile_map.map_to_local(selected_location)) - (Globals.TILE_SIZE*final_scale/2).rotated(deg_to_rad(final_rot))
+
+	var tween: Tween = create_tween()
+	tween.tween_property(
+		selected_tile,
+		"rotation_degrees",
+		final_rot,
+		tile_placement_duration*0.8
+	).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(
+		selected_tile, 
+		"global_position", 
+		final_pos,
+		tile_placement_duration
+	).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.parallel().tween_property(
+		selected_tile,
+		"scale",
+		final_scale,
+		tile_placement_duration*0.8
+	).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	await tween.finished
+	await get_tree().create_timer(0.2).timeout
 	place_tile.emit(selected_tile, Globals.tile_map.to_global(Globals.tile_map.map_to_local(selected_location)))
-	#print(selected_location, selected_tile, selected_tile.rotation_degrees)
-	#var valid_tiles = _get_valid_tiles_at_location(selected_location)
-	#print(selected_location, valid_tiles)
-	await get_tree().create_timer(2).timeout
 
 func failed_to_place() -> void:
 	attempts += 1
