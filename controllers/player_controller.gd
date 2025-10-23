@@ -28,6 +28,7 @@ func _input(event: InputEvent) -> void:
 	if not active: return
 	if event.is_action_pressed("pick_up_tile") and not tile_in_hand:
 		select_tile.emit()
+		target_rotation = 0
 	elif event.is_action_pressed("place_tile") and tile_in_hand:
 		place_tile.emit(tile_in_hand, get_global_mouse_position())
 	if event.is_action_pressed("rotate_tile") and tile_in_hand:
