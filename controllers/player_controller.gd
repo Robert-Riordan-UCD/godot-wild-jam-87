@@ -31,10 +31,15 @@ func _input(event: InputEvent) -> void:
 		target_rotation = 0
 	elif event.is_action_pressed("place_tile") and tile_in_hand:
 		place_tile.emit(tile_in_hand, get_global_mouse_position())
-	if event.is_action_pressed("rotate_tile") and tile_in_hand:
+	if event.is_action_pressed("rotate_tile_cw") and tile_in_hand:
 		if rotation_tween: rotation_tween.stop()
 		rotation_tween = create_tween()
 		target_rotation += 90
+		rotation_tween.tween_property(tile_in_hand, "rotation_degrees", target_rotation, 0.1)
+	if event.is_action_pressed("rotate_tile_acw") and tile_in_hand:
+		if rotation_tween: rotation_tween.stop()
+		rotation_tween = create_tween()
+		target_rotation -= 90
 		rotation_tween.tween_property(tile_in_hand, "rotation_degrees", target_rotation, 0.1)
 	if event.is_action_pressed("drop_tile") and tile_in_hand:
 		tile_in_hand.return_to_hand()
