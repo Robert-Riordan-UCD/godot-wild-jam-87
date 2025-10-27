@@ -6,7 +6,7 @@ class_name Game
 @onready var players: Players = $GUI/Players
 @onready var end_screen: CanvasLayer = $EndScreen
 @onready var score_calculator: ScoreCalculator = $ScoreCalculator
-@onready var tiles: Node2D = $Sound/Tiles
+@onready var tile_sounds: Node2D = $Sound/Tiles
 
 func _ready() -> void:
 	_setup_board()
@@ -64,6 +64,6 @@ func _on_game_over() -> void:
 		end_screen.game_over(winner.name + " wins!")
 
 func _play_tile_places_sound() -> void:
-	for tile in tiles.get_children():
-		tile.volume_db = Globals.sound_fx_db
-	tiles.get_child(randi_range(0, tiles.get_child_count()-1)).play()
+	for tile_sound in tile_sounds.get_children():
+		tile_sound.volume_db = Globals.sound_fx_db
+	tile_sounds.get_child(randi_range(0, tile_sounds.get_child_count()-1)).play()
