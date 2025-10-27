@@ -26,7 +26,8 @@ func _ready() -> void:
 
 func update() -> void:
 	for hand: Hand in get_children():
-		hand.update()
+		pass
+		#hand.update()
 
 func _on_turn_finished(passed: bool) -> void:
 	if passed:

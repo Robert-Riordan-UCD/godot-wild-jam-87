@@ -13,6 +13,7 @@ enum hand_types {
 
 const TILE = preload("res://tile.tscn")
 const ALERT = preload("res://alert.tscn")
+const TILE_DRAW_TIME = 0.3
 
 @export_range(0, 10) var hand_size: int = 3
 @export var hand_type: hand_types = hand_types.RANDOM
@@ -22,8 +23,9 @@ const ALERT = preload("res://alert.tscn")
 
 @export var alert_pos: Vector2 = Vector2(540, 540)
 
-@export var on_screen_pos: Vector2 = Vector2.ZERO
-@export var off_screen_pos: Vector2 = Vector2(1080, 1080)
+@export var draw_from_position: Vector2 = Vector2.ZERO
+@export var hand_center: Vector2 = Vector2(1080, 1080)/2
+@export var discard_to_position: Vector2 = Vector2(1080, 1080)
 
 const PLAYER_CONTROLLER = preload("res://controllers/player_controller.tscn")
 const CPU_CONTROLLER_RANDOM = preload("res://controllers/cpu_controller_random.tscn")
@@ -31,7 +33,7 @@ var controller: BaseController
 
 func _ready() -> void:
 	_set_controller()
-	update()
+	#update()
 
 func setup() -> void:
 	if not Globals.tile_map.is_node_ready():
@@ -56,37 +58,42 @@ func setup() -> void:
 			t.colour_index = 2
 			Globals.tile_map.force_place_tile(t, Vector2i(0, int(board_size.y/2.0)), self)
 
-func update() -> void:
-	var tiles_needed: int = hand_size
-	for child in get_children():
-		if child is Tile:
-			tiles_needed -= 1
-		if child is BaseController:
-			child.reset()
-	
-	match hand_type:
-		hand_types.RANDOM:
-			for i in range(tiles_needed):
-				_add_tile()
-		hand_types.IN_ORDER:
-			await _clear_hand()
-			for i in range(hand_size):
-				_add_tile(i)
-				
+#func update() -> void:
+	#var tiles_needed: int = hand_size
+	#for child in get_children():
+		#if child is Tile:
+			#tiles_needed -= 1
+		#if child is BaseController:
+			#child.reset()
+	#
+	#match hand_type:
+		#hand_types.RANDOM:
+			#for i in range(tiles_needed):
+				#_add_tile()
+		#hand_types.IN_ORDER:
+			#await _clear_hand()
+			#for i in range(hand_size):
+				#_add_tile(i)
+
+func draw_new_hand(random:bool = false) -> void:
+	await _clear_hand()
+	for i in range(hand_size):
+		if random: _add_tile()
+		else:      _add_tile(i)
+	#await get_tree().process_frame
 
 func take_turn() -> void:
-	#await _slide_on_screen()
-	visible = true
+	await _draw_tiles()
 	controller.take_turn()
 
 func new_hand() -> void:
 	_clear_hand()
-	update()
+	#update()
 
 func return_to_hand(tile: Tile) -> void:
 	if not tile: return
 	tile.reparent(self)
-	update()
+	#update()
 
 func tile_placed():
 	controller.tile_placed()
@@ -135,6 +142,8 @@ func _add_tile(t: int = -1) -> void:
 	tile.colour_index = colour_index
 	add_child(tile)
 	tile.scale = tile.scale/2
+	tile.global_position = draw_from_position
+	print(tile.global_position)
 	new_tile.emit(tile)
 	tile.tile_clicked.connect(_tile_clicked)
 
@@ -158,27 +167,59 @@ func _remove_tile(pos: Vector2) -> void:
 	remove_tile.emit(pos)
 
 func _drop_tile() -> void:
-	visible = false
-	await  get_tree().process_frame
-	visible = true
+	#visible = false
+	await get_tree().process_frame
+	#visible = true
 
 func _end_turn(passed: bool) -> void:
-	visible = false
-	#await _slide_off_screen()
+	await _discard_tiles()
+	await get_tree().create_timer(0.5).timeout
 	new_hand()
 	turn_finished.emit(passed)
 	if passed:
 		_alert("Passed", alert_pos, 1.0)
 
-#func _slide_off_screen() -> void:
-	#var tween: Tween = create_tween()
-	#tween.tween_property(self, "global_position", off_screen_pos, 1)
-	#await tween.finished
-#
-#func _slide_on_screen() -> void:
-	#var tween: Tween = create_tween()
-	#tween.tween_property(self, "global_position", on_screen_pos, 1)
-	#await tween.finished
+func _draw_tiles() -> void:
+	#visible = true
+	#update()
+	match hand_type:
+		hand_types.RANDOM:
+			await draw_new_hand(true)
+		hand_types.IN_ORDER:
+			await draw_new_hand()
+	
+	for tile in get_tiles():
+		print(tile.global_position)
+		#tile.global_position = draw_from_position
+	
+	for position_in_hand in hand_size:
+		var tile: Tile = get_tiles()[position_in_hand]
+		var tween: Tween = create_tween()
+		var end_position := Vector2.ZERO
+		match location:
+			Vector2i.DOWN:
+				end_position = hand_center+Globals.TILE_SIZE*Vector2(-hand_size/2.0+position_in_hand, -1)
+			Vector2i.UP:
+				end_position = hand_center+Globals.TILE_SIZE*(Vector2(-hand_size/2.0+position_in_hand, 0))
+			Vector2i.LEFT:
+				end_position = hand_center+Globals.TILE_SIZE*(Vector2(0, -hand_size/2.0+position_in_hand))
+			Vector2i.RIGHT:
+				end_position = hand_center+Globals.TILE_SIZE*(Vector2(-1, -hand_size/2.0+position_in_hand))
+		tween.tween_property(
+			tile,
+			"global_position",
+			end_position,
+			TILE_DRAW_TIME
+		).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD).set_delay(0.1*position_in_hand)
+	await get_tree().create_timer(0.3).timeout
+
+func _discard_tiles() -> void:
+	for i in get_tiles().size():
+		var tile: Tile = get_tiles()[i]
+		var tween: Tween = create_tween()
+		tween.tween_property(tile, "global_position", discard_to_position, TILE_DRAW_TIME).set_delay(0.1*i)
+	await get_tree().create_timer(0.3).timeout
+	#visible = false
 
 func _alert(text: String, pos: Vector2, duration: float) -> void:
 	var new_alert: Alert = ALERT.instantiate()
