@@ -140,13 +140,12 @@ func _remove_tile(pos: Vector2) -> void:
 	remove_tile.emit(pos)
 
 func _end_turn(passed: bool) -> void:
+	if passed: _alert("Passed", alert_pos, 1.0)
 	await _discard_tiles()
 	await get_tree().create_timer(0.5).timeout
 	new_hand()
 	turn_finished.emit(passed)
-	if passed:
-		_alert("Passed", alert_pos, 1.0)
-
+	
 func _draw_tiles() -> void:
 	match hand_type:
 		hand_types.RANDOM:
