@@ -39,7 +39,7 @@ func _try_turn() -> void:
 	
 	var final_rot: float = rand_rotation_degrees
 	var final_scale: Vector2 = Globals.tile_scale*Vector2(1, 1)
-	var final_pos: Vector2 = Globals.tile_map.to_global(Globals.tile_map.map_to_local(selected_location)) - (Globals.TILE_SIZE*final_scale/2).rotated(deg_to_rad(final_rot))
+	var final_pos: Vector2 = Globals.tile_map.to_global(Globals.tile_map.map_to_local(selected_location))
 
 	var tween: Tween = create_tween()
 	tween.tween_property(

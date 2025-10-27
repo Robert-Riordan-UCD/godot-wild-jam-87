@@ -4,17 +4,18 @@ class_name ColourSelect
 @onready var bottom: Hand = $"../GUI/Players/Bottom"
 
 func _on_green_pressed() -> void:
-	bottom.colour_index = 0
-	bottom.update()
+	_set_colour(0)
 
 func _on_red_pressed() -> void:
-	bottom.colour_index = 1
-	bottom.update()
+	_set_colour(1)
 
 func _on_orange_light_pressed() -> void:
-	bottom.colour_index = 2
-	bottom.update()
+	_set_colour(2)
 
 func _on_orange_dark_pressed() -> void:
-	bottom.colour_index = 3
-	bottom.update()
+	_set_colour(3)
+
+func _set_colour(index: int) -> void:
+	print("Setting colour: ", index)
+	bottom.colour_index = index
+	bottom._draw_tiles()

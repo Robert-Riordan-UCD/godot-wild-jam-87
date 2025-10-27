@@ -1,4 +1,4 @@
-extends TextureRect
+extends Sprite2D
 class_name Tile
 
 signal tile_clicked(tile: Tile)
@@ -8,8 +8,9 @@ signal tile_clicked(tile: Tile)
 
 @onready var mouse_over: bool = false
 @onready var selected: bool = false
-
 @onready var player = get_parent()
+
+var home_position: Vector2
 
 var tween: Tween
 
@@ -40,6 +41,7 @@ func placed() -> void:
 
 func return_to_hand() -> void:
 	player._add_tile(type)
+	player.reset_tiles()
 	remove()
 
 func _on_mouse_entered() -> void:
@@ -50,7 +52,7 @@ func _on_mouse_entered() -> void:
 	if tween: tween.stop()
 	tween = create_tween()
 	tween.tween_property(self, "scale", Vector2(1.1, 1.1), 0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-	tween.parallel().tween_property(self, "position:y", -20, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.parallel().tween_property(self, "global_position:y", home_position.y-20, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 
 func _on_mouse_exited() -> void:
 	if selected: return
@@ -60,4 +62,4 @@ func _on_mouse_exited() -> void:
 	if tween: tween.stop()
 	tween = create_tween()
 	tween.tween_property(self, "scale", Vector2(1, 1), 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-	tween.parallel().tween_property(self, "position:y", 0, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.parallel().tween_property(self, "global_position:y", home_position.y, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)

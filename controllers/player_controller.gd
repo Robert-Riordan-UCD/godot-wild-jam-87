@@ -8,7 +8,7 @@ var rotation_tween: Tween
 func _process(_delta: float) -> void:
 	if not tile_in_hand: return
 	
-	tile_in_hand.global_position = get_global_mouse_position() - (Globals.TILE_SIZE*tile_in_hand.scale/2).rotated(tile_in_hand.rotation)
+	tile_in_hand.global_position = get_global_mouse_position()
 
 func take_turn() -> void:
 	active = true
