@@ -16,6 +16,5 @@ func _on_orange_dark_pressed() -> void:
 	_set_colour(3)
 
 func _set_colour(index: int) -> void:
-	print("Setting colour: ", index)
 	bottom.colour_index = index
 	bottom._draw_tiles()

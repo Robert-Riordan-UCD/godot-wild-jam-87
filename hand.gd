@@ -58,14 +58,10 @@ func setup() -> void:
 			Globals.tile_map.force_place_tile(t, Vector2i(0, int(board_size.y/2.0)), self)
 
 func draw_new_hand(random:bool = false) -> void:
-	print("Drawing new hand")
 	await _clear_hand()
-	print("Hand cleared")
 	for i in range(hand_size):
-		print("Adding tile")
 		if random: _add_tile()
 		else:      _add_tile(i)
-	print("Hand drawn")
 
 func take_turn() -> void:
 	await _draw_tiles()
