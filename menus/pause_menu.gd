@@ -3,6 +3,7 @@ class_name PauseMenu
 
 const MAIN_MENU = "res://menus/main_menu.tscn"
 
+@onready var help_menu: HelpMenu = $HelpMenu
 @onready var paused: bool = false
 @onready var settings: CanvasLayer = $"../Settings"
 @onready var pausable: bool = false
@@ -21,6 +22,7 @@ func pause() -> void:
 func resume() -> void:
 	paused = false
 	visible = false
+	help_menu.visible = false
 	get_tree().paused = false
 
 func _input(event: InputEvent) -> void:
@@ -45,3 +47,11 @@ func _on_scene_change_begin() -> void:
 
 func _on_scene_change_end() -> void:
 	pausable = true
+
+func _on_help_pressed() -> void:
+	visible = false
+	help_menu.visible = true
+
+func _on_help_menu_help_back() -> void:
+	help_menu.visible = false
+	visible = true

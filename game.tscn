@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://bx18xpobi015t"]
+[gd_scene load_steps=26 format=4 uid="uid://bx18xpobi015t"]
 
 [ext_resource type="Script" uid="uid://d0qmskn58yta5" path="res://game.gd" id="1_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://c31qphkaixitt" path="res://knot_tile_map.tscn" id="2_feb5d"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://cqbof5icocs86" path="res://menus/end_screen.tscn" id="6_ryrav"]
 [ext_resource type="PackedScene" uid="uid://ctg42hun660wl" path="res://menus/settings.tscn" id="7_e36ub"]
 [ext_resource type="Script" uid="uid://ol8gxiuwp4w4" path="res://score_calculator.gd" id="7_eow3j"]
+[ext_resource type="Script" uid="uid://dkkrgkhesotpu" path="res://menus/pause_hint.gd" id="7_qhcbd"]
+[ext_resource type="Texture2D" uid="uid://drhvlfrwfhgpq" path="res://assets/kenney-input-promts/keyboard_escape.png" id="7_x5p1p"]
 [ext_resource type="AudioStream" uid="uid://bmcsbqej4fip3" path="res://audio/tile0.mp3" id="9_iotsf"]
 [ext_resource type="AudioStream" uid="uid://coc4axghrtlqs" path="res://audio/tile1.mp3" id="10_lc2xo"]
 [ext_resource type="AudioStream" uid="uid://bkxhh50sitkc4" path="res://audio/tile2.mp3" id="11_215e1"]
@@ -50,6 +52,7 @@ tile_set = SubResource("TileSet_ryrav")
 tile_map_data = PackedByteArray("AAAGAAUAAAAAAAAAADAEAAYAAAAAAAAAAGAFAAYAAAAAAAAAADAEAAUAAAAAAAAAAAAEAAcAAAAAAAAAAAAFAAcAAAAAAAAAAFAFAAgAAAAAAAAAADAEAAgAAAAAAAAAAGAFAAUAAAAAAAIAAAADAAMAAAAAAAAAAGAEAAMAAAAAAAEAADAFAAMAAAAAAAIAAAAGAAMAAAAAAAEAAFADAAIAAAAAAAAAAAAEAAIAAAAAAAEAAAAFAAIAAAAAAAEAAAAGAAIAAAAAAAAAAFAGAAQAAAAAAAEAAFAFAAQAAAAAAAEAAGA=")
 
 [node name="GUI" type="CanvasLayer" parent="."]
+layer = 0
 
 [node name="Players" type="Control" parent="GUI"]
 layout_mode = 3
@@ -130,6 +133,21 @@ alert_pos = Vector2(720, 520)
 draw_from_position = Vector2(1280, -200)
 hand_center = Vector2(1080, 540)
 discard_to_position = Vector2(1280, 1280)
+
+[node name="PauseHint" type="HBoxContainer" parent="GUI"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_qhcbd")
+
+[node name="TextureRect" type="TextureRect" parent="GUI/PauseHint"]
+layout_mode = 2
+texture = ExtResource("7_x5p1p")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="GUI/PauseHint"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "to pause"
 
 [node name="PauseMenu" parent="." instance=ExtResource("5_7jktm")]
 visible = false

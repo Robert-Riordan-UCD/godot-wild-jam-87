@@ -1,12 +1,15 @@
-[gd_scene load_steps=4 format=4 uid="uid://btfna526b0tbe"]
+[gd_scene load_steps=5 format=4 uid="uid://btfna526b0tbe"]
 
 [ext_resource type="Script" uid="uid://bsn572rpwsnvn" path="res://menus/pause_menu.gd" id="1_s0u37"]
 [ext_resource type="PackedScene" uid="uid://c31qphkaixitt" path="res://knot_tile_map.tscn" id="2_0wv6w"]
+[ext_resource type="PackedScene" uid="uid://clexar7lfx0fw" path="res://menus/help_menu.tscn" id="2_qlf07"]
 [ext_resource type="Theme" uid="uid://gjeb5b86341u" path="res://menus/button_theme.tres" id="3_0wv6w"]
 
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_s0u37")
+
+[node name="HelpMenu" parent="." instance=ExtResource("2_qlf07")]
 
 [node name="KnotTileMap" parent="." instance=ExtResource("2_0wv6w")]
 position = Vector2(208, 28)
@@ -29,7 +32,7 @@ grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 60
+theme_override_constants/margin_top = 100
 theme_override_constants/margin_bottom = 60
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
@@ -49,12 +52,20 @@ theme = ExtResource("3_0wv6w")
 theme_override_font_sizes/font_size = 60
 text = "Settings"
 
+[node name="Help" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_0wv6w")
+theme_override_font_sizes/font_size = 60
+text = "Controls"
+
 [node name="MainMenu" type="Button" parent="VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_0wv6w")
 theme_override_font_sizes/font_size = 60
 text = "Main Menu"
 
+[connection signal="help_back" from="HelpMenu" to="." method="_on_help_menu_help_back"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/Help" to="." method="_on_help_pressed"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

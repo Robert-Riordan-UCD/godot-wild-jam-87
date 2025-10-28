@@ -1,0 +1,137 @@
+[gd_scene load_steps=10 format=4 uid="uid://clexar7lfx0fw"]
+
+[ext_resource type="Script" uid="uid://bevwnhelvke4a" path="res://menus/help_menu.gd" id="1_5jm20"]
+[ext_resource type="PackedScene" uid="uid://c31qphkaixitt" path="res://knot_tile_map.tscn" id="2_5jm20"]
+[ext_resource type="Theme" uid="uid://gjeb5b86341u" path="res://menus/button_theme.tres" id="3_5ixqc"]
+[ext_resource type="Texture2D" uid="uid://ckd2t3c4af364" path="res://assets/kenney-input-promts/mouse_left.png" id="3_5jm20"]
+[ext_resource type="Texture2D" uid="uid://bmblrjlsrpip" path="res://assets/kenney-input-promts/keyboard_space.png" id="4_fx4lg"]
+[ext_resource type="Texture2D" uid="uid://dllqubq7rj78y" path="res://assets/kenney-input-promts/mouse_scroll_vertical.png" id="5_g2df2"]
+[ext_resource type="Texture2D" uid="uid://dwvx31e7jjcmo" path="res://assets/kenney-input-promts/mouse_right.png" id="6_w75jt"]
+[ext_resource type="Texture2D" uid="uid://dlv34swirkb0p" path="res://assets/kenney-input-promts/keyboard_p.png" id="7_gm1jc"]
+[ext_resource type="Texture2D" uid="uid://buf5pove2ydpo" path="res://assets/kenney-input-promts/mouse_scroll.png" id="8_gkiie"]
+
+[node name="HelpMenu" type="CanvasLayer"]
+process_mode = 3
+visible = false
+script = ExtResource("1_5jm20")
+
+[node name="KnotTileMap" parent="." instance=ExtResource("2_5jm20")]
+visible = false
+position = Vector2(208, 28)
+scale = Vector2(0.16665, 0.16665)
+tile_map_data = PackedByteArray("AAD8/wIAAAAAAAAAAAD9/wIAAAAAAAEAAAD+/wIAAAAAAAEAAAAAAAQAAAAAAAEAAFAAAAUAAAAAAAEAAFD9/wgAAAAAAAEAAFD9/wUAAAAAAAEAAFD9/wQAAAAAAAEAAFD8/wgAAAAAAAEAAGD8/wcAAAAAAAEAAGD8/wYAAAAAAAEAAGD8/wUAAAAAAAEAAGD8/wQAAAAAAAEAAGD8/wMAAAAAAAEAAGD9/wkAAAAAAAAAADD8/wkAAAAAAAAAAGD//wIAAAAAAAAAAFAAAAMAAAAAAAAAAFAAAAYAAAAAAAAAADD//wcAAAAAAAAAADD9/wYAAAAAAAIAAAD9/wcAAAAAAAIAAAD9/wMAAAAAAAIAAAD+/wMAAAAAAAEAADD//wMAAAAAAAIAAAD//wQAAAAAAAEAAGD//wUAAAAAAAEAAGD//wYAAAAAAAIAAAD+/wYAAAAAAAEAAAD+/wcAAAAAAAEAADABAAgAAAABAAEAAGABAAcAAAABAAEAAGABAAYAAAABAAEAAGADAAQAAAABAAEAAAAFAAYAAAABAAEAAFAFAAcAAAABAAEAAFAFAAgAAAABAAEAAFADAAgAAAABAAEAADADAAcAAAABAAEAAAADAAUAAAABAAEAADACAAYAAAABAAEAAFAEAAYAAAABAAEAAGABAAUAAAABAAAAAAACAAQAAAABAAAAAAAEAAQAAAABAAAAAFAFAAUAAAABAAAAAFAFAAkAAAABAAAAADACAAkAAAABAAAAADABAAkAAAABAAAAAGAEAAkAAAABAAAAAGACAAgAAAABAAIAAAACAAcAAAABAAIAAAACAAUAAAABAAIAAAAEAAUAAAABAAIAAAAEAAcAAAABAAIAAAAEAAgAAAABAAIAAAAGAAQAAAACAAAAAAAGAAUAAAACAAEAAGAGAAYAAAACAAEAAGAGAAcAAAACAAEAAGAGAAgAAAACAAEAAGAGAAkAAAACAAAAAGAHAAkAAAACAAEAADAIAAkAAAACAAEAADAJAAkAAAACAAEAADAKAAkAAAACAAAAADAKAAgAAAACAAEAAFAKAAcAAAACAAEAAFAKAAYAAAACAAEAAFAKAAUAAAACAAEAAFAKAAQAAAACAAAAAFAJAAQAAAACAAAAAAAJAAUAAAACAAEAAGAJAAYAAAACAAEAAGAJAAcAAAACAAEAAGAJAAgAAAACAAIAAAAIAAgAAAACAAEAAAAHAAgAAAACAAIAAAAHAAcAAAACAAEAAFAHAAYAAAACAAEAAFAHAAUAAAACAAEAAFAHAAQAAAACAAAAAFALAAQAAAADAAAAAAALAAgAAAADAAAAAAAOAAQAAAADAAAAAFAOAAYAAAADAAAAAFAOAAUAAAADAAAAADAOAAkAAAADAAAAADALAAkAAAADAAAAAGALAAcAAAADAAAAAGAMAAQAAAADAAEAAAANAAQAAAADAAEAAAANAAYAAAADAAEAAAAMAAgAAAADAAEAAAAOAAcAAAADAAEAAFAOAAgAAAADAAEAAFANAAkAAAADAAEAADAMAAkAAAADAAEAADAMAAcAAAADAAEAADALAAYAAAADAAEAAGALAAUAAAADAAEAAGANAAcAAAADAAIAAAANAAgAAAADAAIAAAAMAAYAAAADAAIAAAAMAAUAAAADAAIAAAANAAUAAAADAAIAAAAPAAQAAAAAAAAAAAASAAQAAAAAAAAAAFARAAYAAAAAAAAAAFASAAgAAAAAAAAAAFASAAkAAAAAAAAAADARAAcAAAAAAAAAADASAAUAAAAAAAAAADAPAAkAAAAAAAAAAGARAAQAAAAAAAEAAAAQAAQAAAAAAAEAAAARAAgAAAAAAAEAAAAPAAgAAAAAAAEAAGAPAAcAAAAAAAEAAGAPAAYAAAAAAAEAAGAPAAUAAAAAAAEAAGARAAkAAAAAAAEAADAQAAkAAAAAAAEAADARAAUAAAAAAAEAADAQAAUAAAAAAAIAAAAQAAYAAAAAAAIAAAAQAAcAAAAAAAIAAAAQAAgAAAAAAAIAAAATAAQAAAABAAAAAAAVAAQAAAABAAEAAAAWAAUAAAABAAIAAAAWAAgAAAABAAIAAAAVAAkAAAABAAEAADATAAkAAAABAAAAAGATAAgAAAABAAEAAGATAAcAAAABAAEAAGATAAYAAAABAAEAAGATAAUAAAABAAEAAGAUAAQAAAABAAEAAAAWAAYAAAABAAEAAGAWAAcAAAABAAEAAGAUAAkAAAABAAEAADAUAAcAAAABAAEAAFAUAAYAAAABAAEAAFAVAAUAAAABAAEAADAVAAgAAAABAAEAAAAWAAQAAAABAAAAAFAXAAUAAAABAAAAAFAXAAgAAAABAAAAADAWAAkAAAABAAAAADAXAAcAAAABAAEAAFAXAAYAAAABAAEAAFAUAAUAAAABAAIAAAAUAAgAAAABAAIAAAA=")
+just_for_art = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -18.0
+offset_right = 4.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="SelectTile" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/SelectTile"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Select tile"
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/SelectTile"]
+layout_mode = 2
+texture = ExtResource("3_5jm20")
+
+[node name="PlaceTile" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/PlaceTile"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Place tile"
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/PlaceTile"]
+layout_mode = 2
+texture = ExtResource("3_5jm20")
+
+[node name="RotateTile" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/RotateTile"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Rotate tile"
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/VBoxContainer/RotateTile"]
+layout_mode = 2
+texture = ExtResource("4_fx4lg")
+
+[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer/RotateTile"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "or"
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/RotateTile"]
+layout_mode = 2
+texture = ExtResource("5_g2df2")
+
+[node name="ReturnTile" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/ReturnTile"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Return tile"
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/ReturnTile"]
+layout_mode = 2
+texture = ExtResource("6_w75jt")
+
+[node name="Pass" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/Pass"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Pass"
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/VBoxContainer/Pass"]
+layout_mode = 2
+texture = ExtResource("7_gm1jc")
+
+[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer/Pass"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "or"
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/Pass"]
+layout_mode = 2
+texture = ExtResource("8_gkiie")
+
+[node name="Back" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_5ixqc")
+theme_override_font_sizes/font_size = 60
+text = "Back"
+
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
