@@ -16,6 +16,9 @@ func take_turn() -> void:
 func tile_placed() -> void:
 	_end_turn()
 
+func failed_to_place() -> void:
+	tile_in_hand.shake()
+
 func _end_turn(passed: bool=false) -> void:
 	active = false
 	tile_in_hand = null

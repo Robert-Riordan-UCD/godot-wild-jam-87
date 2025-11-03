@@ -1,7 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://ckax63t014pqx"]
+[gd_scene load_steps=7 format=3 uid="uid://ckax63t014pqx"]
 
+[ext_resource type="Shader" uid="uid://cotcvk7ckurwd" path="res://utils/sprite_shake.gdshader" id="1_a2t34"]
 [ext_resource type="Texture2D" uid="uid://csqcghdhfctvp" path="res://assets/atlas.svg" id="1_vx4y2"]
 [ext_resource type="Script" uid="uid://dibw1y5cncbhl" path="res://tile.gd" id="2_a2t34"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tfor0"]
+resource_local_to_scene = true
+shader = ExtResource("1_a2t34")
+shader_parameter/intensity = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vx4y2"]
 resource_local_to_scene = true
@@ -12,6 +18,7 @@ region = Rect2(0, 0, 200, 200)
 size = Vector2(200, 200)
 
 [node name="Tile" type="Sprite2D"]
+material = SubResource("ShaderMaterial_tfor0")
 texture = SubResource("AtlasTexture_vx4y2")
 script = ExtResource("2_a2t34")
 

@@ -13,6 +13,7 @@ signal tile_clicked(tile: Tile)
 var home_position: Vector2
 
 var tween: Tween
+var shake_tween: Tween
 
 func _ready() -> void:
 	await get_tree().process_frame
@@ -43,6 +44,12 @@ func return_to_hand() -> void:
 	player._add_tile(type)
 	player.reset_tiles()
 	remove()
+
+func shake():
+	material.set_shader_parameter("intensity", 45.0)
+	if shake_tween: shake_tween.stop()
+	shake_tween = create_tween()
+	shake_tween.tween_property(material, "shader_parameter/intensity", 0.0, 0.5)
 
 func _on_mouse_entered() -> void:
 	if selected: return
