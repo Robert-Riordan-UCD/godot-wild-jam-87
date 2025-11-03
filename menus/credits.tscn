@@ -92,36 +92,6 @@ theme_override_font_sizes/font_size = 32
 text = "Pixabay"
 uri = "https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=63870"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Music by"
-
-[node name="LinkButton" type="LinkButton" parent="VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 32
-text = "Brian Cradden"
-uri = "https://pixabay.com/users/grumpynora-14374548/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=310587"
-
-[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "from"
-
-[node name="LinkButton2" type="LinkButton" parent="VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 32
-text = "Pixabay"
-uri = "https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=310587"
-
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
