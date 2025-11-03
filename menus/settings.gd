@@ -15,6 +15,7 @@ func _on_back_pressed() -> void:
 
 func _on_h_slider_value_changed(value: float) -> void:
 	Audio.volume_db = value
+	Audio.volume_changed.emit()
 
 func _effects_value_changed(value: float) -> void:
 	Globals.sound_fx_db = value
