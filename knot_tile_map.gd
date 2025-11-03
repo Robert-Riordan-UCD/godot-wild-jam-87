@@ -59,20 +59,20 @@ func remove_tile(global_pos: Vector2) -> bool:
 """
 func place_tile(global_pos:Vector2, tile_in_hand: Tile, player: Hand=null) -> bool:
 	var map_position := local_to_map(to_local(global_pos))
-	var tile_rotation := tile_in_hand.rotation_degrees
+	var tile_rotation := posmod(int(tile_in_hand.rotation_degrees), 360)
 	
 	if not can_place(map_position, tile_in_hand, tile_rotation, player): return false
 	
-	_set_cell(tile_in_hand, map_position, player)
+	_set_cell(tile_in_hand, map_position, tile_rotation, player)
 	
 	return true
 
 func force_place_tile(tile: Tile, pos: Vector2i, player: Hand) -> void:
-	_set_cell(tile, pos, player)
+	_set_cell(tile, pos, posmod(int(tile.rotation_degrees), 360), player)
 
-func _set_cell(tile: Tile, pos: Vector2i, player: Hand) -> void:
+func _set_cell(tile: Tile, pos: Vector2i, tile_rotation: float, player: Hand) -> void:
 	set_cell(pos, 0, Vector2i(tile.colour_index, tile.type))
-	_set_rotation(pos, _angle_to_transfrom(tile.rotation_degrees))
+	_set_rotation(pos, _angle_to_transfrom(tile_rotation))
 	tile_owners[player] = tile_owners.get(player, []) + [pos]
 
 func can_place(map_pos: Vector2i, tile: Tile, rot: float, player: Hand) -> bool:
