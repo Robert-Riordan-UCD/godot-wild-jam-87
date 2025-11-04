@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://bqwykybnw6vub" path="res://controllers/player_controller.gd" id="1_pgxsc"]
 
-[node name="PlayerController" type="Node2D"]
+[node name="PlayerController" type="Node2D" groups=["player"]]
 script = ExtResource("1_pgxsc")

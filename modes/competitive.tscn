@@ -1,10 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bg5m1eq5sdvjr"]
+[gd_scene load_steps=3 format=3 uid="uid://bg5m1eq5sdvjr"]
 
 [ext_resource type="PackedScene" uid="uid://bx18xpobi015t" path="res://game.tscn" id="1_og65u"]
+[ext_resource type="Script" uid="uid://cjlo7hcc5s8sa" path="res://modes/competitive_setup.gd" id="2_u7kwk"]
 
 [node name="Competitive" instance=ExtResource("1_og65u")]
 
-[node name="Board" parent="." index="1"]
+[node name="CompetitiveSetup" type="Node" parent="." index="0"]
+script = ExtResource("2_u7kwk")
+
+[node name="Board" parent="." index="2"]
 tile_map_data = PackedByteArray()
 
 [node name="KnotTileMap" parent="Board" index="0"]

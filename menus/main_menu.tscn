@@ -123,6 +123,12 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 20
 
+[node name="Tutorial" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+theme = ExtResource("5_oblsv")
+theme_override_font_sizes/font_size = 64
+text = "Tutorial"
+
 [node name="Play" type="Button" parent="VBoxContainer/Buttons"]
 layout_mode = 2
 theme = ExtResource("5_oblsv")
@@ -145,6 +151,7 @@ text = "Credits"
 [connection signal="pressed" from="VBoxContainer/Setup/Playes/HBoxContainer/IncreasePlayers" to="." method="_on_increase_players_pressed"]
 [connection signal="pressed" from="VBoxContainer/Setup/CPUs/HBoxContainer/DecreaseCPUs" to="." method="_on_decrease_cp_us_pressed"]
 [connection signal="pressed" from="VBoxContainer/Setup/CPUs/HBoxContainer/IncreaseCPUs" to="." method="_on_increase_cp_us_pressed"]
+[connection signal="pressed" from="VBoxContainer/Buttons/Tutorial" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="VBoxContainer/Buttons/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Buttons/Creative" to="." method="_on_creative_pressed"]
 [connection signal="pressed" from="VBoxContainer/Buttons/Credits" to="." method="_on_credits_pressed"]

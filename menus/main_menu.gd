@@ -4,6 +4,7 @@ extends CanvasLayer
 @onready var cpu_count: Label = $VBoxContainer/Setup/CPUs/HBoxContainer/CPUCount
 
 const COMPETITIVE = "res://modes/competitive.tscn"
+const TUTORIAL = "res://modes/tutorial.tscn"
 const CREATIVE = "res://modes/creative_setup_menu.tscn"
 const CREDITS = "res://menus/credits.tscn"
 
@@ -16,6 +17,9 @@ func _on_play_pressed() -> void:
 	Globals.num_players = int(player_count.text)
 	Globals.num_cpus = int(cpu_count.text)
 	SceneTransition.change_scene(COMPETITIVE)
+
+func _on_tutorial_pressed() -> void:
+	SceneTransition.change_scene(TUTORIAL)
 
 func _on_creative_pressed() -> void:
 	SceneTransition.change_scene(CREATIVE)

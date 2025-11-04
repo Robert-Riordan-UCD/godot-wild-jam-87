@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://bx18xpobi015t"]
+[gd_scene load_steps=27 format=4 uid="uid://bx18xpobi015t"]
 
 [ext_resource type="Script" uid="uid://d0qmskn58yta5" path="res://game.gd" id="1_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://c31qphkaixitt" path="res://knot_tile_map.tscn" id="2_feb5d"]
@@ -16,6 +16,7 @@
 [ext_resource type="AudioStream" uid="uid://coc4axghrtlqs" path="res://audio/sound_effects/tile1.mp3" id="10_lc2xo"]
 [ext_resource type="AudioStream" uid="uid://bkxhh50sitkc4" path="res://audio/sound_effects/tile2.mp3" id="11_215e1"]
 [ext_resource type="AudioStream" uid="uid://b7ycykfesmrom" path="res://audio/sound_effects/tile3.mp3" id="12_7sc4i"]
+[ext_resource type="PackedScene" uid="uid://h372ny4x2wrf" path="res://menus/tutorial.tscn" id="12_f1jbl"]
 [ext_resource type="AudioStream" uid="uid://fqauup2mitus" path="res://audio/sound_effects/tile4.mp3" id="13_rvswv"]
 [ext_resource type="AudioStream" uid="uid://dw6th8tyu7fdd" path="res://audio/sound_effects/tile5.mp3" id="14_boyg6"]
 [ext_resource type="AudioStream" uid="uid://dqvv1oglna5pf" path="res://audio/sound_effects/tile6.mp3" id="15_e36ub"]
@@ -157,6 +158,9 @@ visible = false
 
 [node name="EndScreen" parent="." instance=ExtResource("6_ryrav")]
 visible = false
+
+[node name="Tutorial" parent="." node_paths=PackedStringArray("players") instance=ExtResource("12_f1jbl")]
+players = [NodePath("../GUI/Players/Top"), NodePath("../GUI/Players/Left"), NodePath("../GUI/Players/Right")]
 
 [node name="ScoreCalculator" type="Node2D" parent="."]
 script = ExtResource("7_eow3j")

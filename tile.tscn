@@ -17,7 +17,7 @@ region = Rect2(0, 0, 200, 200)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vx4y2"]
 size = Vector2(200, 200)
 
-[node name="Tile" type="Sprite2D"]
+[node name="Tile" type="Sprite2D" groups=["tile"]]
 material = SubResource("ShaderMaterial_tfor0")
 texture = SubResource("AtlasTexture_vx4y2")
 script = ExtResource("2_a2t34")

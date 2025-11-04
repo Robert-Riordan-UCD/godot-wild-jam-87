@@ -18,7 +18,7 @@ const TILE_SIZE := Vector2(200, 200)
 var tile_scale := 0.25
 
 var num_players: int = 1
-var num_cpus: int = 0
+var num_cpus: int = 1
 
 enum controller_type {
 	PLAYER,
