@@ -25,42 +25,67 @@ var controller: BaseController
 
 func _ready() -> void:
 	await get_tree().process_frame
-	var players: Array = get_tree().get_nodes_in_group("player")
+
+	var removed_actions := InputMapEdit.remove_input_actions()
+	InputMapEdit.restore_input_action("pick_up_tile", removed_actions["pick_up_tile"])
 	
-	if players.is_empty():
+	var _players: Array = get_tree().get_nodes_in_group("player")
+	
+	if _players.is_empty():
 		queue_free()
 		return
 	
-	controller = players[0]
+	controller = _players[0]
 	
 	await _tile_clicked()
+	await get_tree().process_frame
 	
+	InputMapEdit.remove_input_action("pick_up_tile")
 	select_tile.visible = false
+	InputMapEdit.restore_input_action("rotate_tile_cw", removed_actions["rotate_tile_cw"])
+	InputMapEdit.restore_input_action("rotate_tile_acw", removed_actions["rotate_tile_acw"])
 	rotate_tile.visible = true
 	
 	await rotated
+	await get_tree().process_frame
 	
+	InputMapEdit.restore_input_action("drop_tile", removed_actions["drop_tile"])
 	rotate_tile.visible = false
 	return_tile.visible = true
 	
 	await dropped
+	await get_tree().process_frame
 	
+	InputMapEdit.remove_input_action("rotate_tile_cw")
+	InputMapEdit.remove_input_action("rotate_tile_acw")
+	InputMapEdit.remove_input_action("drop_tile")
 	return_tile.visible = false
+	InputMapEdit.restore_input_action("pass", removed_actions["pass"])
 	pass_turn.visible = true
 	
 	await passed
+	await get_tree().process_frame
 	
+	InputMapEdit.remove_input_action("pass")
 	pass_turn.visible = false
 	other_players.visible = true
 	
 	await _all_players_end_turn()
+	await get_tree().process_frame
 	
 	other_players.visible = false
+	InputMapEdit.restore_input_action("pick_up_tile", removed_actions["pick_up_tile"])
+	InputMapEdit.restore_input_action("rotate_tile_cw", removed_actions["rotate_tile_cw"])
+	InputMapEdit.restore_input_action("rotate_tile_acw", removed_actions["rotate_tile_acw"])
+	InputMapEdit.restore_input_action("drop_tile", removed_actions["drop_tile"])
+	InputMapEdit.restore_input_action("place_tile", removed_actions["place_tile"])
 	place_tile.visible = true
 	place_tile_note.visible = true
 	
 	await controller.end_turn
+	await get_tree().process_frame
 	
+	InputMapEdit.restore_input_actions(removed_actions)
 	place_tile.visible = false
 	place_tile_note.visible = false
 	thats_it.visible = true
