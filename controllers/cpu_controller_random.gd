@@ -61,6 +61,7 @@ func _try_turn() -> void:
 		tile_placement_duration*0.8
 	).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 	await tween.finished
+	selected_tile.reparent(get_tree().root)
 	place_tile.emit(selected_tile, Globals.tile_map.to_global(Globals.tile_map.map_to_local(selected_location)))
 
 func failed_to_place() -> void:
