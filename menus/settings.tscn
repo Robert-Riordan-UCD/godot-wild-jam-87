@@ -54,7 +54,22 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-min_value = -30.0
+min_value = -50.0
+max_value = 10.0
+step = 0.25
+
+[node name="Audio3" type="Label" parent="VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Background Birds"
+
+[node name="HSlider3" type="HSlider" parent="VBoxContainer/VBoxContainer/GridContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = -50.0
 max_value = 10.0
 step = 0.25
 
@@ -80,5 +95,6 @@ theme_override_font_sizes/font_size = 60
 text = "Back"
 
 [connection signal="value_changed" from="VBoxContainer/VBoxContainer/GridContainer/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/VBoxContainer/GridContainer/HSlider3" to="." method="_on_h_slider_3_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/VBoxContainer/GridContainer/HSlider2" to="." method="_effects_value_changed"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]

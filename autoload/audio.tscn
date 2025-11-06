@@ -1,6 +1,5 @@
 [gd_scene load_steps=9 format=3 uid="uid://b4jc70ntw8pl7"]
 
-[ext_resource type="AudioStream" uid="uid://dsqh22lue122f" path="res://audio/wind/wind_and_birds.mp3" id="1_m5bje"]
 [ext_resource type="AudioStream" uid="uid://0mjk610tl3d4" path="res://audio/music/1_Valiant_Violin_V2.mp3" id="2_d3qhs"]
 [ext_resource type="Script" uid="uid://vdhbvgcpf4i" path="res://autoload/audio.gd" id="2_m5bje"]
 [ext_resource type="Script" uid="uid://dgpvu2c21d7uh" path="res://audio/audio_level.gd" id="3_k0ge0"]
@@ -8,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://d8dcvycavmly" path="res://audio/music/3_ConcertHarp-20200702.mp3" id="4_k0ge0"]
 [ext_resource type="AudioStream" uid="uid://cgbfk6ic02dg0" path="res://audio/music/4_ConcertHarp-20200702.mp3" id="5_at2qi"]
 [ext_resource type="AudioStream" uid="uid://bb3c1uthi5nxo" path="res://audio/music/5_tom03.ogg.mp3" id="6_kflsn"]
+[ext_resource type="AudioStream" uid="uid://cj47d0gmi7qpj" path="res://audio/sound_effects/birds.mp3" id="8_lx04d"]
 
 [node name="Audio" type="Node"]
 process_mode = 3
@@ -52,10 +52,10 @@ parameters/looping = true
 script = ExtResource("3_k0ge0")
 metadata/_custom_type_script = "uid://dgpvu2c21d7uh"
 
-[node name="Wind" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("1_m5bje")
-volume_db = -20.0
+[node name="Birds" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_lx04d")
 autoplay = true
 parameters/looping = true
 
+[connection signal="birds_changed" from="." to="." method="_on_birds_changed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

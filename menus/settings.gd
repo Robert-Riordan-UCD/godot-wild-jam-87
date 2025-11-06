@@ -19,3 +19,7 @@ func _on_h_slider_value_changed(value: float) -> void:
 
 func _effects_value_changed(value: float) -> void:
 	Globals.sound_fx_db = value
+
+func _on_h_slider_3_value_changed(value: float) -> void:
+	Audio.bird_volume_db = value
+	Audio.birds_changed.emit()
