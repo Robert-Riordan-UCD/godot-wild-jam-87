@@ -8,6 +8,13 @@ enum TileTransform {
 	ROTATE_270 = TileSetAtlasSource.TRANSFORM_TRANSPOSE | TileSetAtlasSource.TRANSFORM_FLIP_V,
 }
 
+const TileEdge: Dictionary[String, Vector2] = {
+	"north": Vector2(0.5, 0.0),
+	"south": Vector2(0.5, 1.0),
+	"east":  Vector2(1.0, 0.5),
+	"west":  Vector2(0.0, 0.5),
+}
+
 # set to -1 for infinite
 @export var board_size: Vector2i = Vector2i(-1, -1)
 @export var just_for_art: bool = false
@@ -69,6 +76,43 @@ func place_tile(global_pos:Vector2, tile_in_hand: Tile, player: Hand=null) -> bo
 
 func force_place_tile(tile: Tile, pos: Vector2i, player: Hand) -> void:
 	_set_cell(tile, pos, posmod(int(tile.rotation_degrees), 360), player)
+
+func get_open_edges() -> Array[Vector2]:
+	var edges: Array[Vector2] = []
+	print()
+	for cell in get_used_cells():
+		print(cell)
+		print("rot: ", _get_tile_transform(cell))
+		var neighbours := _get_neighbors(cell)
+		print("neigh: ", neighbours)
+		var links := _get_links(_get_tile_type(cell), _get_tile_transform(cell))
+		for dir in Globals.directions:
+			if dir in neighbours: continue
+			print(dir)
+			match dir:
+				Vector2i.UP:    if links[0]: edges.append(Vector2(cell) + Vector2(0.5, 0))
+				Vector2i.RIGHT: if links[1]: edges.append(Vector2(cell) + Vector2(1, 0.5))
+				Vector2i.DOWN:  if links[2]: edges.append(Vector2(cell) + Vector2(0.5, 1))
+				Vector2i.LEFT:  if links[3]: edges.append(Vector2(cell) + Vector2(0, 0.5))
+		print(_get_links(_get_tile_type(cell), _get_tile_transform(cell)))
+		print()
+		
+	return edges
+
+func get_next_edges(edge: Vector2) -> Array[Vector2]:
+	var  next_edges: Array[Vector2] = []
+	print()
+	if int(edge.x) == edge.x:
+		for e in _tile_edge_to_next_edges(Vector2i(edge), edge):
+			next_edges.append(e)
+		for e in _tile_edge_to_next_edges(Vector2i(edge)-Vector2i(1, 0), edge):
+			next_edges.append(e)
+	else:
+		for e in _tile_edge_to_next_edges(Vector2i(edge), edge):
+			next_edges.append(e)
+		for e in _tile_edge_to_next_edges(Vector2i(edge)-Vector2i(0, 1), edge):
+			next_edges.append(e)
+	return next_edges
 
 func _set_cell(tile: Tile, pos: Vector2i, tile_rotation: float, player: Hand) -> void:
 	set_cell(pos, 0, Vector2i(tile.colour_index, tile.type))
@@ -275,3 +319,121 @@ func _angle_to_transfrom(angle: float) -> TileTransform:
 func _set_rotation(map_pos: Vector2i, rot: TileTransform) -> void:
 	var alternate_id = get_cell_alternative_tile(map_pos)
 	set_cell(map_pos, get_cell_source_id(map_pos), get_cell_atlas_coords(map_pos), alternate_id | rot)
+
+
+func _get_tile_type(cell: Vector2i) -> int:
+	return get_cell_atlas_coords(cell)[1]
+
+
+func _get_tile_owner(cell: Vector2i) -> Hand:
+	for hand in tile_owners:
+		if cell in tile_owners[hand]:
+			return hand
+	return null
+
+
+func _get_tile_transform(cell: Vector2i) -> TileTransform:
+	var alt := get_cell_alternative_tile(cell)
+	for t in TileTransform:
+		if alt == TileTransform[t]:
+			return TileTransform[t]
+	return TileTransform.ROTATE_0
+
+# It's ugly but it works
+func _tile_edge_to_next_edges(coords: Vector2i, edge: Vector2) -> Array[Vector2]:
+	if get_cell_tile_data(coords) == null: return []
+	var next_edges: Array[Vector2] = []
+	
+	var edge_offset: Vector2 = edge - Vector2(coords)
+	var type := _get_tile_type(coords)
+	var tile_transform := _get_tile_transform(coords)
+	
+	match type:
+		0: match edge_offset: # C type
+				TileEdge["north"]:
+					if tile_transform == TileTransform.ROTATE_180:
+						next_edges.append(TileEdge["west"])
+						next_edges.append(TileEdge["west"])
+					if tile_transform == TileTransform.ROTATE_270:
+						next_edges.append(TileEdge["east"])
+						next_edges.append(TileEdge["east"])
+				TileEdge["south"]:
+					if tile_transform == TileTransform.ROTATE_0:
+						next_edges.append(TileEdge["east"])
+						next_edges.append(TileEdge["east"])
+					if tile_transform == TileTransform.ROTATE_90:
+						next_edges.append(TileEdge["west"])
+						next_edges.append(TileEdge["west"])
+				TileEdge["east"]:
+					if tile_transform == TileTransform.ROTATE_0:
+						next_edges.append(TileEdge["south"])
+						next_edges.append(TileEdge["south"])
+					if tile_transform == TileTransform.ROTATE_270:
+						next_edges.append(TileEdge["north"])
+						next_edges.append(TileEdge["north"])
+				TileEdge["west"]:
+					if tile_transform == TileTransform.ROTATE_90:
+						next_edges.append(TileEdge["south"])
+						next_edges.append(TileEdge["south"])
+					if tile_transform == TileTransform.ROTATE_180:
+						next_edges.append(TileEdge["north"])
+						next_edges.append(TileEdge["north"])
+		1: match edge_offset: # T type
+				TileEdge["north"]:
+					if tile_transform == TileTransform.ROTATE_90:
+						next_edges.append(TileEdge["south"])
+						next_edges.append(TileEdge["west"])
+					if tile_transform == TileTransform.ROTATE_180:
+						next_edges.append(TileEdge["east"])
+						next_edges.append(TileEdge["west"])
+					if tile_transform == TileTransform.ROTATE_270:
+						next_edges.append(TileEdge["east"])
+						next_edges.append(TileEdge["south"])
+				TileEdge["south"]:
+					if tile_transform == TileTransform.ROTATE_0:
+						next_edges.append(TileEdge["west"])
+						next_edges.append(TileEdge["east"])
+					if tile_transform == TileTransform.ROTATE_90:
+						next_edges.append(TileEdge["west"])
+						next_edges.append(TileEdge["north"])
+					if tile_transform == TileTransform.ROTATE_270:
+						next_edges.append(TileEdge["north"])
+						next_edges.append(TileEdge["east"])
+				TileEdge["east"]:
+					if tile_transform == TileTransform.ROTATE_0:
+						next_edges.append(TileEdge["south"])
+						next_edges.append(TileEdge["west"])
+					if tile_transform == TileTransform.ROTATE_180:
+						next_edges.append(TileEdge["west"])
+						next_edges.append(TileEdge["north"])
+					if tile_transform == TileTransform.ROTATE_270:
+						next_edges.append(TileEdge["south"])
+						next_edges.append(TileEdge["north"])
+				TileEdge["west"]:
+					if tile_transform == TileTransform.ROTATE_0:
+						next_edges.append(TileEdge["east"])
+						next_edges.append(TileEdge["south"])
+					if tile_transform == TileTransform.ROTATE_90:
+						next_edges.append(TileEdge["north"])
+						next_edges.append(TileEdge["south"])
+					if tile_transform == TileTransform.ROTATE_180:
+						next_edges.append(TileEdge["north"])
+						next_edges.append(TileEdge["east"])
+		2: match edge_offset: # X type
+				TileEdge["north"]:
+					next_edges.append(TileEdge["east"])
+					next_edges.append(TileEdge["west"])
+				TileEdge["south"]:
+					next_edges.append(TileEdge["west"])
+					next_edges.append(TileEdge["east"])
+				TileEdge["east"]:
+					next_edges.append(TileEdge["south"])
+					next_edges.append(TileEdge["north"])
+				TileEdge["west"]:
+					next_edges.append(TileEdge["north"])
+					next_edges.append(TileEdge["south"])
+	
+	for i in next_edges.size():
+		next_edges[i] = next_edges[i] + Vector2(coords)
+	
+	return next_edges
