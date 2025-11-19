@@ -15,6 +15,12 @@ const TILE = preload("res://tile.tscn")
 const ALERT = preload("res://alert.tscn")
 const TILE_DRAW_TIME = 0.3
 
+@onready var rope_score_margin_container: MarginContainer = $RopeScoreMarginContainer
+@onready var plus_margin_container: MarginContainer = $PlusMarginContainer
+@onready var total_score_margin_container: MarginContainer = $TotalScoreMarginContainer
+@onready var rope_score: Label = $RopeScoreMarginContainer/RopeScore
+@onready var total_score: Label = $TotalScoreMarginContainer/TotalScore
+
 @export_range(0, 10) var hand_size: int = 3
 @export var hand_type: hand_types = hand_types.RANDOM
 @export var location: Vector2i = Vector2i.DOWN
@@ -89,6 +95,25 @@ func get_tiles() -> Array[Tile]:
 
 func failed_to_place() -> void:
 	controller.failed_to_place()
+
+func add_score(points: int=1) -> void:
+	rope_score_margin_container.visible = true
+	plus_margin_container.visible = true
+	rope_score.text = str(int(rope_score.text)+points)
+
+func mult_score(times: int=1) -> void:
+	rope_score_margin_container.visible = true
+	plus_margin_container.visible = true
+	rope_score.text = str(int(rope_score.text)*times)
+
+func move_rope_to_total_score() -> void:
+	total_score.text = str(int(total_score.text) + int(rope_score.text))
+	rope_score.text = "0"
+	rope_score_margin_container.visible = false
+	plus_margin_container.visible = false
+
+func shout(text: String, duration: float=0.7) -> void:
+	_alert(text, alert_pos, duration)
 
 func _set_controller() -> void:
 	match controller_type:

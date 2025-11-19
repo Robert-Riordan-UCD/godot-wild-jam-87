@@ -79,29 +79,33 @@ func force_place_tile(tile: Tile, pos: Vector2i, player: Hand) -> void:
 
 func get_open_edges() -> Array[Vector2]:
 	var edges: Array[Vector2] = []
-	print()
 	for cell in get_used_cells():
-		print(cell)
-		print("rot: ", _get_tile_transform(cell))
 		var neighbours := _get_neighbors(cell)
-		print("neigh: ", neighbours)
 		var links := _get_links(_get_tile_type(cell), _get_tile_transform(cell))
 		for dir in Globals.directions:
 			if dir in neighbours: continue
-			print(dir)
 			match dir:
 				Vector2i.UP:    if links[0]: edges.append(Vector2(cell) + Vector2(0.5, 0))
 				Vector2i.RIGHT: if links[1]: edges.append(Vector2(cell) + Vector2(1, 0.5))
 				Vector2i.DOWN:  if links[2]: edges.append(Vector2(cell) + Vector2(0.5, 1))
 				Vector2i.LEFT:  if links[3]: edges.append(Vector2(cell) + Vector2(0, 0.5))
-		print(_get_links(_get_tile_type(cell), _get_tile_transform(cell)))
-		print()
-		
+	
+	return edges
+
+func get_closed_edges() -> Array[Vector2]:
+	var edges: Array[Vector2] = []
+	for x in range(0, board_size.x-1):
+		for y in  range(0, board_size.y-1):
+			if get_cell_tile_data(Vector2i(x, y)) and get_cell_tile_data(Vector2i(x+1, y)):
+				if _get_links(_get_tile_type(Vector2(x, y)), _get_tile_transform(Vector2(x, y)))[1] == false: continue
+				edges.append(Vector2(x+1, y+0.5))
+			if get_cell_tile_data(Vector2i(x, y)) and get_cell_tile_data(Vector2i(x, y+1)):
+				if _get_links(_get_tile_type(Vector2(x, y)), _get_tile_transform(Vector2(x, y)))[2] == false: continue
+				edges.append(Vector2(x+0.5, y+1.0))
 	return edges
 
 func get_next_edges(edge: Vector2, over: bool) -> Array[Vector2]:
 	var  next_edges: Array[Vector2] = []
-	print()
 	if int(edge.x) == edge.x:
 		for e in _tile_edge_to_next_edges(Vector2i(edge), edge, over):
 			next_edges.append(e)
