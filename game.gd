@@ -44,6 +44,8 @@ func _on_remove_tile(pos: Vector2) -> void:
 		_play_tile_places_sound()
 
 func _on_game_over() -> void:
+	for player in players.get_children():
+		player.game_over()
 	var scores := await score_calculator.get_score()
 	var winner: Hand
 	var winner_score: int = -1

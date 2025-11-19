@@ -6,7 +6,6 @@ const DOT = preload("res://dot.tscn")
 var visited_over: Dictionary = {}
 var visited_under: Dictionary = {}
 
-
 func get_score() -> Dictionary[Hand, int]:
 	for dot in get_tree().get_nodes_in_group("dot"):
 		dot.queue_free()

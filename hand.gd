@@ -21,6 +21,8 @@ const TILE_DRAW_TIME = 0.3
 @onready var rope_score: Label = $RopeScoreMarginContainer/RopeScore
 @onready var total_score: Label = $TotalScoreMarginContainer/TotalScore
 
+@onready var _disabled: bool = false
+
 @export_range(0, 10) var hand_size: int = 3
 @export var hand_type: hand_types = hand_types.RANDOM
 @export var location: Vector2i = Vector2i.DOWN
@@ -70,6 +72,7 @@ func draw_new_hand(random:bool = false) -> void:
 		else:      _add_tile(i)
 
 func take_turn() -> void:
+	if _disabled: return
 	await _draw_tiles()
 	controller.take_turn()
 
@@ -114,6 +117,10 @@ func move_rope_to_total_score() -> void:
 
 func shout(text: String, duration: float=0.7) -> void:
 	_alert(text, alert_pos, duration)
+
+func game_over() -> void:
+	_disabled = true
+	_clear_hand()
 
 func _set_controller() -> void:
 	match controller_type:
