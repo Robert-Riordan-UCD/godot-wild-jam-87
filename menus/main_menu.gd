@@ -16,12 +16,15 @@ func _ready() -> void:
 func _on_play_pressed() -> void:
 	Globals.num_players = int(player_count.text)
 	Globals.num_cpus = int(cpu_count.text)
+	_clear_orphan_tiles()
 	SceneTransition.change_scene(COMPETITIVE)
 
 func _on_tutorial_pressed() -> void:
+	_clear_orphan_tiles()
 	SceneTransition.change_scene(TUTORIAL)
 
 func _on_creative_pressed() -> void:
+	_clear_orphan_tiles()
 	SceneTransition.change_scene(CREATIVE)
 
 func _on_credits_pressed() -> void:
@@ -38,3 +41,8 @@ func _on_decrease_cp_us_pressed() -> void:
 
 func _on_increase_cp_us_pressed() -> void:
 	cpu_count.text = str(min(int(cpu_count.text)+1, max_total_players-int(player_count.text)))
+
+func _clear_orphan_tiles() -> void:
+	for child in get_tree().root.get_children():
+		if child is Tile:
+			child.queue_free()
