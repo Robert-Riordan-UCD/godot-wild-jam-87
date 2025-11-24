@@ -29,6 +29,8 @@ var tile_map: KnotTileMap
 
 var sound_fx_db: float = 0
 
+var animation_speed: float = 4.0
+
 var custom_game: bool = false
 var board_width: int = 9
 var board_height: int = 9

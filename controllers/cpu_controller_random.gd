@@ -21,7 +21,7 @@ func take_turn() -> void:
 
 func _try_turn() -> void:
 	if attempts == 0 and Globals.num_players > 0:
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(1/Globals.animation_speed).timeout
 	# Not sure why this script isn't respecting process_mode
 	while get_tree().paused: await get_tree().create_timer(0.2).timeout
 
@@ -46,19 +46,19 @@ func _try_turn() -> void:
 		selected_tile,
 		"rotation_degrees",
 		final_rot,
-		tile_placement_duration*0.8
+		tile_placement_duration*0.8/Globals.animation_speed
 	).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(
 		selected_tile, 
 		"global_position", 
 		final_pos,
-		tile_placement_duration
+		tile_placement_duration/Globals.animation_speed
 	).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 	tween.parallel().tween_property(
 		selected_tile,
 		"scale",
 		final_scale,
-		tile_placement_duration*0.8
+		tile_placement_duration*0.8/Globals.animation_speed
 	).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 	await tween.finished
 	selected_tile.reparent(get_tree().root)
