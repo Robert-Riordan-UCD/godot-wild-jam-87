@@ -57,8 +57,6 @@ func _on_game_over() -> void:
 			tie = false
 		elif scores[player] == winner_score:
 			tie = true
-	print(scores)
-	print(winner, winner_score)
 	players.disable_players()
 	if tie:
 		end_screen.game_over("It's a tie!")

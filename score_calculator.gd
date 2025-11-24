@@ -21,25 +21,14 @@ func get_score() -> Dictionary[Hand, int]:
 		for over in [true, false]:
 			var rope_score: Dictionary[Hand, int] = await draw_traverse(edge, over)
 			for player in rope_score:
-				print("from edge ", edge)
-				print("a: ", player, rope_score, scores)
 				scores[player] = scores.get(player, 0) + rope_score[player]
-				print("b: ", player, rope_score, scores)
-				print()
 	
 	for edge in Globals.tile_map.get_closed_edges():
 		for over in [true, false]:
 			var rope_score: Dictionary[Hand, int] = await draw_traverse(edge, over, true)
 			for player in rope_score:
-				print("a: ", player, rope_score, scores)
 				scores[player] = scores.get(player, 0) + rope_score[player]
-				print("b: ", player, rope_score, scores)
-				print()
 	
-	# FIXME: Currently using to keep game running
-	# Simple score system. Most tiles
-	#var scores := _get_player_tile_count()
-	print("calc scores ", scores)
 	return scores
 
 
@@ -101,7 +90,6 @@ func draw_traverse(edge: Vector2, over: bool, loop: bool=false) -> Dictionary[Ha
 func _traverse_rope(starting_edge: Vector2, over: bool, depth: int = 0) -> Array[Vector2]:
 	if over and starting_edge in visited_over: return []
 	if not over and starting_edge in visited_under: return []
-	#_add_dot(Globals.tile_map.global_position + starting_edge*Globals.TILE_SIZE*Globals.tile_scale, Color(depth/5.0, 1.0, 1.0), over)
 	var next_edges := Globals.tile_map.get_next_edges(starting_edge, not over)
 	var path: Array[Vector2] = [starting_edge]
 	if over: visited_over[starting_edge] = null
@@ -109,16 +97,9 @@ func _traverse_rope(starting_edge: Vector2, over: bool, depth: int = 0) -> Array
 		
 	for i in next_edges.size():
 		var edge := next_edges[i]
-		#await get_tree().create_timer(0.7).timeout
 		var part_path := await _traverse_rope(edge, not over, depth+1)
 		path = path + part_path
 	return path
-
-
-# FIXME: debug input to test score without completing game
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("debug"):
-		get_score()
 
 
 func _add_dot(pos: Vector2, color: Color = Color.WHITE, over: bool = true) -> void:
