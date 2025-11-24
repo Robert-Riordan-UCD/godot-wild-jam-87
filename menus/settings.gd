@@ -33,3 +33,8 @@ func _on_h_slider_3_value_changed(value: float) -> void:
 
 func _on_animation_speed_slider_value_changed(value: float) -> void:
 	Globals.animation_speed = value
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action("pause"):
+		visible = false
