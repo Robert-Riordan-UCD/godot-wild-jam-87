@@ -15,24 +15,37 @@ func get_score() -> Dictionary[Hand, int]:
 	
 	visited_over = {}
 	visited_under = {}
+	var scores: Dictionary[Hand, int] = {}
 	
 	for edge in Globals.tile_map.get_open_edges():
 		for over in [true, false]:
-			await draw_traverse(edge, over)
+			var rope_score: Dictionary[Hand, int] = await draw_traverse(edge, over)
+			for player in rope_score:
+				print("from edge ", edge)
+				print("a: ", player, rope_score, scores)
+				scores[player] = scores.get(player, 0) + rope_score[player]
+				print("b: ", player, rope_score, scores)
+				print()
 	
 	for edge in Globals.tile_map.get_closed_edges():
 		for over in [true, false]:
-			await draw_traverse(edge, over, true)
+			var rope_score: Dictionary[Hand, int] = await draw_traverse(edge, over, true)
+			for player in rope_score:
+				print("a: ", player, rope_score, scores)
+				scores[player] = scores.get(player, 0) + rope_score[player]
+				print("b: ", player, rope_score, scores)
+				print()
 	
 	# FIXME: Currently using to keep game running
 	# Simple score system. Most tiles
-	var scores := _get_player_tile_count()
+	#var scores := _get_player_tile_count()
+	print("calc scores ", scores)
 	return scores
 
 
-func draw_traverse(edge: Vector2, over: bool, loop: bool=false):
+func draw_traverse(edge: Vector2, over: bool, loop: bool=false) -> Dictionary[Hand, int]:
 	var points := await _traverse_rope(edge, over)
-	if points.size() == 0: return
+	if points.size() == 0: return {}
 	if loop: points.append(points[0])
 		
 	var line := Line2D.new()
@@ -66,12 +79,14 @@ func draw_traverse(edge: Vector2, over: bool, loop: bool=false):
 		await get_tree().create_timer(0.2).timeout
 		for player in scores:
 			if scores[player] == best_score:
+				scores[player] = scores.get(player, 0) + points.size()-1-best_score
 				player.add_score(points.size()-1-best_score)
 				player.shout("Dominant! +" + str(points.size()-1-best_score))
 	
 	if loop:
 		await get_tree().create_timer(0.2).timeout
 		for player in scores:
+			scores[player] = scores.get(player, 0)*2
 			player.mult_score(2)
 			player.shout("Loop! x2!")
 	
@@ -79,6 +94,8 @@ func draw_traverse(edge: Vector2, over: bool, loop: bool=false):
 	
 	for player in scores:
 		player.move_rope_to_total_score()
+	
+	return scores
 
 
 func _traverse_rope(starting_edge: Vector2, over: bool, depth: int = 0) -> Array[Vector2]:

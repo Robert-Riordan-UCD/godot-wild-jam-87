@@ -21,7 +21,7 @@ const TILE_DRAW_TIME = 0.3
 @onready var rope_score: Label = $RopeScoreMarginContainer/RopeScore
 @onready var total_score: Label = $TotalScoreMarginContainer/TotalScore
 
-@onready var _disabled: bool = false
+@onready var disabled: bool = false
 
 @export_range(0, 10) var hand_size: int = 3
 @export var hand_type: hand_types = hand_types.RANDOM
@@ -72,7 +72,7 @@ func draw_new_hand(random:bool = false) -> void:
 		else:      _add_tile(i)
 
 func take_turn() -> void:
-	if _disabled: return
+	if disabled: return
 	await _draw_tiles()
 	controller.take_turn()
 
@@ -102,16 +102,27 @@ func failed_to_place() -> void:
 func add_score(points: int=1) -> void:
 	rope_score_margin_container.visible = true
 	plus_margin_container.visible = true
+	total_score_margin_container.visible = true
 	rope_score.text = str(int(rope_score.text)+points)
 
 func mult_score(times: int=1) -> void:
 	rope_score_margin_container.visible = true
 	plus_margin_container.visible = true
+	total_score_margin_container.visible = true
 	rope_score.text = str(int(rope_score.text)*times)
+
+func reset_score() -> void:
+	rope_score_margin_container.visible = false
+	plus_margin_container.visible = false
+	total_score_margin_container.visible = false
+	rope_score.text = "0"
+	total_score.text = "0"
+
 
 func move_rope_to_total_score() -> void:
 	total_score.text = str(int(total_score.text) + int(rope_score.text))
 	rope_score.text = "0"
+	total_score_margin_container.visible = true
 	rope_score_margin_container.visible = false
 	plus_margin_container.visible = false
 
@@ -119,7 +130,7 @@ func shout(text: String, duration: float=0.7) -> void:
 	_alert(text, alert_pos, duration)
 
 func game_over() -> void:
-	_disabled = true
+	disabled = true
 	_clear_hand()
 
 func _set_controller() -> void:
@@ -174,7 +185,7 @@ func _remove_tile(pos: Vector2) -> void:
 func _end_turn(passed: bool) -> void:
 	if passed: _alert("Passed", alert_pos, 1.0)
 	await _discard_tiles()
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.5/Globals.animation_speed).timeout
 	new_hand()
 	turn_finished.emit(passed)
 	
@@ -205,16 +216,16 @@ func reset_tiles() -> void:
 			tile,
 			"global_position",
 			tile.home_position,
-			TILE_DRAW_TIME
+			TILE_DRAW_TIME/Globals.animation_speed
 		).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD).set_delay(0.1*position_in_hand)
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.3/Globals.animation_speed).timeout
 
 func _discard_tiles() -> void:
 	for i in get_tiles().size():
 		var tile: Tile = get_tiles()[i]
 		var tween: Tween = create_tween()
-		tween.tween_property(tile, "global_position", discard_to_position, TILE_DRAW_TIME).set_delay(0.1*i)
-	await get_tree().create_timer(0.3).timeout
+		tween.tween_property(tile, "global_position", discard_to_position, TILE_DRAW_TIME/Globals.animation_speed).set_delay(0.1*i)
+	await get_tree().create_timer(0.3/Globals.animation_speed).timeout
 
 func _alert(text: String, pos: Vector2, duration: float) -> void:
 	var new_alert: Alert = ALERT.instantiate()

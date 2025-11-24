@@ -24,10 +24,18 @@ func _ready() -> void:
 	
 	get_child(0).take_turn()
 
+
 func update() -> void:
 	for hand: Hand in get_children():
 		pass
 		#hand.update()
+
+
+func disable_players() -> void:
+	for player in get_children():
+		if player is Hand:
+			player.disabled = true
+
 
 func _on_turn_finished(passed: bool) -> void:
 	if passed:
