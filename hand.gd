@@ -66,10 +66,20 @@ func setup() -> void:
 			Globals.tile_map.force_place_tile(t, Vector2i(0, int(board_size.y/2.0)), self)
 
 func draw_new_hand(random:bool = false) -> void:
-	await _clear_hand()
-	for i in range(hand_size):
-		if random: _add_tile()
-		else:      _add_tile(i)
+	if random:
+		await _clear_hand()
+		for i in range(hand_size):
+			_add_tile()
+			
+	else:
+		for tile_type in range(3):
+			var tile_found: bool = false
+			for tile in get_tiles():
+				if tile.type == tile_type:
+					tile_found = true
+					break
+			if not tile_found:
+				_add_tile(tile_type)
 
 func take_turn() -> void:
 	if disabled: return
@@ -184,9 +194,10 @@ func _remove_tile(pos: Vector2) -> void:
 
 func _end_turn(passed: bool) -> void:
 	if passed: _alert("Passed", alert_pos, 1.0)
-	await _discard_tiles()
+	if hand_type == hand_types.RANDOM:
+		await _discard_tiles()
+		new_hand()
 	await get_tree().create_timer(0.5/Globals.animation_speed).timeout
-	new_hand()
 	turn_finished.emit(passed)
 	
 func _draw_tiles() -> void:
@@ -195,7 +206,6 @@ func _draw_tiles() -> void:
 			await draw_new_hand(true)
 		hand_types.IN_ORDER:
 			await draw_new_hand()
-	
 	reset_tiles()
 
 func reset_tiles() -> void:
