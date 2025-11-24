@@ -58,8 +58,24 @@ func _on_mouse_entered() -> void:
 	
 	if tween: tween.stop()
 	tween = create_tween()
-	tween.tween_property(self, "scale", Vector2(1.1, 1.1), 0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-	tween.parallel().tween_property(self, "global_position:y", home_position.y-20, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(self, "scale", Vector2(1.1, 1.1), 0.3/Globals.animation_speed).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+
+	var direction: Vector2 = global_position.direction_to(get_viewport_rect().size/2)
+	if abs(direction.x) > abs(direction.y):
+		direction = Vector2(direction.x, 0).normalized()
+	else:
+		direction = Vector2(0, direction.y).normalized()
+	
+	tween.parallel().tween_property(self, "global_position", home_position+20*direction, 0.5/Globals.animation_speed).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+
+	#if player is Hand:
+		#match player.location:
+			#Vector2i(0, 1): tween.parallel().tween_property(self, "global_position:y", home_position.y-20, 0.5/Globals.animation_speed).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+			#Vector2i(0, -1): tween.parallel().tween_property(self, "global_position:y", home_position.y+20, 0.5/Globals.animation_speed).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+			#Vector2i(1, 0): tween.parallel().tween_property(self, "global_position:x", home_position.x-20, 0.5/Globals.animation_speed).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+			#Vector2i(-1, 0): tween.parallel().tween_property(self, "global_position:x", home_position.x+	20, 0.5/Globals.animation_speed).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	#else:
+		#tween.parallel().tween_property(self, "global_position:y", home_position.y-20, 0.5/Globals.animation_speed).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 
 func _on_mouse_exited() -> void:
 	if selected: return
@@ -68,5 +84,5 @@ func _on_mouse_exited() -> void:
 	
 	if tween: tween.stop()
 	tween = create_tween()
-	tween.tween_property(self, "scale", Vector2(1, 1), 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-	tween.parallel().tween_property(self, "global_position:y", home_position.y, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(self, "scale", Vector2(1, 1), 0.2/Globals.animation_speed).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.parallel().tween_property(self, "global_position", home_position, 0.2/Globals.animation_speed).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
