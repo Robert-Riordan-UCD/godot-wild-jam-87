@@ -136,7 +136,7 @@ func can_place(map_pos: Vector2i, tile: Tile, rot: float, player: Hand) -> bool:
 	
 	# Cell occupied
 	if not can_replace_tile and not get_cell_tile_data(map_pos) == null: return false
-
+	
 	# No neighbours
 	if must_neighbour_own_tile and _get_neighbors(map_pos, player).is_empty(): return false
 	
@@ -157,10 +157,12 @@ func can_place(map_pos: Vector2i, tile: Tile, rot: float, player: Hand) -> bool:
 func get_placeable_cells(player: Hand) -> Dictionary[Vector2i, Variant]:
 	var cells: Dictionary[Vector2i, Variant] = {}
 	
+	# Player can place the first tile anywhere if there is none
 	if tile_owners.get(player, []).is_empty():
 		for x in range(board_size.x):
 			for y in range(board_size.y):
 				cells[Vector2i(x, y)] = null
+		return cells
 	
 	var used_cells: Array
 	if must_neighbour_own_tile:
@@ -168,11 +170,24 @@ func get_placeable_cells(player: Hand) -> Dictionary[Vector2i, Variant]:
 	else:
 		used_cells = get_used_cells()
 	
+	var neighbours: Dictionary[Vector2i, Variant] = {}
 	for cell in used_cells:
-		if must_neighbour_own_tile and not cell in tile_owners.get(player, []): continue
 		for dir in Globals.directions:
-			if get_cell_tile_data(cell+dir) == null and _on_board(cell+dir):
-				cells[cell+dir] = null
+			if cell + dir in get_used_cells(): continue
+			if (cell+dir).x < 0: continue
+			if (cell+dir).y < 0: continue
+			if (cell+dir).x > board_size.x-1: continue
+			if (cell+dir).y > board_size.y-1: continue
+			neighbours[cell+dir] = null
+	
+	for cell in neighbours:
+			for tile_type in range(3):
+				var tile: Tile = Tile.new()
+				tile.type = tile_type
+				for rot in [0, 90 ,180, 270]:
+					tile.rotation_degrees = rot
+					if can_place(cell, tile, rot, player):
+						cells[cell] = null
 	
 	return cells
 

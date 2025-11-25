@@ -36,6 +36,12 @@ func _on_turn_finished(passed: bool) -> void:
 		pass_count += 1
 		if pass_count == Globals.num_cpus + Globals.num_players:
 			game_over.emit()
+			for player in get_children():
+				if player is Hand:
+					player.disabled = true
+					if player.controller is PlayerController:
+						player.controller.active = false
+			return
 	else:
 		pass_count = 0
 	active_player = (active_player+1)%get_child_count()

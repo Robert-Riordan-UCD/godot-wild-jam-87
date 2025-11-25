@@ -82,7 +82,10 @@ func draw_new_hand(random:bool = false) -> void:
 				_add_tile(tile_type)
 
 func take_turn() -> void:
-	if disabled: return
+	if disabled:
+		await get_tree().process_frame
+		turn_finished.emit(true)
+		return
 	await _draw_tiles()
 	controller.take_turn()
 
@@ -193,7 +196,7 @@ func _remove_tile(pos: Vector2) -> void:
 	remove_tile.emit(pos)
 
 func _end_turn(passed: bool) -> void:
-	if passed: _alert("Passed", alert_pos, 1.0)
+	if passed and not disabled: _alert("Passed", alert_pos, 1.0)
 	if hand_type == hand_types.RANDOM:
 		await _discard_tiles()
 		new_hand()

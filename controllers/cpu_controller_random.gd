@@ -28,7 +28,9 @@ func _try_turn() -> void:
 	await get_tree().process_frame
 	var open_locations := _get_valid_tile_locations()
 	if open_locations.is_empty():
+		hand.disabled = true
 		end_turn.emit(true)
+		hand._alert("I can't play", hand.alert_pos, 0.7)
 		return
 	var selected_location: Vector2i = open_locations.keys().pick_random()
 	var selected_tile: Tile = hand.get_tiles().pick_random()
