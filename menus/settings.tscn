@@ -45,6 +45,7 @@ columns = 2
 
 [node name="Audio" type="Label" parent="VBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "Music"
 
@@ -60,6 +61,7 @@ step = 0.25
 
 [node name="Audio3" type="Label" parent="VBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "Background Birds"
 
@@ -75,6 +77,7 @@ step = 0.25
 
 [node name="Audio2" type="Label" parent="VBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "Sound Effects"
 
@@ -90,6 +93,7 @@ step = 0.25
 
 [node name="AnimationSpeedLabel" type="Label" parent="VBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "Animation Speed"
 

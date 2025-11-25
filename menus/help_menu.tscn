@@ -1,14 +1,20 @@
-[gd_scene load_steps=10 format=4 uid="uid://clexar7lfx0fw"]
+[gd_scene load_steps=12 format=4 uid="uid://clexar7lfx0fw"]
 
 [ext_resource type="Script" uid="uid://bevwnhelvke4a" path="res://menus/help_menu.gd" id="1_5jm20"]
 [ext_resource type="PackedScene" uid="uid://c31qphkaixitt" path="res://knot_tile_map.tscn" id="2_5jm20"]
 [ext_resource type="Theme" uid="uid://gjeb5b86341u" path="res://menus/button_theme.tres" id="3_5ixqc"]
 [ext_resource type="Texture2D" uid="uid://ckd2t3c4af364" path="res://assets/kenney-input-promts/mouse_left.png" id="3_5jm20"]
+[ext_resource type="Shader" uid="uid://b6f7pd6ijah8y" path="res://utils/outline.gdshader" id="3_g2df2"]
 [ext_resource type="Texture2D" uid="uid://bmblrjlsrpip" path="res://assets/kenney-input-promts/keyboard_space.png" id="4_fx4lg"]
 [ext_resource type="Texture2D" uid="uid://dllqubq7rj78y" path="res://assets/kenney-input-promts/mouse_scroll_vertical.png" id="5_g2df2"]
 [ext_resource type="Texture2D" uid="uid://dwvx31e7jjcmo" path="res://assets/kenney-input-promts/mouse_right.png" id="6_w75jt"]
 [ext_resource type="Texture2D" uid="uid://dlv34swirkb0p" path="res://assets/kenney-input-promts/keyboard_p.png" id="7_gm1jc"]
 [ext_resource type="Texture2D" uid="uid://buf5pove2ydpo" path="res://assets/kenney-input-promts/mouse_scroll.png" id="8_gkiie"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w75jt"]
+shader = ExtResource("3_g2df2")
+shader_parameter/outline_size = 4
+shader_parameter/alpha_threshold = 0.2
 
 [node name="HelpMenu" type="CanvasLayer"]
 process_mode = 3
@@ -51,10 +57,13 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/SelectTile"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "Select tile"
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/SelectTile"]
+material = SubResource("ShaderMaterial_w75jt")
 layout_mode = 2
 texture = ExtResource("3_5jm20")
 
@@ -64,10 +73,13 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/PlaceTile"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "Place tile"
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/PlaceTile"]
+material = SubResource("ShaderMaterial_w75jt")
 layout_mode = 2
 texture = ExtResource("3_5jm20")
 
@@ -77,19 +89,25 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/RotateTile"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "Rotate tile"
 
 [node name="TextureRect2" type="TextureRect" parent="VBoxContainer/VBoxContainer/RotateTile"]
+material = SubResource("ShaderMaterial_w75jt")
 layout_mode = 2
 texture = ExtResource("4_fx4lg")
 
 [node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer/RotateTile"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "or"
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/RotateTile"]
+material = SubResource("ShaderMaterial_w75jt")
 layout_mode = 2
 texture = ExtResource("5_g2df2")
 
@@ -99,10 +117,13 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/ReturnTile"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "Return tile"
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/ReturnTile"]
+material = SubResource("ShaderMaterial_w75jt")
 layout_mode = 2
 texture = ExtResource("6_w75jt")
 
@@ -112,19 +133,25 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/Pass"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "Pass"
 
 [node name="TextureRect2" type="TextureRect" parent="VBoxContainer/VBoxContainer/Pass"]
+material = SubResource("ShaderMaterial_w75jt")
 layout_mode = 2
 texture = ExtResource("7_gm1jc")
 
 [node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer/Pass"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "or"
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/Pass"]
+material = SubResource("ShaderMaterial_w75jt")
 layout_mode = 2
 texture = ExtResource("8_gkiie")
 

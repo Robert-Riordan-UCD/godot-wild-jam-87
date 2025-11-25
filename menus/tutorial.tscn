@@ -1,12 +1,23 @@
-[gd_scene load_steps=8 format=3 uid="uid://h372ny4x2wrf"]
+[gd_scene load_steps=11 format=3 uid="uid://h372ny4x2wrf"]
 
 [ext_resource type="Texture2D" uid="uid://ckd2t3c4af364" path="res://assets/kenney-input-promts/mouse_left.png" id="1_5m1iv"]
 [ext_resource type="Script" uid="uid://t7i11ingq3cp" path="res://menus/tutorial.gd" id="1_kac62"]
 [ext_resource type="Texture2D" uid="uid://bmblrjlsrpip" path="res://assets/kenney-input-promts/keyboard_space.png" id="2_kac62"]
+[ext_resource type="Shader" uid="uid://b6f7pd6ijah8y" path="res://utils/outline.gdshader" id="2_pke52"]
 [ext_resource type="Texture2D" uid="uid://dllqubq7rj78y" path="res://assets/kenney-input-promts/mouse_scroll_vertical.png" id="3_pke52"]
 [ext_resource type="Texture2D" uid="uid://dwvx31e7jjcmo" path="res://assets/kenney-input-promts/mouse_right.png" id="4_k0vit"]
 [ext_resource type="Texture2D" uid="uid://dlv34swirkb0p" path="res://assets/kenney-input-promts/keyboard_p.png" id="5_8rou5"]
 [ext_resource type="Texture2D" uid="uid://buf5pove2ydpo" path="res://assets/kenney-input-promts/mouse_scroll.png" id="6_a4kt4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k0vit"]
+shader = ExtResource("2_pke52")
+shader_parameter/outline_size = 4
+shader_parameter/alpha_threshold = 0.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pke52"]
+shader = ExtResource("2_pke52")
+shader_parameter/outline_size = 4
+shader_parameter/alpha_threshold = 0.2
 
 [node name="Tutorial" type="CanvasLayer"]
 script = ExtResource("1_kac62")
@@ -33,10 +44,12 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/SelectTile"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "Select tile"
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/SelectTile"]
+material = SubResource("ShaderMaterial_k0vit")
 layout_mode = 2
 texture = ExtResource("1_5m1iv")
 
@@ -47,19 +60,23 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/RotateTile"]
 layout_mode = 2
 size_flags_horizontal = 6
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "Rotate tile"
 
 [node name="TextureRect2" type="TextureRect" parent="VBoxContainer/RotateTile"]
+material = SubResource("ShaderMaterial_pke52")
 layout_mode = 2
 texture = ExtResource("2_kac62")
 
 [node name="Label2" type="Label" parent="VBoxContainer/RotateTile"]
 layout_mode = 2
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "or"
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/RotateTile"]
+material = SubResource("ShaderMaterial_pke52")
 layout_mode = 2
 texture = ExtResource("3_pke52")
 
@@ -70,10 +87,12 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/ReturnTile"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "Return tile"
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/ReturnTile"]
+material = SubResource("ShaderMaterial_pke52")
 layout_mode = 2
 texture = ExtResource("4_k0vit")
 
@@ -84,19 +103,23 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/Pass"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "Pass turn"
 
 [node name="TextureRect2" type="TextureRect" parent="VBoxContainer/Pass"]
+material = SubResource("ShaderMaterial_pke52")
 layout_mode = 2
 texture = ExtResource("5_8rou5")
 
 [node name="Label2" type="Label" parent="VBoxContainer/Pass"]
 layout_mode = 2
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "or"
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/Pass"]
+material = SubResource("ShaderMaterial_pke52")
 layout_mode = 2
 texture = ExtResource("6_a4kt4")
 
@@ -108,6 +131,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "Other players will try to control as much of the board a possible"
 horizontal_alignment = 1
@@ -121,10 +145,12 @@ size_flags_horizontal = 4
 [node name="Label" type="Label" parent="VBoxContainer/PlaceTile"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "Place tile"
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/PlaceTile"]
+material = SubResource("ShaderMaterial_pke52")
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("1_5m1iv")
@@ -137,6 +163,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 24
 text = "You must place your tiles next to each other and they must form a link"
 horizontal_alignment = 1
@@ -150,6 +177,7 @@ size_flags_horizontal = 4
 [node name="Label" type="Label" parent="VBoxContainer/ThatsIt"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "That's it!
 Click anywhere to return to the menu"

@@ -41,12 +41,14 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/Preset"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = " Preset"
 
 [node name="OptionButton" type="OptionButton" parent="VBoxContainer/Preset"]
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 alignment = 1
 selected = 0
@@ -64,6 +66,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/Board width"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = " Board width"
 
@@ -77,6 +80,7 @@ text = "  - "
 [node name="Width" type="Label" parent="VBoxContainer/Board width"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "9"
 horizontal_alignment = 1
@@ -94,6 +98,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/Board height"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = " Board height"
 
@@ -107,6 +112,7 @@ text = "  - "
 [node name="Height" type="Label" parent="VBoxContainer/Board height"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "9"
 horizontal_alignment = 1
@@ -120,6 +126,7 @@ text = " +  "
 
 [node name="RemovableTiles" type="CheckButton" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 8
 theme_override_constants/h_separation = 20
 theme_override_font_sizes/font_size = 32
 button_pressed = true
@@ -127,18 +134,21 @@ text = "Removable tiles"
 
 [node name="MustNeighbour" type="CheckButton" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 8
 theme_override_constants/h_separation = 20
 theme_override_font_sizes/font_size = 32
 text = "Tile must neighbour another tile"
 
 [node name="MustLink" type="CheckButton" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 8
 theme_override_constants/h_separation = 20
 theme_override_font_sizes/font_size = 32
 text = "Placed tile must link to another tile"
 
 [node name="EdgeValid" type="CheckButton" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 8
 theme_override_constants/h_separation = 20
 theme_override_font_sizes/font_size = 32
 text = "Can not create invalid link"
