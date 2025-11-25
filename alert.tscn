@@ -8,6 +8,7 @@ z_index = 100
 z_as_relative = false
 offset_right = 52.0
 offset_bottom = 23.0
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 32
 text = "ALERT!"
 horizontal_alignment = 1
