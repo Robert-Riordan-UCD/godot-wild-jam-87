@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://cj45bra6w0gxe"]
+[gd_scene load_steps=14 format=3 uid="uid://cj45bra6w0gxe"]
 
 [ext_resource type="PackedScene" uid="uid://bx18xpobi015t" path="res://game.tscn" id="1_neckg"]
 [ext_resource type="Script" uid="uid://c38613eogn3xn" path="res://modes/creative_setup.gd" id="2_pk8er"]
-[ext_resource type="Script" uid="uid://d0kq0hmcvrsfg" path="res://modes/colour_select.gd" id="3_36ct2"]
+[ext_resource type="Script" uid="uid://d0kq0hmcvrsfg" path="res://modes/creative_gui.gd" id="3_36ct2"]
 [ext_resource type="Script" uid="uid://cnf0424k8bii5" path="res://utils/texture_rect_juice.gd" id="4_iu3nb"]
+[ext_resource type="Theme" uid="uid://gjeb5b86341u" path="res://menus/button_theme.tres" id="5_1wwjk"]
 
 [sub_resource type="Gradient" id="Gradient_36ct2"]
 offsets = PackedFloat32Array(0)
@@ -58,60 +59,72 @@ must_create_a_link_with_self = false
 [node name="Bottom" parent="GUI/Players" index="0"]
 hand_type = 1
 
-[node name="ColourSelect" type="CanvasLayer" parent="." index="4"]
+[node name="CreativeGUI" type="CanvasLayer" parent="." index="4"]
 script = ExtResource("3_36ct2")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ColourSelect" index="0"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CreativeGUI" index="0"]
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 alignment = 1
 
-[node name="green" type="Button" parent="ColourSelect/HBoxContainer" index="0"]
+[node name="green" type="Button" parent="CreativeGUI/HBoxContainer" index="0"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="ColourSelect/HBoxContainer/green" index="0"]
+[node name="TextureRect" type="TextureRect" parent="CreativeGUI/HBoxContainer/green" index="0"]
 layout_mode = 0
 offset_right = 100.0
 offset_bottom = 100.0
 texture = SubResource("GradientTexture1D_1wwjk")
 script = ExtResource("4_iu3nb")
 
-[node name="red" type="Button" parent="ColourSelect/HBoxContainer" index="1"]
+[node name="red" type="Button" parent="CreativeGUI/HBoxContainer" index="1"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="ColourSelect/HBoxContainer/red" index="0"]
+[node name="TextureRect" type="TextureRect" parent="CreativeGUI/HBoxContainer/red" index="0"]
 layout_mode = 0
 offset_right = 100.0
 offset_bottom = 100.0
 texture = SubResource("GradientTexture1D_pabhk")
 script = ExtResource("4_iu3nb")
 
-[node name="orange_light" type="Button" parent="ColourSelect/HBoxContainer" index="2"]
+[node name="orange_light" type="Button" parent="CreativeGUI/HBoxContainer" index="2"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="ColourSelect/HBoxContainer/orange_light" index="0"]
+[node name="TextureRect" type="TextureRect" parent="CreativeGUI/HBoxContainer/orange_light" index="0"]
 layout_mode = 0
 offset_right = 100.0
 offset_bottom = 100.0
 texture = SubResource("GradientTexture1D_f2jcs")
 script = ExtResource("4_iu3nb")
 
-[node name="orange_dark" type="Button" parent="ColourSelect/HBoxContainer" index="3"]
+[node name="orange_dark" type="Button" parent="CreativeGUI/HBoxContainer" index="3"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="ColourSelect/HBoxContainer/orange_dark" index="0"]
+[node name="TextureRect" type="TextureRect" parent="CreativeGUI/HBoxContainer/orange_dark" index="0"]
 layout_mode = 0
 offset_right = 100.0
 offset_bottom = 100.0
 texture = SubResource("GradientTexture1D_g1et2")
 script = ExtResource("4_iu3nb")
 
-[connection signal="pressed" from="ColourSelect/HBoxContainer/green" to="ColourSelect" method="_on_green_pressed"]
-[connection signal="pressed" from="ColourSelect/HBoxContainer/red" to="ColourSelect" method="_on_red_pressed"]
-[connection signal="pressed" from="ColourSelect/HBoxContainer/orange_light" to="ColourSelect" method="_on_orange_light_pressed"]
-[connection signal="pressed" from="ColourSelect/HBoxContainer/orange_dark" to="ColourSelect" method="_on_orange_dark_pressed"]
+[node name="Clear" type="Button" parent="CreativeGUI" index="1"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+theme = ExtResource("5_1wwjk")
+theme_override_font_sizes/font_size = 32
+text = "Clear"
+
+[connection signal="pressed" from="CreativeGUI/HBoxContainer/green" to="CreativeGUI" method="_on_green_pressed"]
+[connection signal="pressed" from="CreativeGUI/HBoxContainer/red" to="CreativeGUI" method="_on_red_pressed"]
+[connection signal="pressed" from="CreativeGUI/HBoxContainer/orange_light" to="CreativeGUI" method="_on_orange_light_pressed"]
+[connection signal="pressed" from="CreativeGUI/HBoxContainer/orange_dark" to="CreativeGUI" method="_on_orange_dark_pressed"]
+[connection signal="pressed" from="CreativeGUI/Clear" to="CreativeGUI" method="_on_clear_pressed"]

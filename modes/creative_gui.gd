@@ -1,5 +1,5 @@
 extends CanvasLayer
-class_name ColourSelect
+class_name CreativeGUI
 
 @onready var bottom: Hand = $"../GUI/Players/Bottom"
 
@@ -17,4 +17,9 @@ func _on_orange_dark_pressed() -> void:
 
 func _set_colour(index: int) -> void:
 	bottom.colour_index = index
+	bottom._clear_hand()
 	bottom._draw_tiles()
+
+
+func _on_clear_pressed() -> void:
+	Globals.tile_map.clear()
